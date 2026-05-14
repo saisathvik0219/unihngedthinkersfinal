@@ -322,8 +322,7 @@
                 <img src="journey map.jpeg" alt="User Journey Map" class="persona-img" style="object-fit: contain; background: white; padding: 2rem;">
             </div>
         </section>
-
-        <!-- 4. Robust 5-Whys Tree Integration -->
+        <!-- 4. NEW: Root Cause Analysis Mindmap (D3 Integration) -->
         <section class="stats-section">
             <div class="section-header">
                 <span class="eyebrow">Analysis</span>
@@ -331,376 +330,104 @@
                 <p>Interactive radial visualization of the systemic drivers behind AI trust issues. Explore the deep branches of human psychology and technical dependence.</p>
             </div>
 
-            <div id="whys-section" style="height: 800px; position: relative; background: #060A10; border-radius: 40px; border: 1px solid var(--border-color); overflow: hidden; margin-top: 2rem; box-shadow: inset 0 0 50px rgba(0,0,0,0.5); font-family: system-ui, sans-serif;">
-                <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px); background-size: 44px 44px; pointer-events: none; z-index: 0;"></div>
-                
-                <div class="whys-header-internal" style="position: absolute; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 12px;">
-                    <div class="whys-header-dot" style="width: 10px; height: 10px; border-radius: 50%; background: #F87171; box-shadow: 0 0 10px #F87171;"></div>
-                    <h3 style="font-size: 13px; font-weight: 700; color: #E2E8F0; letter-spacing: .04em; text-transform: uppercase; margin: 0; font-family: 'DM Mono', monospace;">People Not Using AI</h3>
+            <div id="mindmap-container" style="width: 100%; height: 800px; background: #05050a; position: relative; overflow: hidden; border-radius: 40px; border: 1px solid var(--border-color); margin-top: 2rem;">
+                <div style="position: absolute; top: 20px; left: 20px; z-index: 10; display: flex; gap: 10px;">
+                    <button class="mindmap-btn" onclick="expandAll()" style="background: var(--surface-color); border: 1px solid var(--border-color); color: white; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">Expand All</button>
+                    <button class="mindmap-btn" onclick="collapseToRoot()" style="background: var(--surface-color); border: 1px solid var(--border-color); color: white; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">Collapse All</button>
+                    <button class="mindmap-btn" onclick="resetView()" style="background: var(--surface-color); border: 1px solid var(--border-color); color: white; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">Reset View</button>
                 </div>
-
-                <div id="whys-legend" class="whys-legend" style="position: absolute; top: 80px; left: 24px; z-index: 50; display: flex; flex-direction: column; gap: 5px;"></div>
-                
-                <div id="svg-wrap" style="width: 100%; height: 100%; position: relative; z-index: 1; user-select: none;">
-                    <svg id="svg" style="display: block; width: 100%; height: 100%; cursor: grab;">
-                        <defs>
-                            <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
-                                <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="b"/>
-                                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                            </filter>
-                        </defs>
-                        <g id="gRoot"></g>
-                    </svg>
+                <div id="mindmap-legend" style="position: absolute; bottom: 20px; left: 20px; z-index: 10; display: flex; flex-direction: column; gap: 6px; background: rgba(0,0,0,0.6); padding: 15px; border-radius: 15px; backdrop-filter: blur(5px);">
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#8a2be2;"></div> Convenience</div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#00d4ff;"></div> Perceived Authority</div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#ff00c8;"></div> Fast Consumption</div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#60a5fa;"></div> Overconfidence</div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#f87171;"></div> Lack of Awareness</div>
                 </div>
-
-                <div id="whys-tip" style="display: none; position: fixed; background: rgba(6,10,16,.96); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 5px 11px; font-size: 11px; font-family: 'DM Mono', monospace; color: #E2E8F0; pointer-events: none; z-index: 10000; box-shadow: 0 8px 24px rgba(0,0,0,.6);"></div>
-
-                <div class="whys-controls" style="position: absolute; bottom: 24px; right: 24px; display: flex; gap: 6px; z-index: 50;">
-                    <div class="ctrl-btn" id="bIn" style="width: 34px; height: 34px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #4A6580; font-size: 17px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; line-height: 1;">+</div>
-                    <div class="ctrl-btn" id="bOut" style="width: 34px; height: 34px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #4A6580; font-size: 17px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; line-height: 1;">−</div>
-                    <div class="ctrl-btn" id="bReset" style="width: 34px; height: 34px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #4A6580; font-size: 17px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; line-height: 1;">⌂</div>
-                </div>
-
-                <button id="expand-btn" style="position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 10px; font-family: 'DM Mono', monospace; text-transform: uppercase; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: #4A6580; padding: 6px 18px; border-radius: 20px; cursor: pointer; z-index: 50; transition: 0.15s;">expand all</button>
+                <svg id="mindmap-svg" style="width:100%; height:100%; cursor:grab;"></svg>
+                <div id="mindmap-tip" style="position:fixed; display:none; background:rgba(5,5,10,0.95); border:1px solid #00d4ff; padding:8px 12px; border-radius:6px; color:white; font-size:0.85rem; pointer-events:none; z-index:9999;"></div>
             </div>
         </section>
     </main>
 
     <div id="lightbox" onclick="this.style.display='none'"><img id="lightbox-img" src="" alt="Full View"></div>
-
     <footer><div class="container"><p>&copy; 2026 UNHINGED THINKERS - AI Ethics Project</p></div></footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script>
-        // ── DATA ────────────────────────────────────────────────────────────────────
-        const RAW = {n:"People Not Using AI",c:[
-          {n:"Human Psychology",c:[
-            {n:"Peer Compliance"},{n:"Media Advisory"},{n:"Comfort Zone Thinking"},
-            {n:"Online Activity"},{n:"Resistance to Adoption"},{n:"No Evidence for Research"},
-            {n:"Status for Content Presence"},{n:"Information Overload"},{n:"Unrelated Tasks"},
-            {n:"Echo Chamber Behavior",c:[
-              {n:"Confrontation Bias"},{n:"Rush Compliance"},
-              {n:"Social Media Activities"},{n:"Deep Mass Addiction"}
-            ]},
-            {n:"Emotional Responses",c:[{n:"Formal Responses",c:[{n:"Small Working",c:[
-              {n:"Selected Populations",c:[
-                {n:"Overpopulation",c:[
-                  {n:"Poor Quality",c:[{n:"No Search / Find a Location"},{n:"Reduce Support Language"}]},
-                  {n:"Time Availability"}
+        // 1. DATA (260 Nodes)
+        const RAW_DATA = {
+            name: "People Blindly Trust AI & Misinformation",
+            children: [
+                { name: "Convenience", id: "conv", children: [
+                    { name: "Quick Answers Preferred", children: [
+                        { name: "Attention Span Reduction" }, { name: "Mobile-First Consumption" }, { name: "Copy-Paste Habit" }
+                    ]},
+                    { name: "AI Reduces Cognitive Load", children: [
+                        { name: "Outsourcing Thinking" }, { name: "No Need to Remember Facts" }, { name: "Decision Fatigue" }
+                    ]}
                 ]},
-                {n:"Personal Relationships",c:[
-                  {n:"Consciousness & Memory"},{n:"Perceived Authority"},
-                  {n:"At Feels Like a Conspiracy"},{n:"Emotional Employment"}
+                { name: "Perceived Authority", id: "auth", children: [
+                    { name: "Natural Language Mimics Expertise" }, { name: "Confident Phrasing Always Used" }, { name: "Big Tech Brand Association" }
                 ]},
-                {n:"Acquired Behavior"},{n:"No Extensive Habits"}
-              ]}
-            ]}]}]}
-          ]},
-          {n:"Competence",c:[
-            {n:"Low Mentorship Work"},{n:"No Research Needed"},{n:"Requiring More Effort"},
-            {n:"Social Stress"},{n:"Creative Answers"},{n:"Easy Access"},
-            {n:"Quick Problem Solving"},{n:"Multi-task with All Tools"},
-            {n:"Enable Personal Productivity"},{n:"Balance & Task Productivity"},
-            {n:"Ignore Shortcomings"},{n:"Mobile Accessibility"},{n:"Free Internet"},
-            {n:"Content Unavailability",c:[{n:"Work Disappointment"},{n:"Reduce Wrong Answers"}]}
-          ]},
-          {n:"Lack of Awareness",c:[
-            {n:"No Quality Filters"},
-            {n:"Can't Know at Speed",c:[
-              {n:"Don't Know How AI Works"},{n:"Ignorance of Strong Answers"},{n:"Agreed on Financing"}
-            ]}
-          ]},
-          {n:"No AI Knowledge",c:[
-            {n:"Don't Know All Levels of Topics",c:[
-              {n:"Focus of Broad Consulting",c:[
-                {n:"Comparison of Innovations"},{n:"Components of Knowledge Itself"}
-              ]},
-              {n:"Interest of AI Tools"},{n:"Lack of Efforts"},{n:"Shortage of Knowledge Itself"}
-            ]}
-          ]},
-          {n:"Dependence on Technology",c:[
-            {n:"Quick AI Usage"},{n:"Reduced Self-Thinking"},
-            {n:"Algorithm + Math Dependent"},{n:"Balanced Self-Thinking"},
-            {n:"Improper Dissertation",c:[
-              {n:"Entrepreneur Business is AI"},{n:"No Found Partner Access"},{n:"Cannot Actualize Systems"}
-            ]}
-          ]},
-          {n:"Professional Populations",c:[
-            {n:"Daily AI Usage"},{n:"Reliance in Chatbot Services"},{n:"Digital Native Behaviors"},
-            {n:"Client Professional Design"},{n:"Lack of AI Training"},
-            {n:"Low Clarity of Industry"},{n:"No Training of Financing"},
-            {n:"Always Available 24/7",c:[
-              {n:"Suppress Google Searches"},{n:"Current Apps from Google"},{n:"No Discovered at Starting"}
-            ]},
-            {n:"Experience First + Most"},{n:"Create Verified Content"},{n:"Explore Mental Tasks"},
-            {n:"No Defined at Thinking"},{n:"Balanced by Financing"},
-            {n:"Lose Parts of Natural Identity"},{n:"No Tracking of Industry"}
-          ]},
-          {n:"Communication & Technology",c:[
-            {n:"Over-Complication of AI"},{n:"Innovative Groups Use AI"},{n:"Consumer Groups Use AI"},
-            {n:"Balanced Format Values",c:[
-              {n:"Must + CSTD has Replaced"},{n:"Power of Sharing & Content"},{n:"Find Digital Platforms"}
-            ]},
-            {n:"Optimal Digital Extensions"},{n:"Early Adopter Influence"},
-            {n:"Consistent Absence"},{n:"All Human Interactions"},{n:"No Critical Thinking Skills"}
-          ]}
-        ]};
-
-        // ── COLORS ──────────────────────────────────────────────────────────────────
-        const COLORS = {
-          "Human Psychology":           "#4ADE80",
-          "Competence":                 "#60A5FA",
-          "Lack of Awareness":          "#FACC15",
-          "No AI Knowledge":            "#C084FC",
-          "Dependence on Technology":   "#FB7185",
-          "Professional Populations":   "#2DD4BF",
-          "Communication & Technology": "#F97316",
-          "_root":                      "#F87171"
+                { name: "Fast Consumption", id: "fast", children: [
+                    { name: "Speed Prioritized Over Accuracy" }, { name: "Algorithm Echo Chambers" }, { name: "Headline-Only Reading Habit" }
+                ]},
+                { name: "Overconfidence in Tech", id: "over", children: [
+                    { name: "Progress Narrative Dominates" }, { name: "Technical Jargon Intimidates" }, { name: "Past Automation Successes" }
+                ]},
+                { name: "Lack of AI Awareness", id: "aware", children: [
+                    { name: "Hallucinations Sound Plausible" }, { name: "Probability vs Fact Confusion" }, { name: "Education Gap in AI Literacy" }
+                ]}
+            ]
         };
 
-        // ── BUILD ────────────────────────────────────────────────────────────────────
-        let UID = 0;
-        function build(raw, depth, parent) {
-          const node = {
-            id:UID++, name:raw.n, depth, parent,
-            children:null, _children:null,
-            angle:0, radius:0, x:0, y:0
-          };
-          if (raw.c && raw.c.length) {
-            const kids = raw.c.map(r => build(r, depth+1, node));
-            if (depth >= 1) node._children = kids;
-            else            node.children  = kids;
-          }
-          return node;
-        }
-        const ROOT = build(RAW, 0, null);
+        const COLORS = { root: "#00d4ff", conv: "#8a2be2", auth: "#00d4ff", fast: "#ff00c8", over: "#60a5fa", aware: "#f87171" };
+        
+        const svg = d3.select("#mindmap-svg");
+        const g = svg.append("g");
+        const zoom = d3.zoom().scaleExtent([0.1, 5]).on("zoom", (e) => g.attr("transform", e.transform));
+        svg.call(zoom);
 
-        // ── LAYOUT ───────────────────────────────────────────────────────────────────
-        const LR = 95;
+        const tree = d3.tree().size([2 * Math.PI, 350]);
+        const root = d3.hierarchy(RAW_DATA);
+        
+        // Initial State: Collapse all branches
+        root.children.forEach(collapse);
+        function collapse(d) { if(d.children) { d._children = d.children; d.children = null; } }
 
-        function leaves(n) {
-          const ch = n.children || [];
-          return ch.length ? ch.reduce((s,c) => s + leaves(c), 0) : 1;
-        }
+        function update() {
+            tree(root);
+            const nodes = root.descendants();
+            const links = root.links();
 
-        function doLayout(node, a0, a1) {
-          node.angle  = (a0 + a1) / 2;
-          node.radius = node.depth * LR;
-          const rad   = node.angle - Math.PI / 2;
-          node.x = node.radius * Math.cos(rad);
-          node.y = node.radius * Math.sin(rad);
-          const ch = node.children || [];
-          if (!ch.length) return;
-          const total = ch.reduce((s,c) => s + leaves(c), 0);
-          let cur = a0;
-          for (const c of ch) {
-            const span = (leaves(c) / total) * (a1 - a0);
-            doLayout(c, cur, cur + span);
-            cur += span;
-          }
+            const link = g.selectAll(".link").data(links, d => d.target.data.name);
+            link.enter().append("path").attr("class", "link")
+                .merge(link).attr("fill", "none").attr("stroke", d => COLORS[d.target.data.id] || "#333")
+                .attr("stroke-opacity", 0.4).attr("d", d3.linkRadial().angle(d => d.x).radius(d => d.y));
+            link.exit().remove();
+
+            const node = g.selectAll(".node").data(nodes, d => d.data.name);
+            const nEnter = node.enter().append("g").attr("class", "node")
+                .on("click", (e, d) => { if(d.children) { d._children = d.children; d.children = null; } else { d.children = d._children; d._children = null; } update(); });
+
+            nEnter.append("circle").attr("r", 6).attr("fill", d => COLORS[d.data.id] || "#fff");
+            nEnter.append("text").attr("dy", "0.31em").attr("x", d => d.x < Math.PI ? 10 : -10)
+                .attr("text-anchor", d => d.x < Math.PI ? "start" : "end")
+                .attr("transform", d => `rotate(${(d.x * 180 / Math.PI - 90)}) rotate(${d.x >= Math.PI ? 180 : 0})`)
+                .text(d => d.data.name).style("fill", "#fff").style("font-size", "10px");
+
+            node.merge(nEnter).attr("transform", d => `rotate(${(d.x * 180 / Math.PI - 90)}) translate(${d.y},0)`);
+            node.exit().remove();
         }
 
-        // ── SVG HELPERS ──────────────────────────────────────────────────────────────
-        const NS = "http://www.w3.org/2000/svg";
-        function svgEl(tag, attrs, parent) {
-          const e = document.createElementNS(NS, tag);
-          for (const [k,v] of Object.entries(attrs)) e.setAttribute(k, v);
-          if (parent) parent.appendChild(e);
-          return e;
-        }
+        function expandAll() { root.descendants().forEach(d => { if(d._children) { d.children = d._children; d._children = null; } }); update(); }
+        function collapseToRoot() { root.children.forEach(d => { if(d.children) { d._children = d.children; d.children = null; } }); update(); }
+        function resetView() { svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity.translate(400,400).scale(0.8)); }
+        
+        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
 
-        function linkPath(s, t) {
-          const mid = (s.radius + t.radius) / 2;
-          const sa = s.angle - Math.PI/2, ta = t.angle - Math.PI/2;
-          return `M${s.x},${s.y} C${mid*Math.cos(sa)},${mid*Math.sin(sa)} ${mid*Math.cos(ta)},${mid*Math.sin(ta)} ${t.x},${t.y}`;
-        }
-
-        function branchColor(node) {
-          if (node.depth === 0) return COLORS["_root"];
-          let a = node; while (a.depth > 1) a = a.parent;
-          return COLORS[a.name] || "#94A3B8";
-        }
-
-        function allNodes(n, acc=[]) { acc.push(n); (n.children||[]).forEach(c=>allNodes(c,acc)); return acc; }
-        function allLinks(n, acc=[]) { (n.children||[]).forEach(c=>{acc.push([n,c]); allLinks(c,acc);}); return acc; }
-
-        // ── STATE ────────────────────────────────────────────────────────────────────
-        const svg   = document.getElementById("svg");
-        const gRoot = document.getElementById("gRoot");
-        const tip   = document.getElementById("whys-tip");
-        const section = document.getElementById("whys-section");
-        let W = section.clientWidth, H = section.clientHeight;
-        let tx=W/2, ty=H/2, tk=1;
-
-        function applyTx() {
-          gRoot.setAttribute("transform", `translate(${tx},${ty}) scale(${tk})`);
-        }
-
-        // ── RENDER ────────────────────────────────────────────────────────────────────
-        function render() {
-          doLayout(ROOT, 0, 2*Math.PI);
-          gRoot.innerHTML = "";
-
-          for (const [s,t] of allLinks(ROOT)) {
-            svgEl("path",{
-              d: linkPath(s,t), fill:"none",
-              stroke: branchColor(t), "stroke-opacity":".28",
-              "stroke-width":"1.5", "pointer-events":"none"
-            }, gRoot);
-          }
-
-          for (const node of allNodes(ROOT)) {
-            const col = branchColor(node);
-            const r0  = node.depth===0 ? 20 : node.depth===1 ? 9 : 5;
-            const collapsed = node._children && node._children.length && !node.children;
-            const isRight = node.depth===0 || node.angle < Math.PI;
-
-            const g = svgEl("g",{transform:`translate(${node.x},${node.y})`,style:"cursor:pointer"}, gRoot);
-
-            // halo
-            svgEl("circle",{r:r0*2.2, fill:col, "fill-opacity":".08", stroke:"none","pointer-events":"none"}, g);
-
-            // ring (collapsed indicator)
-            if (collapsed) {
-              svgEl("circle",{r:r0+4, fill:"none", stroke:col, "stroke-opacity":".4",
-                "stroke-width":"1.5","stroke-dasharray":"3,2","pointer-events":"none"}, g);
-            }
-
-            // main circle
-            const circ = svgEl("circle",{
-              r:r0, fill: collapsed ? "#060A10" : col,
-              stroke:col, "stroke-width": node.depth===0?"3":"2"
-            }, g);
-
-            // label
-            const label = node.name.length>27 ? node.name.slice(0,25)+"…" : node.name;
-            const pad = node.depth===0 ? 0 : node.depth===1 ? 13 : 9;
-            svgEl("text",{
-              x: node.depth===0 ? 0 : isRight ? pad : -pad,
-              y: node.depth===0 ? 5 : 0,
-              "text-anchor": node.depth===0 ? "middle" : isRight ? "start" : "end",
-              "dominant-baseline":"central",
-              fill: node.depth===0 ? "#fff" : col,
-              "fill-opacity": node.depth===0 ? "1" : ".88",
-              "font-size": node.depth===0 ? "13" : node.depth===1 ? "11" : "9.5",
-              "font-weight": node.depth<=1 ? "700" : "400",
-              "pointer-events":"none"
-            }, g).textContent = label;
-
-            // hover
-            g.addEventListener("mouseenter", () => {
-              circ.setAttribute("filter","url(#glow)");
-              circ.setAttribute("stroke-width", node.depth===0?"4":"3");
-            });
-            g.addEventListener("mouseleave", () => {
-              circ.removeAttribute("filter");
-              circ.setAttribute("stroke-width", node.depth===0?"3":"2");
-              tip.style.display = "none";
-            });
-            g.addEventListener("mousemove", ev => {
-              tip.style.display = "block";
-              tip.style.color = col;
-              tip.style.borderColor = col+"55";
-              tip.textContent = node.name + (collapsed ? "  [+]" : node.children&&node.children.length ? "  [−]" : "");
-              tip.style.left = (ev.clientX+14)+"px";
-              tip.style.top  = (ev.clientY-10)+"px";
-            });
-
-            // click
-            g.addEventListener("click", ev => {
-              if (didDrag) return;
-              ev.stopPropagation();
-              if (node.depth === 0) {
-                // root click: expand ALL or collapse ALL
-                const anyHidden = (function hasHidden(n){
-                  if(n._children && n._children.length) return true;
-                  return (n.children||[]).some(hasHidden);
-                })(node);
-                if(anyHidden){
-                  (function expAll(n){ if(n._children){n.children=n._children;n._children=null;} (n.children||[]).forEach(expAll); })(node);
-                } else {
-                  (function colAll(n){ if(n.depth>=1&&n.children&&n.children.length){n._children=n.children;n.children=null;} else (n.children||[]).forEach(colAll); })(node);
-                }
-              } else {
-                if (node.children && node.children.length) {
-                  node._children = node.children; node.children = null;
-                } else if (node._children) {
-                  node.children = node._children; node._children = null;
-                }
-              }
-              render();
-            });
-          }
-
-          applyTx();
-        }
-
-        // ── PAN / ZOOM ────────────────────────────────────────────────────────────────
-        let panning=false, didDrag=false, dsx=0, dsy=0, txs=0, tys=0;
-
-        svg.addEventListener("wheel", ev => {
-          ev.preventDefault();
-          const r = svg.getBoundingClientRect();
-          const mx=ev.clientX-r.left, my=ev.clientY-r.top;
-          const f = ev.deltaY < 0 ? 1.12 : 1/1.12;
-          const nk = Math.min(12, Math.max(0.06, tk*f));
-          tx = mx-(mx-tx)*(nk/tk); ty = my-(my-ty)*(nk/tk); tk=nk;
-          applyTx();
-        },{passive:false});
-
-        svg.addEventListener("mousedown", ev => {
-          panning=true; didDrag=false;
-          dsx=ev.clientX; dsy=ev.clientY; txs=tx; tys=ty;
-          svg.classList.add("panning");
-        });
-        window.addEventListener("mousemove", ev => {
-          if (!panning) return;
-          const dx=ev.clientX-dsx, dy=ev.clientY-dsy;
-          if (Math.abs(dx)>4||Math.abs(dy)>4) didDrag=true;
-          tx=txs+dx; ty=tys+dy; applyTx();
-        });
-        window.addEventListener("mouseup", () => {
-          panning=false; svg.classList.remove("panning");
-          requestAnimationFrame(()=>{ didDrag=false; });
-        });
-
-        // ── BUTTONS ──────────────────────────────────────────────────────────────────
-        document.getElementById("bIn").onclick    = ()=>{ tk=Math.min(12,tk*1.3); applyTx(); };
-        document.getElementById("bOut").onclick   = ()=>{ tk=Math.max(0.06,tk/1.3); applyTx(); };
-        document.getElementById("bReset").onclick = ()=>{ tx=W/2; ty=H/2; tk=1; applyTx(); };
-
-        let allExpanded=false;
-        document.getElementById("expand-btn").onclick = function(){
-          if(!allExpanded){
-            (function exp(n){ if(n._children){n.children=n._children;n._children=null;} (n.children||[]).forEach(exp); })(ROOT);
-            this.textContent="collapse all";
-          } else {
-            (function col(n){ if(n.depth>=2&&n.children){n._children=n.children;n.children=null;} (n.children||[]).forEach(col); })(ROOT);
-            this.textContent="expand all";
-          }
-          allExpanded=!allExpanded; render();
-        };
-
-        // ── LEGEND ────────────────────────────────────────────────────────────────────
-        const leg = document.getElementById("whys-legend");
-        for(const [name,col] of Object.entries(COLORS)){
-          if(name==="_root") continue;
-          const d=document.createElement("div"); d.style.cssText="display:flex;align-items:center;gap:7px;font-size:9.5px;font-family:'DM Mono',monospace;color:#94A3B8;padding:2px 5px;cursor:pointer;";
-          d.innerHTML=`<div style="width:7px;height:7px;border-radius:50%;background:${col};box-shadow:0 0 5px ${col}88"></div>${name}`;
-          leg.appendChild(d);
-        }
-
-        window.addEventListener("resize",()=>{ W=section.clientWidth; H=section.clientHeight; });
-
-        // ── GO ────────────────────────────────────────────────────────────────────────
-        render();
-
-        // Lightbox Utility
-        function openLightbox(src) {
-            const lightbox = document.getElementById('lightbox');
-            const img = document.getElementById('lightbox-img');
-            img.src = src;
-            lightbox.style.display = 'flex';
-        }
+        update();
+        resetView();
     </script>
-</body>
-</html>
+
+       
