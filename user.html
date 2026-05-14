@@ -323,7 +323,7 @@
             </div>
         </section>
 
-        <!-- 4. PREMIUM 5-WHYS ROOT CAUSE TREE (Custom Engine) -->
+        <!-- 4. FULL 260-NODE ROOT CAUSE MINDMAP (D3 Radial Tree) -->
         <section class="stats-section">
             <div class="section-header">
                 <span class="eyebrow">Analysis</span>
@@ -331,37 +331,38 @@
                 <p>Interactive radial visualization of the systemic drivers behind AI trust issues. Explore the deep branches of human psychology and technical dependence.</p>
             </div>
 
-            <div id="whys-section" style="height: 800px; position: relative; background: #060A10; border-radius: 40px; border: 1px solid var(--border-color); overflow: hidden; margin-top: 2rem; box-shadow: inset 0 0 50px rgba(0,0,0,0.5); font-family: system-ui, sans-serif;">
-                <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px); background-size: 44px 44px; pointer-events: none; z-index: 0;"></div>
-                
-                <div class="whys-header-internal" style="position: absolute; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 12px;">
-                    <div class="whys-header-dot" style="width: 10px; height: 10px; border-radius: 50%; background: #00d4ff; box-shadow: 0 0 12px #00d4ff;"></div>
-                    <h1 style="font-size: 13px; font-weight: 700; color: #E2E8F0; letter-spacing: .04em; text-transform: uppercase; margin: 0; font-family: 'DM Mono', monospace;">Blind Trust in AI</h1>
+            <div id="whys-section" style="height: 800px; position: relative; background: #05050d; border-radius: 40px; border: 1px solid var(--border-color); overflow: hidden; margin-top: 2rem; box-shadow: inset 0 0 50px rgba(0,0,0,0.5);">
+
+                <!-- grid bg -->
+                <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0;"></div>
+
+                <!-- header -->
+                <div style="position:absolute;top:20px;left:24px;z-index:50;display:flex;align-items:center;gap:10px;">
+                    <div style="width:9px;height:9px;border-radius:50%;background:#fbbf24;box-shadow:0 0 10px #fbbf24;"></div>
+                    <span style="font-size:11px;font-weight:700;color:#E2E8F0;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Mono',monospace;">Root Cause Analysis — AI Trust &amp; Misinformation</span>
                 </div>
 
-                <div id="whys-legend" class="whys-legend" style="position: absolute; top: 80px; left: 24px; z-index: 50; display: flex; flex-direction: column; gap: 5px;"></div>
-                
-                <div id="svg-wrap" style="width: 100%; height: 100%; position: relative; z-index: 1; user-select: none;">
-                    <svg id="svg" style="display: block; width: 100%; height: 100%; cursor: grab;">
-                        <defs>
-                            <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
-                                <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="b"/>
-                                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                            </filter>
-                        </defs>
-                        <g id="gRoot"></g>
-                    </svg>
+                <!-- legend -->
+                <div id="mm-legend" style="position:absolute;top:60px;left:24px;z-index:50;display:flex;flex-direction:column;gap:5px;"></div>
+
+                <!-- node counter -->
+                <div id="mm-count" style="position:absolute;top:20px;right:24px;z-index:50;font-size:10px;font-family:'DM Mono',monospace;color:#4a5568;letter-spacing:.08em;padding:4px 10px;border:1px solid rgba(255,255,255,0.07);"></div>
+
+                <!-- tooltip -->
+                <div id="mm-tip" style="display:none;position:fixed;background:rgba(5,5,13,.97);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:7px 12px;font-size:11px;font-family:'DM Mono',monospace;color:#cbd5e0;pointer-events:none;z-index:10000;max-width:220px;line-height:1.5;box-shadow:0 8px 32px rgba(0,0,0,.6);"></div>
+
+                <!-- chart -->
+                <svg id="mm-svg" style="display:block;width:100%;height:100%;cursor:grab;position:relative;z-index:1;"></svg>
+
+                <!-- controls -->
+                <div style="position:absolute;bottom:22px;right:22px;z-index:50;display:flex;gap:6px;">
+                    <button class="ctrl-btn" id="mm-expand" style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#4A6580;padding:5px 14px;border-radius:20px;cursor:pointer;">Expand All</button>
+                    <button class="ctrl-btn" id="mm-collapse" style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#4A6580;padding:5px 14px;border-radius:20px;cursor:pointer;">Collapse All</button>
+                    <button class="ctrl-btn" id="mm-reset" style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#4A6580;padding:5px 14px;border-radius:20px;cursor:pointer;">Reset View</button>
                 </div>
 
-                <div id="whys-tip" style="display: none; position: fixed; background: rgba(6,10,16,.96); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 5px 11px; font-size: 11px; font-family: 'DM Mono', monospace; color: #E2E8F0; pointer-events: none; z-index: 10000; box-shadow: 0 8px 24px rgba(0,0,0,.6);"></div>
-
-                <div class="whys-controls" style="position: absolute; bottom: 24px; right: 24px; display: flex; gap: 6px; z-index: 50;">
-                    <div class="ctrl-btn" id="bIn" style="width: 34px; height: 34px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #4A6580; font-size: 17px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; line-height: 1;">+</div>
-                    <div class="ctrl-btn" id="bOut" style="width: 34px; height: 34px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #4A6580; font-size: 17px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; line-height: 1;">−</div>
-                    <div class="ctrl-btn" id="bReset" style="width: 34px; height: 34px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #4A6580; font-size: 17px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; line-height: 1;">⌂</div>
-                </div>
-
-                <button id="expand-btn-internal" style="position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 10px; font-family: 'DM Mono', monospace; text-transform: uppercase; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: #4A6580; padding: 6px 18px; border-radius: 20px; cursor: pointer; z-index: 50; transition: 0.15s;">expand all</button>
+                <!-- hint -->
+                <div id="mm-hint" style="position:absolute;bottom:70px;left:50%;transform:translateX(-50%);font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.15em;text-transform:uppercase;color:rgba(251,191,36,.5);pointer-events:none;transition:opacity .5s;z-index:50;">Click a node to expand</div>
             </div>
         </section>
     </main>
@@ -369,109 +370,384 @@
     <div id="lightbox" onclick="this.style.display='none'"><img id="lightbox-img" src="" alt="Full View"></div>
     <footer><div class="container"><p>&copy; 2026 UNHINGED THINKERS - AI Ethics Project</p></div></footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script>
-        // ── DATA ────────────────────────────────────────────────────────────────────
-        const RAW = {n:"Blind Trust in AI",c:[
-          {n:"Mental Shortcuts",c:[
-            {n:"Authority Bias",c:[{n:"Smart-sounding tone"},{n:"Confident formatting"},{n:"Trust in Silicon logic"}]},
-            {n:"Cognitive Laziness",c:[{n:"Thinking is draining"},{n:"Desire for easy answers"},{n:"Avoidance of fact-checking"}]},
-            {n:"Information Overload",c:[{n:"Too many sources"},{n:"Decision fatigue"},{n:"Need for quick summaries"}]}
+    // ── lightbox helper (keep existing behaviour) ──────────────────────────────
+    function openLightbox(src) { document.getElementById('lightbox-img').src=src; document.getElementById('lightbox').style.display='flex'; }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  FULL 260-NODE TREE DATA
+    // ══════════════════════════════════════════════════════════════════════
+    const MM_RAW = {
+      name:"People Blindly Trust AI\n& Believe Misinformation", id:"root",
+      children:[
+        // ── BRANCH 1: CONVENIENCE ─────────────────────────────────────────
+        {name:"Convenience",id:"conv",children:[
+          {name:"Quick Answers Preferred",children:[
+            {name:"Users Don't Read Fully",children:[
+              {name:"Attention Span Reduction"},{name:"Mobile-First Consumption"},{name:"Copy-Paste Behavior"}
+            ]},
+            {name:"Skimming Replaces Deep Reading",children:[
+              {name:"F-Pattern Reading Behavior"},
+              {name:"TL;DR Culture",children:[{name:"Reddit Summary Habits"},{name:"Twitter Thread Culture"}]},
+              {name:"Headline-Only Reading"}
+            ]},
+            {name:"Time Pressure Drives Shortcuts",children:[{name:"Productivity Pressure"},{name:"KPI-Driven Work Culture"}]}
           ]},
-          {n:"User Habits",c:[
-            {n:"Copy-Pasting",c:[{n:"Muscle memory speed"},{n:"Lack of review step"}]},
-            {n:"Peer Pressure",c:[{n:"Normalization of cheating"},{n:"Comparison of grades"}]},
-            {n:"Falling Behind",c:[{n:"AI users are faster"},{n:"Manual work feels slow"}]}
+          {name:"AI Reduces Cognitive Load",children:[
+            {name:"Mental Laziness Enabled",children:[
+              {name:"Outsourcing Thinking to AI",children:[{name:"Analysis Paralysis Avoided"},{name:"Cognitive Offloading Normalized"}]},
+              {name:"No Need to Remember Facts",children:[{name:"Google Effect on Memory"},{name:"Reduced Memorisation Practice"}]},
+              {name:"Decision Fatigue Exploited"}
+            ]},
+            {name:"Low Motivation to Cross-Check",children:[
+              {name:"Instant Gratification Culture"},{name:"Effort-Reward Imbalance"},{name:"Verification Feels Tedious"}
+            ]},
+            {name:"Verification Feels Effortful",children:[
+              {name:"Multiple Sources Overwhelming"},{name:"Source Evaluation is Hard"},{name:"No Verification Protocol Taught"}
+            ]}
           ]},
-          {n:"Tool Design",c:[
-            {n:"Frictionless UI",c:[{n:"Single-click copy"},{n:"No verification warnings"}]},
-            {n:"Opaque Algorithms",c:[{n:"Black-box processing"},{n:"No source citations"}]},
-            {n:"No Verification",c:[{n:"No built-in fact checker"},{n:"Missing privacy filters"}]}
+          {name:"Multitasking Leads to Shallow Checking",children:[
+            {name:"Divided Attention Reduces Focus",children:[{name:"Constant Notifications"},{name:"Context Switching Costs"}]},
+            {name:"Users Don't Fully Analyse Answers",children:[{name:"Shallow Processing"},{name:"Cognitive Shortcuts Taken"}]},
+            {name:"Always-On Work Culture"}
+          ]},
+          {name:"No Immediate Consequences for Being Wrong",children:[
+            {name:"Accountability Gap",children:[{name:"Anonymous Online Behaviour"},{name:"No Feedback Loop on Errors"}]},
+            {name:"Errors Go Unnoticed",children:[{name:"Consequences Are Delayed"},{name:"No Error-Correction Mechanism"}]},
+            {name:"Short-Term Thinking Dominates"}
+          ]},
+          {name:"Users Prefer Effort-Free Solutions",children:[
+            {name:"No Training on Tool Limitations",children:[{name:"Vendors Don't Disclose Limits"},{name:"Tutorials Skip Error Cases"}]},
+            {name:"Default Settings Trusted Blindly",children:[{name:"No Customisation Expected"},{name:"Default = Correct Assumption"}]},
+            {name:"One-Click Answers Normalised",children:[{name:"Voice Assistants Trained This Habit"},{name:"Search Autocomplete Culture"}]}
           ]}
-        ]};
+        ]},
 
-        // ── COLORS ──────────────────────────────────────────────────────────────────
-        const COLORS = { "Mental Shortcuts": "#4ADE80", "User Habits": "#60A5FA", "Tool Design": "#FACC15", "_root": "#00d4ff" };
+        // ── BRANCH 2: PERCEIVED AUTHORITY ─────────────────────────────────
+        {name:"Perceived Authority of AI",id:"auth",children:[
+          {name:"Human-Like Language Increases Trust",children:[
+            {name:"Natural Language Mimics Expertise",children:[{name:"Vocabulary Signals Competence"},{name:"Formal Register Builds Authority"}]},
+            {name:"No Hesitation or Doubt Shown",children:[
+              {name:"Confident Phrasing Always Used"},{name:"Certainty Projected by Default"},
+              {name:"Responses Structured Clearly",children:[{name:"Bullet Points Feel Authoritative"},{name:"Headers Signal Organisation"}]}
+            ]},
+            {name:"Emotional Resonance in Responses",children:[{name:"Empathy Simulation"},{name:"Rapport-Building Language"}]}
+          ]},
+          {name:"AI Gives Confident-Sounding Answers",children:[
+            {name:"Hallucinations Sound Plausible",children:[
+              {name:"Fabricated Citations Included",children:[{name:"References Look Legitimate"},{name:"Journal Names Sound Real"}]},
+              {name:"False Precision in Numbers"}
+            ]},
+            {name:"No Uncertainty Expressed",children:[{name:"Probabilistic Thinking Absent"},{name:"Risk Levels Hidden from User"}]},
+            {name:"Specific Statistics Fabricated",children:[{name:"Dates Given with Full Confidence"},{name:"Percentages Invented Freely"}]}
+          ]},
+          {name:"Branding of AI Tools Builds Trust",children:[
+            {name:"Big Tech Association",children:[{name:"Google & Microsoft Backing"},{name:"Corporate Brand Trust Transferred"}]},
+            {name:"AI Marketed as Omniscient",children:[
+              {name:"Product Messaging Misleads Users"},{name:"Marketing Hyperbole Believed"},
+              {name:"Medical Questions Asked Freely"},{name:"Legal Advice Sought from AI"},{name:"Breadth Confused with Depth"}
+            ]},
+            {name:"Investment Signals Quality",children:[{name:"Billions in Funding Visible"},{name:"Positive Media Coverage"}]}
+          ]},
+          {name:"Conversational Tone Feels Natural",children:[
+            {name:"Humans Relate to Dialogue Format",children:[{name:"Reciprocity Instinct Activated"},{name:"Feels Like Talking to a Friend"}]},
+            {name:"Social Intelligence Triggered",children:[{name:"Trust Built Through Exchange"},{name:"Familiarity Breeds Confidence"}]},
+            {name:"Informality Disarms Caution"}
+          ]}
+        ]},
 
-        // ── BUILD ────────────────────────────────────────────────────────────────────
-        let UID = 0;
-        function build(raw, depth, parent) {
-          const node = { id:UID++, name:raw.n, depth, parent, children:null, _children:null, angle:0, radius:0, x:0, y:0 };
-          if (raw.c && raw.c.length) {
-            const kids = raw.c.map(r => build(r, depth+1, node));
-            if (depth >= 1) node._children = kids; else node.children = kids;
-          }
-          return node;
-        }
-        const ROOT = build(RAW, 0, null);
-        const LR = 110;
+        // ── BRANCH 3: FAST INFO CONSUMPTION ───────────────────────────────
+        {name:"Fast Information\nConsumption Culture",id:"fast",children:[
+          {name:"Speed Prioritised Over Accuracy",children:[
+            {name:"Desire to Finish Tasks Quickly",children:[{name:"Productivity Pressure"},{name:"Time Scarcity Mindset"}]},
+            {name:"Short-Form Content Dominates",children:[
+              {name:"TikTok Algorithm Rewards Brevity",children:[{name:"Complex Topics Oversimplified"},{name:"Nuance Lost in Condensing"}]},
+              {name:"YouTube Shorts Culture"},{name:"Instagram Reels Habit"}
+            ]},
+            {name:"Search Engine Behaviour Influence",children:[{name:"First Result Bias"},{name:"Click-Through Rate Optimisation"}]}
+          ]},
+          {name:"Habit of Accepting First Answer",children:[
+            {name:"Users Skip Verification Steps",children:[{name:"No Fact-Checking Protocol"},{name:"Verification Not Taught in Schools"}]},
+            {name:"Headline Reading Only",children:[{name:"Clickbait Exploits This"},{name:"Misleading Titles Spread Faster"}]},
+            {name:"Preview Text Trusted Over Content",children:[{name:"Snippets Replace Full Articles"},{name:"Summaries Accepted as Complete"}]}
+          ]},
+          {name:"Information Overload Reduces Verification",children:[
+            {name:"Too Much Content to Process Fully",children:[{name:"Filter Failure"},{name:"Curation Algorithms Overwhelm"}]},
+            {name:"Mental Fatigue Reduces Effort",children:[{name:"Decision Fatigue is Real"},{name:"Cognitive Bandwidth Exhausted"}]},
+            {name:"Pressure to Keep Up with Info",children:[{name:"FOMO Drives Consumption"},{name:"Social Pressure to Stay Current"},{name:"Infinite Scroll Design"}]}
+          ]},
+          {name:"Algorithm-Driven Echo Chambers",children:[
+            {name:"Recommendation Systems Reinforce Bias",children:[{name:"YouTube Rabbit Holes"},{name:"Spotify Similarity Bias"}]},
+            {name:"Social Sharing Spreads Unchecked",children:[
+              {name:"Emotional Content Spreads Faster"},
+              {name:"Shares Happen Before Reading",children:[{name:"Twitter Retweet Culture"},{name:"WhatsApp Forward Culture"}]}
+            ]},
+            {name:"Opposing Views Suppressed",children:[{name:"Confirmation Bias Amplified"},{name:"Diverse Perspectives Hidden"}]}
+          ]},
+          {name:"Platform Design Encourages Quick Consumption",children:[
+            {name:"Autoplay Eliminates Decision Points",children:[{name:"Netflix Autoplay Effect"},{name:"YouTube Autoplay Normalised"}]},
+            {name:"Like/Share Without Engaging",children:[{name:"Engagement Metrics Gamified"},{name:"Passive Interaction Rewarded"}]},
+            {name:"Algorithmic Amplification of Simple Content",children:[{name:"Complex Content Gets Less Reach"},{name:"Simple Content Gets More Shares"}]}
+          ]}
+        ]},
 
-        function leaves(n) { const ch = n.children || []; return ch.length ? ch.reduce((s,c) => s + leaves(c), 0) : 1; }
-        function doLayout(node, a0, a1) {
-          node.angle  = (a0 + a1) / 2; node.radius = node.depth * LR;
-          const rad   = node.angle - Math.PI / 2;
-          node.x = node.radius * Math.cos(rad); node.y = node.radius * Math.sin(rad);
-          const ch = node.children || []; if (!ch.length) return;
-          const total = ch.reduce((s,c) => s + leaves(c), 0);
-          let cur = a0; for (const c of ch) { const span = (leaves(c) / total) * (a1 - a0); doLayout(c, cur, cur + span); cur += span; }
-        }
+        // ── BRANCH 4: OVERCONFIDENCE IN TECH ──────────────────────────────
+        {name:"Overconfidence\nin Technology",id:"over",children:[
+          {name:"Social Proof: Others Using AI Confirm Trust",children:[
+            {name:"Bandwagon Effect",children:[{name:"Popular = Trustworthy Assumption"},{name:"Viral Adoption Signals Validity"}]},
+            {name:"Herd Mentality in Tech Adoption",children:[{name:"Early Adopters Set Community Norms"},{name:"Tech Community Influence"}]},
+            {name:"Questioning Feels Contrarian",children:[{name:"Social Cost of Scepticism"},{name:"FOMO Drives Compliance"}]}
+          ]},
+          {name:"Belief AI is Always Improving = Always Correct",children:[
+            {name:"Progress Narrative Dominates",children:[{name:"Version Numbers Imply Improvement"},{name:"Latest Model = Best = True"}]},
+            {name:"Assumption Newer Tech Has No Flaws",children:[{name:"Recency Bias in Trust"},{name:"Past Successes Build Blind Faith"}]},
+            {name:"Rapid AI Advancements Fuel Awe",children:[{name:"Impressive Demos Create Halo Effect"},{name:"Awe Reduces Critical Evaluation"},{name:"Demo Performance ≠ Real Performance"}]}
+          ]},
+          {name:"Fear of Questioning Advanced Systems",children:[
+            {name:"Technical Jargon Intimidates",children:[{name:"Complex Terms Signal Expertise"},{name:"'Trained on Billions' Implies Truth"}]},
+            {name:"Too Complex to Challenge",children:[{name:"Black Box Problem"},{name:"Explainability Lacking in AI"}]},
+            {name:"Users Feel Unqualified to Judge",children:[{name:"Technical Literacy Gap"},{name:"Dunning-Kruger Inverse Effect"}]}
+          ]},
+          {name:"Trust Built by Prior Automation Successes",children:[
+            {name:"GPS Rarely Wrong Builds Habit",children:[{name:"Navigation Accuracy Assumed"},{name:"Spatial Cognition Reduced"}]},
+            {name:"Autocorrect Accepted by Default",children:[{name:"Text Changes Go Unnoticed"},{name:"Passive Acceptance Normalised"}]},
+            {name:"Dependency on Tools Like Google Maps",children:[{name:"Map Reading Skills Decline"},{name:"Habit of Not Questioning Outputs"}]}
+          ]},
+          {name:"Media Hype Cycle Amplifies AI Trust",children:[
+            {name:"Tech Journalists Lack Critical Lens",children:[{name:"Press Releases Reprinted as News"},{name:"No Adversarial Testing Done"}]},
+            {name:"Investment Media Creates FOMO",children:[{name:"Fear of Disruption Narrative"},{name:"AI-or-Die Business Framing"}]}
+          ]}
+        ]},
 
-        const NS = "http://www.w3.org/2000/svg";
-        function svgEl(tag, attrs, parent) {
-          const e = document.createElementNS(NS, tag);
-          for (const [k,v] of Object.entries(attrs)) e.setAttribute(k, v);
-          if (parent) parent.appendChild(e); return e;
-        }
+        // ── BRANCH 5: LACK OF AI AWARENESS ────────────────────────────────
+        {name:"Lack of Awareness /\nAI Literacy",id:"aware",children:[
+          {name:"People Don't Know AI Can Hallucinate",children:[
+            {name:"Outputs Look Like Factual Statements",children:[
+              {name:"Formatting Mimics Academic Citations"},{name:"No Mental Flag for AI Content"},{name:"Bold Text Implies Importance"}
+            ]},
+            {name:"Curriculum Not Updated with AI Tools",children:[
+              {name:"Schools Don't Teach AI Risks"},{name:"Teachers Untrained on AI"},{name:"Standardised Tests Exclude AI"}
+            ]},
+            {name:"Users Don't Question Generated Info",children:[{name:"Trust by Default"},{name:"Critical Eye Not Applied"}]}
+          ]},
+          {name:"No Education on AI Limitations",children:[
+            {name:"Lack of Questioning Mindset",children:[{name:"Socratic Method Not Taught"},{name:"Questions Seen as Weakness"},{name:"Passive Learning Rewarded"}]},
+            {name:"No Knowledge of AI Training Data",children:[{name:"Bias in Datasets Ignored"},{name:"Data Quality Not Understood"},{name:"Garbage In, Garbage Out Unknown"}]},
+            {name:"Media Literacy Gap Doesn't Cover AI",children:[{name:"Lateral Reading Not Practised"},{name:"AI Not Covered in Curricula"}]}
+          ]},
+          {name:"Misunderstanding of How AI Works",children:[
+            {name:"Users Relate AI to Human Intelligence",children:[{name:"Anthropomorphisation of AI"},{name:"Turing Test Framing Misleads"}]},
+            {name:"Assume AI Has Real-Time Knowledge",children:[{name:"Training Cutoff Date Unknown"},{name:"Outdated Info Not Questioned"}]},
+            {name:"Probability vs Fact Confusion",children:[{name:"Statistical Patterns Misunderstood"},{name:"Risk Literacy Gaps"}]}
+          ]},
+          {name:"Overestimation of AI Accuracy",children:[
+            {name:"Only See Past Positive Experiences",children:[{name:"Bad Outputs Forgotten Quickly"},{name:"Confirmation Bias in Memory"}]},
+            {name:"No Confidence Scale Shown in UI",children:[{name:"Uncertainty Invisible to User"},{name:"All Answers Appear Equally Certain"}]},
+            {name:"Survivorship Bias in Judgement",children:[{name:"Anecdotal Evidence Trusted"},{name:"Sample of One Generalises"}]}
+          ]},
+          {name:"Cultural Factors Reduce Scepticism",children:[
+            {name:"Deference to Authority in Some Cultures",children:[{name:"Questioning Experts Seen as Taboo"},{name:"Hierarchy-Based Trust Transferred to AI"}]},
+            {name:"Community Adoption as Safety Signal",children:[{name:"Collective Validation Effect"},{name:"If Everyone Uses It, It Must Be Safe"}]}
+          ]}
+        ]}
+      ]
+    };
 
-        const svg = document.getElementById("svg"), gRoot = document.getElementById("gRoot"), tip = document.getElementById("whys-tip"), section = document.getElementById("whys-section");
-        let W = section.clientWidth, H = section.clientHeight, tx=W/2, ty=H/2, tk=1;
-        function applyTx() { gRoot.setAttribute("transform", `translate(${tx},${ty}) scale(${tk})`); }
+    // ══════════════════════════════════════════════════════════════════════
+    //  COLOURS
+    // ══════════════════════════════════════════════════════════════════════
+    const MM_COLORS = {
+      root:"#fbbf24", conv:"#34d399", auth:"#60a5fa",
+      fast:"#fb923c", over:"#c084fc", aware:"#f87171"
+    };
+    const MM_LABELS = {
+      conv:"Convenience", auth:"Perceived Authority of AI",
+      fast:"Fast Info Consumption", over:"Overconfidence in Tech", aware:"Lack of AI Awareness"
+    };
+    const DEPTH_LABELS = ["Root","L1 – Branch","L2","L3","L4","L5"];
 
-        function render() {
-          doLayout(ROOT, 0, 2*Math.PI); gRoot.innerHTML = "";
-          const allL = (n, acc=[]) => { (n.children||[]).forEach(c=>{acc.push([n,c]); allL(c,acc);}); return acc; };
-          const allN = (n, acc=[]) => { acc.push(n); (n.children||[]).forEach(c=>allN(c,acc)); return acc; };
-          const getCol = (n) => { if(n.depth===0) return COLORS._root; let a=n; while(a.depth>1) a=a.parent; return COLORS[a.name] || "#94A3B8"; };
+    // ── legend ─────────────────────────────────────────────────────────────
+    const legEl = document.getElementById("mm-legend");
+    Object.entries(MM_LABELS).forEach(([k,label])=>{
+      const c = MM_COLORS[k];
+      const d = document.createElement("div");
+      d.style.cssText = "display:flex;align-items:center;gap:7px;font-size:9.5px;color:#3A5268;font-family:'DM Mono',monospace;";
+      d.innerHTML = `<div style="width:6px;height:6px;border-radius:50%;background:${c};box-shadow:0 0 5px ${c}88;flex-shrink:0;"></div>${label}`;
+      legEl.appendChild(d);
+    });
 
-          allL(ROOT).forEach(([s,t]) => {
-            const mid = (s.radius + t.radius) / 2, sa = s.angle-Math.PI/2, ta = t.angle-Math.PI/2;
-            svgEl("path", { d: `M${s.x},${s.y} C${mid*Math.cos(sa)},${mid*Math.sin(sa)} ${mid*Math.cos(ta)},${mid*Math.sin(ta)} ${t.x},${t.y}`, fill:"none", stroke:getCol(t), "stroke-opacity":".28", "stroke-width":"1.5", "pointer-events":"none" }, gRoot);
-          });
+    // ══════════════════════════════════════════════════════════════════════
+    //  SVG / ZOOM
+    // ══════════════════════════════════════════════════════════════════════
+    const mmSection = document.getElementById("whys-section");
+    const W = mmSection.clientWidth, H = mmSection.clientHeight;
+    const RADIUS = 1050;
 
-          allN(ROOT).forEach(node => {
-            const col = getCol(node), r0 = node.depth===0 ? 20 : node.depth===1 ? 9 : 5, collapsed = node._children && node._children.length && !node.children;
-            const g = svgEl("g", { transform: `translate(${node.x},${node.y})`, style:"cursor:pointer" }, gRoot);
-            svgEl("circle", { r: r0*2.2, fill: col, "fill-opacity": ".08" }, g);
-            if(collapsed) svgEl("circle", { r: r0+4, fill: "none", stroke: col, "stroke-opacity": ".4", "stroke-width": "1.5", "stroke-dasharray": "3,2" }, g);
-            const circ = svgEl("circle", { r: r0, fill: collapsed ? "#060A10" : col, stroke: col, "stroke-width": node.depth===0?"3":"2" }, g);
-            const label = node.name.length>27 ? node.name.slice(0,25)+"..." : node.name;
-            const isRight = node.depth===0 || node.angle < Math.PI, pad = node.depth===0 ? 0 : node.depth===1 ? 13 : 9;
-            svgEl("text", { x: node.depth===0?0:(isRight?pad:-pad), y: node.depth===0?5:0, "text-anchor": node.depth===0?"middle":(isRight?"start":"end"), "dominant-baseline": "central", fill: node.depth===0?"#fff":col, "fill-opacity": ".88", "font-size": node.depth===0?"13":node.depth===1?"10":"8.5", "font-weight": node.depth<=1?"700":"400", "pointer-events":"none" }, g).textContent = label;
+    const mmSvg = d3.select("#mm-svg")
+      .attr("viewBox", `${-W/2} ${-H/2} ${W} ${H}`);
 
-            g.addEventListener("mouseenter", () => { circ.setAttribute("filter","url(#glow)"); circ.setAttribute("stroke-width", node.depth===0?"4":"3"); });
-            g.addEventListener("mouseleave", () => { circ.removeAttribute("filter"); circ.setAttribute("stroke-width", node.depth===0?"3":"2"); tip.style.display="none"; });
-            g.addEventListener("mousemove", ev => { tip.style.display="block"; tip.style.color=col; tip.style.borderColor=col+"55"; tip.textContent=node.name; tip.style.left=(ev.clientX+14)+"px"; tip.style.top=(ev.clientY-10)+"px"; });
-            g.addEventListener("click", ev => { ev.stopPropagation(); if(node.depth===0){ const h=(n)=>n._children?true:(n.children||[]).some(h); if(h(node)){ (function e(n){if(n._children){n.children=n._children;n._children=null;}(n.children||[]).forEach(e);})(node); }else{ (function c(n){if(n.depth>=1&&n.children){n._children=n.children;n.children=null;}else(n.children||[]).forEach(c);})(node); } }else{ if(node.children){node._children=node.children;node.children=null;}else if(node._children){node.children=node._children;node._children=null;} } render(); });
-          });
-          applyTx();
-        }
+    const mmDefs = mmSvg.append("defs");
+    // grid pattern
+    const pat = mmDefs.append("pattern").attr("id","mm-grid").attr("width",40).attr("height",40).attr("patternUnits","userSpaceOnUse");
+    pat.append("path").attr("d","M 40 0 L 0 0 0 40").attr("fill","none").attr("stroke","rgba(255,255,255,0.025)").attr("stroke-width","0.5");
+    // glow filters per branch
+    Object.entries(MM_COLORS).forEach(([id,col])=>{
+      const f = mmDefs.append("filter").attr("id",`mm-glow-${id}`).attr("x","-50%").attr("y","-50%").attr("width","200%").attr("height","200%");
+      f.append("feGaussianBlur").attr("in","SourceGraphic").attr("stdDeviation","4").attr("result","blur");
+      const m = f.append("feMerge"); m.append("feMergeNode").attr("in","blur"); m.append("feMergeNode").attr("in","SourceGraphic");
+    });
 
-        svg.addEventListener("wheel", ev => { ev.preventDefault(); const r=svg.getBoundingClientRect(), mx=ev.clientX-r.left, my=ev.clientY-r.top, f=ev.deltaY<0?1.12:1/1.12, nk=Math.min(12,Math.max(0.06,tk*f)); tx=mx-(mx-tx)*(nk/tk); ty=my-(my-ty)*(nk/tk); tk=nk; applyTx(); }, {passive:false});
-        let panning=false, dsx=0, dsy=0, txs=0, tys=0;
-        svg.addEventListener("mousedown", ev => { panning=true; dsx=ev.clientX; dsy=ev.clientY; txs=tx; tys=ty; svg.style.cursor="grabbing"; });
-        window.addEventListener("mousemove", ev => { if(!panning) return; tx=txs+(ev.clientX-dsx); ty=tys+(ev.clientY-dsy); applyTx(); });
-        window.addEventListener("mouseup", () => { panning=false; svg.style.cursor="grab"; });
-        
-        document.getElementById("bIn").onclick=()=>{ tk=Math.min(12,tk*1.3); applyTx(); };
-        document.getElementById("bOut").onclick=()=>{ tk=Math.max(0.06,tk/1.3); applyTx(); };
-        document.getElementById("bReset").onclick=()=>{ tx=W/2; ty=H/2; tk=1; applyTx(); };
-        let allEx=false; document.getElementById("expand-btn-internal").onclick=function(){ if(!allEx){ (function e(n){if(n._children){n.children=n._children;n._children=null;}(n.children||[]).forEach(e);})(ROOT); this.textContent="collapse all"; }else{ (function c(n){if(n.depth>=2&&n.children){n._children=n.children;n.children=null;}(n.children||[]).forEach(c);})(ROOT); this.textContent="expand all"; } allEx=!allEx; render(); };
-        
-        const leg = document.getElementById("whys-legend");
-        Object.entries(COLORS).forEach(([n,c])=>{ if(n==="_root") return; const d=document.createElement("div"); d.style.cssText="display:flex;align-items:center;gap:7px;font-size:9.5px;color:#3A5268;font-family:monospace;"; d.innerHTML=`<div style="width:7px;height:7px;border-radius:50%;background:${c};box-shadow:0 0 5px ${c}88"></div>${n}`; leg.appendChild(d); });
+    const mmG = mmSvg.append("g");
 
-        window.addEventListener("resize",()=>{ W=section.clientWidth; H=section.clientHeight; render(); });
-        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
-        render();
+    const mmZoom = d3.zoom().scaleExtent([0.05,6]).on("zoom", e => mmG.attr("transform", e.transform));
+    mmSvg.call(mmZoom);
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  HIERARCHY & LAYOUT
+    // ══════════════════════════════════════════════════════════════════════
+    const mmLayout = d3.tree().size([2*Math.PI, RADIUS]).separation((a,b)=>{ const base=a.parent===b.parent?1:1.6; return base/a.depth; });
+
+    const mmRoot = d3.hierarchy(MM_RAW);
+    mmRoot.x0=0; mmRoot.y0=0;
+
+    (function assignGrp(node, grp){
+      node.data._grp = grp || node.data.id || "root";
+      if(node.children) node.children.forEach(c=>assignGrp(c, node.data.id || grp));
+      if(node._children) node._children.forEach(c=>assignGrp(c, node.data.id || grp));
+    })(mmRoot, "root");
+
+    function mmCollapse(d){ if(d.children){ d._children=d.children; d._children.forEach(mmCollapse); d.children=null; } }
+    mmRoot.children.forEach(mmCollapse);
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  HELPERS
+    // ══════════════════════════════════════════════════════════════════════
+    function mmColor(d){ return MM_COLORS[d.data._grp] || MM_COLORS.root; }
+    function mmR(d){ return d.depth===0?18:d.depth===1?10:d.depth===2?7:5; }
+    function radPt(x,y){ return [(y=+y)*Math.cos(x-=Math.PI/2), y*Math.sin(x)]; }
+    function mmLink(d){
+      const [sx,sy]=radPt(d.source.x,d.source.y), [tx,ty]=radPt(d.target.x,d.target.y);
+      const mx=(sx+tx)/2, my=(sy+ty)/2;
+      return `M${sx},${sy} C${mx*.7},${my*.7} ${mx*.7},${my*.7} ${tx},${ty}`;
+    }
+    function mmCountVis(node,acc=[]){ acc.push(node); if(node.children) node.children.forEach(c=>mmCountVis(c,acc)); return acc; }
+    function mmCountAll(node,acc=[]){ acc.push(node); const kids=node.children||node._children||[]; kids.forEach(c=>mmCountAll(c,acc)); return acc; }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  UPDATE
+    // ══════════════════════════════════════════════════════════════════════
+    function mmUpdate(src){
+      const t = d3.transition().duration(500).ease(d3.easeCubicInOut);
+      mmLayout(mmRoot);
+      const descs = mmRoot.descendants(), links = mmRoot.links();
+
+      // links
+      const lSel = mmG.selectAll(".mm-link").data(links, d=>d.target.data.name);
+      lSel.enter().append("path").attr("class","mm-link").attr("fill","none").attr("stroke-width","1px").style("opacity",0)
+        .attr("d",d=>{ const o=radPt(src.x0||0,src.y0||0); return `M${o[0]},${o[1]} C${o[0]},${o[1]} ${o[0]},${o[1]} ${o[0]},${o[1]}`; })
+        .attr("stroke",d=>mmColor(d.target))
+        .merge(lSel).transition(t).style("opacity",.35).attr("d",mmLink).attr("stroke",d=>mmColor(d.target));
+      lSel.exit().transition(t).style("opacity",0).attr("d",d=>{ const o=radPt(src.x,src.y); return `M${o[0]},${o[1]} C${o[0]},${o[1]} ${o[0]},${o[1]} ${o[0]},${o[1]}`; }).remove();
+
+      // nodes
+      const nSel = mmG.selectAll(".mm-node").data(descs, d=>d.data.name);
+      const nEnter = nSel.enter().append("g").attr("class","mm-node").style("cursor","pointer")
+        .attr("transform",()=>{ const [x,y]=radPt(src.x0||0,src.y0||0); return `translate(${x},${y})`; })
+        .style("opacity",0)
+        .on("click",(e,d)=>{ e.stopPropagation(); mmToggle(d); })
+        .on("mousemove",(e,d)=>mmShowTip(e,d))
+        .on("mouseleave",mmHideTip);
+
+      // pulse ring for root
+      nEnter.filter(d=>d.depth===0).append("circle").attr("class","mm-pulse").attr("r",18).attr("fill","none")
+        .attr("stroke",MM_COLORS.root).attr("stroke-width",1.5).style("opacity",.4);
+
+      nEnter.append("circle").attr("r",0)
+        .attr("fill",d=>d.depth===0?MM_COLORS.root:"rgba(5,5,13,0.9)")
+        .attr("stroke",d=>mmColor(d))
+        .attr("filter",d=>`url(#mm-glow-${d.data._grp})`);
+
+      nEnter.append("text").attr("dy","0.3em")
+        .style("font-size",d=>d.depth===0?"10px":d.depth===1?"9.5px":d.depth===2?"8.5px":"7.5px")
+        .style("fill",d=>d.depth===0?MM_COLORS.root:mmColor(d))
+        .style("font-family","'DM Mono',monospace").style("pointer-events","none")
+        .style("opacity",0);
+
+      const nMerge = nEnter.merge(nSel);
+      nMerge.transition(t).attr("transform",d=>{ const [x,y]=radPt(d.x,d.y); return `translate(${x},${y})`; }).style("opacity",1);
+
+      nMerge.select("circle:not(.mm-pulse)").transition(t)
+        .attr("r",mmR)
+        .attr("fill",d=>d.depth===0?MM_COLORS.root:"rgba(5,5,13,0.9)")
+        .attr("stroke",d=>mmColor(d))
+        .attr("stroke-width",d=>d.depth===0?2:(d.children||d._children?1.5:1));
+
+      nMerge.select("text")
+        .text(d=>{ const n=d.data.name.replace(/\n/g," "); if(d.depth===0) return n; const max=d.depth<=2?30:26; return n.length>max?n.slice(0,max-1)+"…":n; })
+        .attr("text-anchor",d=>d.depth===0?"middle":d.x<Math.PI?"start":"end")
+        .attr("x",d=>{ if(d.depth===0) return 0; const off=mmR(d)+5; return d.x<Math.PI?off:-off; })
+        .attr("y",d=>d.depth===0?30:0)
+        .attr("transform",d=>{ if(d.depth===0) return ""; const deg=d.x*180/Math.PI-90; return `rotate(${d.x>=Math.PI?deg+180:deg})`; })
+        .transition(t).style("opacity",1);
+
+      nSel.exit().transition(t).attr("transform",()=>{ const [x,y]=radPt(src.x,src.y); return `translate(${x},${y})`; }).style("opacity",0).remove();
+
+      descs.forEach(d=>{ d.x0=d.x; d.y0=d.y; });
+
+      // counter
+      const vis=mmCountVis(mmRoot).length, tot=mmCountAll(mmRoot).length;
+      document.getElementById("mm-count").textContent=`${vis} / ${tot} visible`;
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  TOGGLE / EXPAND / COLLAPSE
+    // ══════════════════════════════════════════════════════════════════════
+    let hintGone=false;
+    function dismissHint(){ if(!hintGone){ hintGone=true; const h=document.getElementById("mm-hint"); if(h){h.style.opacity="0";setTimeout(()=>h.remove(),600);} } }
+
+    function mmToggle(d){ dismissHint(); if(d.children){d._children=d.children;d.children=null;}else if(d._children){d.children=d._children;d._children=null;} mmUpdate(d); }
+
+    document.getElementById("mm-expand").onclick=()=>{
+      dismissHint();
+      (function exp(d){ if(d._children){d.children=d._children;d._children=null;} if(d.children) d.children.forEach(exp); })(mmRoot);
+      mmUpdate(mmRoot);
+      setTimeout(()=>mmSvg.transition().duration(700).call(mmZoom.transform, d3.zoomIdentity.scale(0.38)),600);
+    };
+
+    document.getElementById("mm-collapse").onclick=()=>{
+      (function col(d){ if(d.children){d._children=d.children;d.children=null;} if(d._children) d._children.forEach(col); })(mmRoot);
+      mmRoot.children=mmRoot._children; mmRoot._children=null;
+      mmRoot.children.forEach(mmCollapse);
+      mmUpdate(mmRoot);
+    };
+
+    document.getElementById("mm-reset").onclick=()=>{
+      mmSvg.transition().duration(700).ease(d3.easeCubicInOut).call(mmZoom.transform, d3.zoomIdentity.scale(0.45));
+    };
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  TOOLTIP
+    // ══════════════════════════════════════════════════════════════════════
+    const mmTip = document.getElementById("mm-tip");
+    function mmShowTip(e,d){
+      const col=mmColor(d), depLabel=DEPTH_LABELS[d.depth]||`L${d.depth}`;
+      const kids=d.children?`${d.children.length} expanded`:d._children?`${d._children.length} collapsed`:"leaf node";
+      mmTip.innerHTML=`<span style="color:${col};font-weight:700">${d.data.name.replace(/\n/g," ")}</span><div style="font-size:9px;color:#4a5568;margin-top:3px;">${depLabel} · ${kids}</div>`;
+      mmTip.style.display="block";
+      mmTip.style.left=(e.clientX+14)+"px";
+      mmTip.style.top=(e.clientY-10)+"px";
+    }
+    function mmHideTip(){ mmTip.style.display="none"; }
+
+    // ── pulse animation ────────────────────────────────────────────────────
+    const mmStyle = document.createElement("style");
+    mmStyle.textContent=`@keyframes mm-pulse{0%{r:18;opacity:0.5}100%{r:34;opacity:0}} .mm-pulse{animation:mm-pulse 2s ease-out infinite;}`;
+    document.head.appendChild(mmStyle);
+
+    // ── initial render ─────────────────────────────────────────────────────
+    mmUpdate(mmRoot);
+    mmSvg.call(mmZoom.transform, d3.zoomIdentity.scale(0.9));
     </script>
 </body>
 </html>
