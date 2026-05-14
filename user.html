@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Understanding | UNHINGED THINKERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .user-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+            padding-bottom: 8rem;
+        }
+
+        /* Persona Grid */
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .persona-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .persona-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .persona-img-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            cursor: zoom-in;
+        }
+
+        .persona-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .persona-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .persona-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: fit-content;
+        }
+
+        .persona-name {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .persona-role {
+            font-family: 'DM Mono', monospace;
+            font-size: 1rem; /* Increased from 0.85rem */
+            color: var(--accent-secondary);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .pain-points-section {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .pain-points-section h4 {
+            font-size: 0.9rem; /* Increased from 0.75rem */
+            text-transform: uppercase;
+            color: #ff3333;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .pain-points-section p {
+            font-size: 1rem; /* Increased from 0.85rem */
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Rejected State */
+        .persona-card.rejected { border-color: #ff3333; opacity: 0.8; }
+        .persona-card.rejected .persona-name { color: #ff3333; text-decoration: line-through; }
+
+        /* Mapping Section */
+        .mapping-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 4rem;
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ─── 5-Whys D3 Section ────────────────────────────────── */
+        #whys-section {
+            height: 800px;
+            position: relative;
+            background: #060A10;
+            border-radius: 40px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-top: 2rem;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        #chart-svg-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .whys-header-internal {
+            position: absolute; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 12px;
+        }
+        .whys-header-dot { width: 10px; height: 10px; border-radius: 50%; background: #F87171; box-shadow: 0 0 12px #F87171; }
+        .whys-header-internal h3 { font-size: 11px; font-weight: 700; color: #E2E8F0; letter-spacing: 0.05em; text-transform: uppercase; margin: 0; font-family: 'DM Mono', monospace; }
+
+        .whys-legend {
+            position: absolute; top: 80px; left: 24px;
+            display: flex; flex-direction: column; gap: 6px; z-index: 50;
+        }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #94A3B8; font-family: 'DM Mono', monospace; }
+        .legend-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+        .whys-controls {
+            position: absolute; bottom: 24px; right: 24px;
+            display: flex; gap: 6px; z-index: 50;
+        }
+        .ctrl-btn {
+            width: 32px; height: 32px; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+            color: #4A6580; font-size: 14px; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; transition: 0.2s;
+        }
+        .ctrl-btn:hover { background: rgba(255,255,255,0.1); color: #E2E8F0; }
+
+        #expand-all-btn {
+            position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+            font-size: 9px; font-family: 'DM Mono', monospace; text-transform: uppercase;
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            color: #4A6580; padding: 6px 14px; border-radius: 20px; cursor: pointer; z-index: 50;
+        }
+        #expand-all-btn:hover { background: var(--accent-primary); color: white; }
+
+        #whys-tip {
+            display: none; position: fixed; background: rgba(6,10,16,0.98);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+            padding: 6px 12px; font-size: 10px; font-family: 'DM Mono', monospace;
+            color: #E2E8F0; pointer-events: none; z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        /* SVG Inner Elements */
+        .link { fill: none; stroke-opacity: 0.2; stroke-width: 1.2; pointer-events: none; }
+        .node { cursor: pointer; }
+        .node circle { transition: 0.2s; }
+        .node:hover circle { stroke-width: 3px; }
+        .node-label { font-family: 'DM Sans', sans-serif; pointer-events: none; user-select: none; }
+
+        /* Lightbox */
+        #lightbox { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; cursor: pointer; }
+        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 12px; animation: zoomIn 0.3s ease; }
+
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        @media (max-width: 968px) { .persona-grid { grid-template-columns: 1fr 1fr; } #whys-section { height: 600px; } }
+        @media (max-width: 600px) { .persona-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="main-nav">
+            <div class="logo">UNHINGED THINKERS</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="discovery.html">Discovery</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="user.html" class="active">User Understanding</a></li>
+                <li><a href="problem.html">Problem Framing</a></li>
+                <li><a href="ideation.html">Ideation</a></li>
+                <li><a href="evaluation.html">Evaluation</a></li>
+                <li><a href="solution.html">Solution</a></li>
+                <li><a href="reflection.html">Reflection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container user-container">
+        <section class="section-header">
+            <span class="eyebrow">Phase 05</span>
+            <h1 class="gradient-text">User Understanding</h1>
+            <p>Mapping archetypes and root causes. <strong>Out of our 4 initial proto-personas, 3 perfectly matched the life stories and responses of the real people we interviewed</strong>, while one was filtered out during validation.</p>
+        </section>
+
+        <!-- 1. Persona Profiles -->
+        <section class="persona-grid">
+            <div class="persona-card">
+                <div class="persona-img-container" onclick="openLightbox('proto_persona/persona_riya.jpeg')">
+                    <img src="proto_persona/persona_riya.jpeg" alt="Riya Sharma" class="persona-img">
+                </div>
+                <div class="persona-info">
+                    <span class="persona-badge" style="background:rgba(0, 255, 136, 0.1); color:#00ff88; border: 1px solid rgba(0, 255, 136, 0.3);">Accepted</span>
+                    <h3 class="persona-name">Riya Sharma</h3>
+                    <span class="persona-role">Engineering Student</span>
+                    <div class="pain-points-section">
+                        <h4>Pain Points</h4>
+                        <p>Anxiety during exams when forced to think without AI aid; pressure to "keep up" with peers who copy blind; AI sometimes provides factually incorrect data or "gaslights" her into believing a wrong answer is correct.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="persona-card">
+                <div class="persona-img-container" onclick="openLightbox('proto_persona/persona_arjun_verma.jpeg')">
+                    <img src="proto_persona/persona_arjun_verma.jpeg" alt="Arjun Verma" class="persona-img">
+                </div>
+                <div class="persona-info">
+                    <span class="persona-badge" style="background:rgba(0, 255, 136, 0.1); color:#00ff88; border: 1px solid rgba(0, 255, 136, 0.3);">Accepted</span>
+                    <h3 class="persona-name">Arjun Verma</h3>
+                    <span class="persona-role">Sr. Software Engineer</span>
+                    <div class="pain-points-section">
+                        <h4>Pain Points</h4>
+                        <p>Wasted time debugging AI-generated code that "looks correct" but fails logical edge cases; struggles with AI "hallucinations" where the model confidently lies about API capabilities or gaslights him regarding logic.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="persona-card">
+                <div class="persona-img-container" onclick="openLightbox('proto_persona/persona_rahul_mehta.jpeg')">
+                    <img src="proto_persona/persona_rahul_mehta.jpeg" alt="Rahul Mehta" class="persona-img">
+                </div>
+                <div class="persona-info">
+                    <span class="persona-badge" style="background:rgba(0, 255, 136, 0.1); color:#00ff88; border: 1px solid rgba(0, 255, 136, 0.3);">Accepted</span>
+                    <h3 class="persona-name">Rahul Mehta</h3>
+                    <span class="persona-role">Startup / YP</span>
+                    <div class="pain-points-section">
+                        <h4>Pain Points</h4>
+                        <p>Relying on generic AI summaries for high-stakes business strategies without deep source grounding.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="persona-card rejected">
+                <div class="persona-img-container" onclick="openLightbox('proto_persona/persona_pooja.jpeg')">
+                    <img src="proto_persona/persona_pooja.jpeg" alt="Pooja" class="persona-img">
+                </div>
+                <div class="persona-info">
+                    <span class="persona-badge" style="background:rgba(255, 51, 51, 0.1); color:#ff3333; border: 1px solid rgba(255, 51, 51, 0.3);">Rejected</span>
+                    <h3 class="persona-name">Pooja</h3>
+                    <span class="persona-role">Creative Lead</span>
+                    <div class="pain-points-section">
+                        <h4>Note</h4>
+                        <p>Archetype filtered out; behaviors were absorbed into the Student or Professional tracks during research validation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Mapping Stats -->
+        <section class="mapping-section" style="border-left: 5px solid var(--accent-secondary);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+                <div>
+                    <span class="eyebrow">Validation</span>
+                    <h2 class="gradient-text">Transcript Alignment</h2>
+                    <p style="margin-top: 1.5rem; line-height: 1.8; opacity: 0.8;">
+                        Our final personas represent the full scope of our 11 personal interviews, ensuring our strategy is grounded in real human behavior.
+                    </p>
+                </div>
+                <div style="background: rgba(255,255,255,0.02); padding: 2rem; border-radius: 20px; border: 1px solid var(--border-color);">
+                    <h4 style="color:var(--accent-secondary); margin-bottom: 1rem;">Validation Metrics</h4>
+                    <ul style="list-style: none; padding: 0; font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                        <li style="display:flex; justify-content:space-between;"><span>Riya (Student)</span> <strong style="color:var(--accent-primary);">43%</strong></li>
+                        <li style="display:flex; justify-content:space-between;"><span>Arjun (Professional)</span> <strong style="color:var(--accent-primary);">36%</strong></li>
+                        <li style="display:flex; justify-content:space-between;"><span>Rahul (Entrepreneur)</span> <strong style="color:var(--accent-primary);">21%</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Journey Mapping -->
+        <section class="mapping-section">
+            <div class="section-header" style="margin-bottom: 3rem;">
+                <span class="eyebrow">Mapping</span>
+                <h2 class="gradient-text">Behavioral Journey</h2>
+                <p>Visualizing the progression toward AI over-dependency.</p>
+            </div>
+            <div class="persona-img-container" style="height: auto; border-radius: 20px; border: 1px solid var(--border-color);" onclick="openLightbox('journey map.jpeg')">
+                <img src="journey map.jpeg" alt="User Journey Map" class="persona-img" style="object-fit: contain; background: white; padding: 2rem;">
+            </div>
+        </section>
+
+        <!-- 4. NEW: Root Cause Analysis Mindmap (D3 Integration) -->
+        <section class="stats-section">
+            <div class="section-header">
+                <span class="eyebrow">Analysis</span>
+                <h2 class="gradient-text">5-Whys Root Cause Tree</h2>
+                <p>Interactive radial visualization of the systemic drivers behind AI trust issues. Explore the deep branches of human psychology and technical dependence.</p>
+            </div>
+
+            <div id="mindmap-container" style="width: 100%; height: 800px; background: #05050a; position: relative; overflow: hidden; border-radius: 40px; border: 1px solid var(--border-color); margin-top: 2rem;">
+                <div style="position: absolute; top: 20px; left: 20px; z-index: 10; display: flex; gap: 10px;">
+                    <button class="mindmap-btn" onclick="expandAll()" style="background: var(--surface-color); border: 1px solid var(--border-color); color: white; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">Expand All</button>
+                    <button class="mindmap-btn" onclick="collapseToRoot()" style="background: var(--surface-color); border: 1px solid var(--border-color); color: white; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">Collapse All</button>
+                    <button class="mindmap-btn" onclick="resetView()" style="background: var(--surface-color); border: 1px solid var(--border-color); color: white; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">Reset View</button>
+                </div>
+                <div id="mindmap-legend" style="position: absolute; bottom: 20px; left: 20px; z-index: 10; display: flex; flex-direction: column; gap: 6px; background: rgba(0,0,0,0.6); padding: 15px; border-radius: 15px; backdrop-filter: blur(5px);">
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#8a2be2;"></div> Convenience</div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#00d4ff;"></div> Perceived Authority</div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#ff00c8;"></div> Fast Consumption</div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#60a5fa;"></div> Overconfidence</div>
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#f87171;"></div> Lack of Awareness</div>
+                </div>
+                <svg id="mindmap-svg" style="width:100%; height:100%; cursor:grab;"></svg>
+                <div id="mindmap-tip" style="position:fixed; display:none; background:rgba(5,5,10,0.95); border:1px solid #00d4ff; padding:8px 12px; border-radius:6px; color:white; font-size:0.85rem; pointer-events:none; z-index:9999;"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="lightbox" onclick="this.style.display='none'"><img id="lightbox-img" src="" alt="Full View"></div>
+    <footer><div class="container"><p>&copy; 2026 UNHINGED THINKERS - AI Ethics Project</p></div></footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script>
+        const RAW_DATA = {
+            name: "People Blindly Trust AI & Misinformation",
+            children: [
+                { name: "Convenience", id: "conv", children: [
+                    { name: "Quick Answers Preferred", children: [
+                        { name: "Attention Span Reduction" }, { name: "Mobile-First Consumption" }, { name: "Copy-Paste Habit" }
+                    ]},
+                    { name: "AI Reduces Cognitive Load", children: [
+                        { name: "Outsourcing Thinking" }, { name: "No Need to Remember Facts" }, { name: "Decision Fatigue" }
+                    ]}
+                ]},
+                { name: "Perceived Authority", id: "auth", children: [
+                    { name: "Natural Language Mimics Expertise" }, { name: "Confident Phrasing Always Used" }, { name: "Big Tech Brand Association" }
+                ]},
+                { name: "Fast Consumption", id: "fast", children: [
+                    { name: "Speed Prioritized Over Accuracy" }, { name: "Algorithm Echo Chambers" }, { name: "Headline-Only Reading Habit" }
+                ]},
+                { name: "Overconfidence in Tech", id: "over", children: [
+                    { name: "Progress Narrative Dominates" }, { name: "Technical Jargon Intimidates" }, { name: "Past Automation Successes" }
+                ]},
+                { name: "Lack of Awareness", id: "aware", children: [
+                    { name: "Hallucinations Sound Plausible" }, { name: "Probability vs Fact Confusion" }, { name: "Education Gap in AI Literacy" }
+                ]}
+            ]
+        };
+
+        const COLORS = { root: "#00d4ff", conv: "#8a2be2", auth: "#00d4ff", fast: "#ff00c8", over: "#60a5fa", aware: "#f87171" };
+        
+        const svg = d3.select("#mindmap-svg");
+        const g = svg.append("g");
+        const zoom = d3.zoom().scaleExtent([0.1, 5]).on("zoom", (e) => g.attr("transform", e.transform));
+        svg.call(zoom);
+
+        const tree = d3.tree().size([2 * Math.PI, 350]);
+        const root = d3.hierarchy(RAW_DATA);
+        
+        root.children.forEach(collapse);
+        function collapse(d) { if(d.children) { d._children = d.children; d.children = null; } }
+
+        function update() {
+            tree(root);
+            const nodes = root.descendants();
+            const links = root.links();
+
+            const link = g.selectAll(".link").data(links, d => d.target.data.name);
+            link.enter().append("path").attr("class", "link")
+                .merge(link).attr("fill", "none").attr("stroke", d => COLORS[d.target.data.id] || "#333")
+                .attr("stroke-opacity", 0.4).attr("d", d3.linkRadial().angle(d => d.x).radius(d => d.y));
+            link.exit().remove();
+
+            const node = g.selectAll(".node").data(nodes, d => d.data.name);
+            const nEnter = node.enter().append("g").attr("class", "node")
+                .on("click", (e, d) => { if(d.children) { d._children = d.children; d.children = null; } else { d.children = d._children; d._children = null; } update(); });
+
+            nEnter.append("circle").attr("r", 6).attr("fill", d => COLORS[d.data.id] || "#fff");
+            nEnter.append("text").attr("dy", "0.31em").attr("x", d => d.x < Math.PI ? 10 : -10)
+                .attr("text-anchor", d => d.x < Math.PI ? "start" : "end")
+                .attr("transform", d => `rotate(${(d.x * 180 / Math.PI - 90)}) rotate(${d.x >= Math.PI ? 180 : 0})`)
+                .text(d => d.data.name).style("fill", "#fff").style("font-size", "10px");
+
+            node.merge(nEnter).attr("transform", d => `rotate(${(d.x * 180 / Math.PI - 90)}) translate(${d.y},0)`);
+            node.exit().remove();
+        }
+
+        function expandAll() { root.descendants().forEach(d => { if(d._children) { d.children = d._children; d._children = null; } }); update(); }
+        function collapseToRoot() { root.children.forEach(d => { if(d.children) { d._children = d.children; d.children = null; } }); update(); }
+        function resetView() { svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity.translate(svg.node().clientWidth/2, svg.node().clientHeight/2).scale(0.8)); }
+        
+        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
+
+        update();
+        resetView();
+    </script>
+</body>
+</html>
