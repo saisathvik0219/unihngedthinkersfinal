@@ -578,176 +578,310 @@
     });
 
     // ══════════════════════════════════════════════════════════════════════
-    //  SVG / ZOOM
+    //  SVG / ZOOM SETUP
     // ══════════════════════════════════════════════════════════════════════
     const mmSection = document.getElementById("whys-section");
-    const W = mmSection.clientWidth, H = mmSection.clientHeight;
-    const RADIUS = 1050;
+    const W = mmSection.clientWidth || 900;
+    const H = mmSection.clientHeight || 800;
+    const RADIUS = 920;
 
-    const mmSvg = d3.select("#mm-svg")
-      .attr("viewBox", `${-W/2} ${-H/2} ${W} ${H}`);
+    const mmSvg = d3.select("#mm-svg");
+    mmSvg.attr("viewBox", `${-W/2} ${-H/2} ${W} ${H}`);
 
     const mmDefs = mmSvg.append("defs");
-    // grid pattern
-    const pat = mmDefs.append("pattern").attr("id","mm-grid").attr("width",40).attr("height",40).attr("patternUnits","userSpaceOnUse");
-    pat.append("path").attr("d","M 40 0 L 0 0 0 40").attr("fill","none").attr("stroke","rgba(255,255,255,0.025)").attr("stroke-width","0.5");
-    // glow filters per branch
-    Object.entries(MM_COLORS).forEach(([id,col])=>{
-      const f = mmDefs.append("filter").attr("id",`mm-glow-${id}`).attr("x","-50%").attr("y","-50%").attr("width","200%").attr("height","200%");
-      f.append("feGaussianBlur").attr("in","SourceGraphic").attr("stdDeviation","4").attr("result","blur");
-      const m = f.append("feMerge"); m.append("feMergeNode").attr("in","blur"); m.append("feMergeNode").attr("in","SourceGraphic");
+    Object.entries(MM_COLORS).forEach(([id, col]) => {
+      const f = mmDefs.append("filter").attr("id", `mm-glow-${id}`)
+        .attr("x","-50%").attr("y","-50%").attr("width","200%").attr("height","200%");
+      f.append("feGaussianBlur").attr("in","SourceGraphic").attr("stdDeviation","3").attr("result","blur");
+      const m = f.append("feMerge");
+      m.append("feMergeNode").attr("in","blur");
+      m.append("feMergeNode").attr("in","SourceGraphic");
     });
 
     const mmG = mmSvg.append("g");
-
-    const mmZoom = d3.zoom().scaleExtent([0.05,6]).on("zoom", e => mmG.attr("transform", e.transform));
+    const mmZoom = d3.zoom().scaleExtent([0.04, 8])
+      .on("zoom", e => mmG.attr("transform", e.transform));
     mmSvg.call(mmZoom);
 
     // ══════════════════════════════════════════════════════════════════════
-    //  HIERARCHY & LAYOUT
+    //  BUILD HIERARCHY — assign _grp BEFORE collapsing
     // ══════════════════════════════════════════════════════════════════════
-    const mmLayout = d3.tree().size([2*Math.PI, RADIUS]).separation((a,b)=>{ const base=a.parent===b.parent?1:1.6; return base/a.depth; });
-
     const mmRoot = d3.hierarchy(MM_RAW);
-    mmRoot.x0=0; mmRoot.y0=0;
+    mmRoot.x0 = 0; mmRoot.y0 = 0;
 
-    (function assignGrp(node, grp){
-      node.data._grp = grp || node.data.id || "root";
-      if(node.children) node.children.forEach(c=>assignGrp(c, node.data.id || grp));
-      if(node._children) node._children.forEach(c=>assignGrp(c, node.data.id || grp));
-    })(mmRoot, "root");
+    // Walk the full tree while all children are still visible and tag each
+    // node with its branch colour key (_grp).
+    mmRoot.each(node => {
+      // climb to depth-1 ancestor to find the branch id
+      let anc = node;
+      while (anc.depth > 1) anc = anc.parent;
+      node.data._grp = (anc.data.id) ? anc.data.id : (node.data.id || "root");
+    });
 
-    function mmCollapse(d){ if(d.children){ d._children=d.children; d._children.forEach(mmCollapse); d.children=null; } }
-    mmRoot.children.forEach(mmCollapse);
+    // Now collapse everything except the 5 L1 branch nodes
+    function mmCollapse(d) {
+      if (d.children) {
+        d._children = d.children;
+        d._children.forEach(mmCollapse);
+        d.children = null;
+      }
+    }
+    mmRoot.children.forEach(mmCollapse);  // collapse children of each L1 branch
+    // L1 branches themselves stay visible (children of root remain open)
+
+    // ══════════════════════════════════════════════════════════════════════
+    //  LAYOUT
+    // ══════════════════════════════════════════════════════════════════════
+    const mmLayout = d3.tree()
+      .size([2 * Math.PI, RADIUS])
+      .separation((a, b) => (a.parent === b.parent ? 1 : 2) / a.depth);
 
     // ══════════════════════════════════════════════════════════════════════
     //  HELPERS
     // ══════════════════════════════════════════════════════════════════════
-    function mmColor(d){ return MM_COLORS[d.data._grp] || MM_COLORS.root; }
-    function mmR(d){ return d.depth===0?18:d.depth===1?10:d.depth===2?7:5; }
-    function radPt(x,y){ return [(y=+y)*Math.cos(x-=Math.PI/2), y*Math.sin(x)]; }
-    function mmLink(d){
-      const [sx,sy]=radPt(d.source.x,d.source.y), [tx,ty]=radPt(d.target.x,d.target.y);
-      const mx=(sx+tx)/2, my=(sy+ty)/2;
-      return `M${sx},${sy} C${mx*.7},${my*.7} ${mx*.7},${my*.7} ${tx},${ty}`;
+    function mmColor(d) { return MM_COLORS[d.data._grp] || MM_COLORS.root; }
+    function mmR(d) { return d.depth === 0 ? 18 : d.depth === 1 ? 10 : d.depth === 2 ? 7 : 5; }
+
+    // Convert radial (angle, radius) → cartesian (x, y)
+    // D3 tree in radial mode: node.x = angle (radians), node.y = radius
+    function radXY(d) {
+      const angle = d.x - Math.PI / 2;
+      return [d.y * Math.cos(angle), d.y * Math.sin(angle)];
     }
-    function mmCountVis(node,acc=[]){ acc.push(node); if(node.children) node.children.forEach(c=>mmCountVis(c,acc)); return acc; }
-    function mmCountAll(node,acc=[]){ acc.push(node); const kids=node.children||node._children||[]; kids.forEach(c=>mmCountAll(c,acc)); return acc; }
+
+    // Curved link path between two radial nodes
+    function mmLinkPath(d) {
+      const [sx, sy] = radXY(d.source);
+      const [tx, ty] = radXY(d.target);
+      const mx = (sx + tx) / 2, my = (sy + ty) / 2;
+      return `M${sx},${sy} C${mx * 0.6},${my * 0.6} ${mx * 0.6},${my * 0.6} ${tx},${ty}`;
+    }
+
+    function mmCountVis(node, acc = []) {
+      acc.push(node);
+      if (node.children) node.children.forEach(c => mmCountVis(c, acc));
+      return acc;
+    }
+    function mmCountAll(node, acc = []) {
+      acc.push(node);
+      const kids = node.children || node._children || [];
+      kids.forEach(c => mmCountAll(c, acc));
+      return acc;
+    }
 
     // ══════════════════════════════════════════════════════════════════════
-    //  UPDATE
+    //  UPDATE — the core render function
     // ══════════════════════════════════════════════════════════════════════
-    function mmUpdate(src){
-      const t = d3.transition().duration(500).ease(d3.easeCubicInOut);
+    function mmUpdate(src) {
+      const dur = 480;
+      const t = d3.transition().duration(dur).ease(d3.easeCubicInOut);
+
       mmLayout(mmRoot);
-      const descs = mmRoot.descendants(), links = mmRoot.links();
 
-      // links
-      const lSel = mmG.selectAll(".mm-link").data(links, d=>d.target.data.name);
-      lSel.enter().append("path").attr("class","mm-link").attr("fill","none").attr("stroke-width","1px").style("opacity",0)
-        .attr("d",d=>{ const o=radPt(src.x0||0,src.y0||0); return `M${o[0]},${o[1]} C${o[0]},${o[1]} ${o[0]},${o[1]} ${o[0]},${o[1]}`; })
-        .attr("stroke",d=>mmColor(d.target))
-        .merge(lSel).transition(t).style("opacity",.35).attr("d",mmLink).attr("stroke",d=>mmColor(d.target));
-      lSel.exit().transition(t).style("opacity",0).attr("d",d=>{ const o=radPt(src.x,src.y); return `M${o[0]},${o[1]} C${o[0]},${o[1]} ${o[0]},${o[1]} ${o[0]},${o[1]}`; }).remove();
+      const descs = mmRoot.descendants();
+      const links  = mmRoot.links();
 
-      // nodes
-      const nSel = mmG.selectAll(".mm-node").data(descs, d=>d.data.name);
-      const nEnter = nSel.enter().append("g").attr("class","mm-node").style("cursor","pointer")
-        .attr("transform",()=>{ const [x,y]=radPt(src.x0||0,src.y0||0); return `translate(${x},${y})`; })
-        .style("opacity",0)
-        .on("click",(e,d)=>{ e.stopPropagation(); mmToggle(d); })
-        .on("mousemove",(e,d)=>mmShowTip(e,d))
-        .on("mouseleave",mmHideTip);
+      /* ── LINKS ── */
+      const lSel = mmG.selectAll(".mm-link").data(links, d => d.target.data.name);
 
-      // pulse ring for root
-      nEnter.filter(d=>d.depth===0).append("circle").attr("class","mm-pulse").attr("r",18).attr("fill","none")
-        .attr("stroke",MM_COLORS.root).attr("stroke-width",1.5).style("opacity",.4);
+      const srcXY = radXY(src);
+      lSel.enter()
+        .insert("path", ".mm-node")   // links behind nodes
+        .attr("class", "mm-link")
+        .attr("fill", "none")
+        .attr("stroke-width", 1)
+        .attr("opacity", 0)
+        .attr("d", () => `M${srcXY[0]},${srcXY[1]} L${srcXY[0]},${srcXY[1]}`)
+        .attr("stroke", d => mmColor(d.target))
+        .merge(lSel)
+        .transition(t)
+        .attr("opacity", 0.3)
+        .attr("stroke", d => mmColor(d.target))
+        .attr("d", mmLinkPath);
 
-      nEnter.append("circle").attr("r",0)
-        .attr("fill",d=>d.depth===0?MM_COLORS.root:"rgba(5,5,13,0.9)")
-        .attr("stroke",d=>mmColor(d))
-        .attr("filter",d=>`url(#mm-glow-${d.data._grp})`);
+      lSel.exit()
+        .transition(t)
+        .attr("opacity", 0)
+        .attr("d", () => { const [ex, ey] = radXY(src); return `M${ex},${ey} L${ex},${ey}`; })
+        .remove();
 
-      nEnter.append("text").attr("dy","0.3em")
-        .style("font-size",d=>d.depth===0?"10px":d.depth===1?"9.5px":d.depth===2?"8.5px":"7.5px")
-        .style("fill",d=>d.depth===0?MM_COLORS.root:mmColor(d))
-        .style("font-family","'DM Mono',monospace").style("pointer-events","none")
-        .style("opacity",0);
+      /* ── NODES ── */
+      const nSel = mmG.selectAll(".mm-node").data(descs, d => d.data.name);
 
+      const nEnter = nSel.enter().append("g")
+        .attr("class", "mm-node")
+        .attr("cursor", "pointer")
+        .attr("transform", () => { const [x, y] = radXY(src); return `translate(${x},${y})`; })
+        .attr("opacity", 0)
+        .on("click",     (e, d) => { e.stopPropagation(); mmToggle(d); })
+        .on("mousemove", (e, d) => mmShowTip(e, d))
+        .on("mouseleave", mmHideTip);
+
+      // Pulse ring (root only)
+      nEnter.filter(d => d.depth === 0)
+        .append("circle")
+        .attr("class", "mm-pulse")
+        .attr("r", 18).attr("fill", "none")
+        .attr("stroke", MM_COLORS.root).attr("stroke-width", 1.5)
+        .attr("opacity", 0.4);
+
+      // Main circle
+      nEnter.append("circle")
+        .attr("class", "mm-circle")
+        .attr("r", 0)
+        .attr("fill",   d => d.depth === 0 ? MM_COLORS.root : "#05050d")
+        .attr("stroke", d => mmColor(d))
+        .attr("filter", d => `url(#mm-glow-${d.data._grp})`);
+
+      // Label
+      nEnter.append("text")
+        .attr("class", "mm-label")
+        .attr("dy", "0.32em")
+        .attr("opacity", 0)
+        .style("pointer-events", "none")
+        .style("font-family", "'DM Mono', monospace")
+        .style("fill", d => d.depth === 0 ? MM_COLORS.root : mmColor(d));
+
+      // ── Merge enter + existing ──
       const nMerge = nEnter.merge(nSel);
-      nMerge.transition(t).attr("transform",d=>{ const [x,y]=radPt(d.x,d.y); return `translate(${x},${y})`; }).style("opacity",1);
 
-      nMerge.select("circle:not(.mm-pulse)").transition(t)
-        .attr("r",mmR)
-        .attr("fill",d=>d.depth===0?MM_COLORS.root:"rgba(5,5,13,0.9)")
-        .attr("stroke",d=>mmColor(d))
-        .attr("stroke-width",d=>d.depth===0?2:(d.children||d._children?1.5:1));
+      // Move group to final radial position (no rotation on the group)
+      nMerge.transition(t)
+        .attr("transform", d => { const [x, y] = radXY(d); return `translate(${x},${y})`; })
+        .attr("opacity", 1);
 
-      nMerge.select("text")
-        .text(d=>{ const n=d.data.name.replace(/\n/g," "); if(d.depth===0) return n; const max=d.depth<=2?30:26; return n.length>max?n.slice(0,max-1)+"…":n; })
-        .attr("text-anchor",d=>d.depth===0?"middle":d.x<Math.PI?"start":"end")
-        .attr("x",d=>{ if(d.depth===0) return 0; const off=mmR(d)+5; return d.x<Math.PI?off:-off; })
-        .attr("y",d=>d.depth===0?30:0)
-        .attr("transform",d=>{ if(d.depth===0) return ""; const deg=d.x*180/Math.PI-90; return `rotate(${d.x>=Math.PI?deg+180:deg})`; })
-        .transition(t).style("opacity",1);
+      // Resize circles
+      nMerge.select(".mm-circle").transition(t)
+        .attr("r", mmR)
+        .attr("fill",         d => d.depth === 0 ? MM_COLORS.root : "#05050d")
+        .attr("stroke",       d => mmColor(d))
+        .attr("stroke-width", d => d.depth === 0 ? 2.5 : (d.children || d._children ? 1.8 : 1.2));
 
-      nSel.exit().transition(t).attr("transform",()=>{ const [x,y]=radPt(src.x,src.y); return `translate(${x},${y})`; }).style("opacity",0).remove();
+      // ── Text labels — correct D3 radial pattern ──
+      // The group is already at (x,y). We rotate the TEXT itself so it
+      // reads outward, then flip text-anchor for the left half.
+      nMerge.select(".mm-label")
+        .text(d => {
+          const name = d.data.name.replace(/\n/g, " ");
+          if (d.depth === 0) return name;
+          const max = d.depth <= 2 ? 28 : 24;
+          return name.length > max ? name.slice(0, max - 1) + "…" : name;
+        })
+        .attr("transform", d => {
+          if (d.depth === 0) return "";
+          // angle in degrees, offset so 0° = right
+          const angleDeg = (d.x * 180 / Math.PI) - 90;
+          // flip text on the left half so it reads left-to-right
+          const flip = d.x > Math.PI ? angleDeg + 180 : angleDeg;
+          return `rotate(${flip})`;
+        })
+        .attr("text-anchor", d => {
+          if (d.depth === 0) return "middle";
+          return d.x > Math.PI ? "end" : "start";
+        })
+        .attr("x", d => {
+          if (d.depth === 0) return 0;
+          return d.x > Math.PI ? -(mmR(d) + 6) : (mmR(d) + 6);
+        })
+        .attr("y", d => d.depth === 0 ? 28 : 0)
+        .style("font-size", d => d.depth === 0 ? "11px" : d.depth === 1 ? "9.5px" : d.depth === 2 ? "8.5px" : "7.5px")
+        .style("font-weight", d => d.depth <= 1 ? "700" : "400")
+        .style("fill", d => d.depth === 0 ? MM_COLORS.root : mmColor(d))
+        .transition(t).attr("opacity", 1);
 
-      descs.forEach(d=>{ d.x0=d.x; d.y0=d.y; });
+      // Exit
+      nSel.exit().transition(t)
+        .attr("transform", () => { const [x, y] = radXY(src); return `translate(${x},${y})`; })
+        .attr("opacity", 0)
+        .remove();
 
-      // counter
-      const vis=mmCountVis(mmRoot).length, tot=mmCountAll(mmRoot).length;
-      document.getElementById("mm-count").textContent=`${vis} / ${tot} visible`;
+      // Save positions for next transition origin
+      descs.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+
+      // Update counter
+      const vis = mmCountVis(mmRoot).length;
+      const tot = mmCountAll(mmRoot).length;
+      document.getElementById("mm-count").textContent = `${vis} / ${tot} visible`;
     }
 
     // ══════════════════════════════════════════════════════════════════════
     //  TOGGLE / EXPAND / COLLAPSE
     // ══════════════════════════════════════════════════════════════════════
-    let hintGone=false;
-    function dismissHint(){ if(!hintGone){ hintGone=true; const h=document.getElementById("mm-hint"); if(h){h.style.opacity="0";setTimeout(()=>h.remove(),600);} } }
+    let hintGone = false;
+    function dismissHint() {
+      if (!hintGone) {
+        hintGone = true;
+        const h = document.getElementById("mm-hint");
+        if (h) { h.style.opacity = "0"; setTimeout(() => h.remove(), 600); }
+      }
+    }
 
-    function mmToggle(d){ dismissHint(); if(d.children){d._children=d.children;d.children=null;}else if(d._children){d.children=d._children;d._children=null;} mmUpdate(d); }
-
-    document.getElementById("mm-expand").onclick=()=>{
+    function mmToggle(d) {
       dismissHint();
-      (function exp(d){ if(d._children){d.children=d._children;d._children=null;} if(d.children) d.children.forEach(exp); })(mmRoot);
+      if (d.children) { d._children = d.children; d.children = null; }
+      else if (d._children) { d.children = d._children; d._children = null; }
+      mmUpdate(d);
+    }
+
+    document.getElementById("mm-expand").onclick = () => {
+      dismissHint();
+      (function exp(d) {
+        if (d._children) { d.children = d._children; d._children = null; }
+        if (d.children) d.children.forEach(exp);
+      })(mmRoot);
       mmUpdate(mmRoot);
-      setTimeout(()=>mmSvg.transition().duration(700).call(mmZoom.transform, d3.zoomIdentity.scale(0.38)),600);
+      setTimeout(() => {
+        mmSvg.transition().duration(700)
+          .call(mmZoom.transform, d3.zoomIdentity.translate(W/2, H/2).scale(0.32));
+      }, 550);
     };
 
-    document.getElementById("mm-collapse").onclick=()=>{
-      (function col(d){ if(d.children){d._children=d.children;d.children=null;} if(d._children) d._children.forEach(col); })(mmRoot);
-      mmRoot.children=mmRoot._children; mmRoot._children=null;
-      mmRoot.children.forEach(mmCollapse);
+    document.getElementById("mm-collapse").onclick = () => {
+      // collapse everything below L1
+      mmRoot.children && mmRoot.children.forEach(branch => {
+        if (branch.children) {
+          branch.children.forEach(mmCollapse);
+        }
+      });
       mmUpdate(mmRoot);
     };
 
-    document.getElementById("mm-reset").onclick=()=>{
-      mmSvg.transition().duration(700).ease(d3.easeCubicInOut).call(mmZoom.transform, d3.zoomIdentity.scale(0.45));
+    document.getElementById("mm-reset").onclick = () => {
+      mmSvg.transition().duration(600).ease(d3.easeCubicInOut)
+        .call(mmZoom.transform, d3.zoomIdentity.scale(0.52));
     };
 
     // ══════════════════════════════════════════════════════════════════════
     //  TOOLTIP
     // ══════════════════════════════════════════════════════════════════════
     const mmTip = document.getElementById("mm-tip");
-    function mmShowTip(e,d){
-      const col=mmColor(d), depLabel=DEPTH_LABELS[d.depth]||`L${d.depth}`;
-      const kids=d.children?`${d.children.length} expanded`:d._children?`${d._children.length} collapsed`:"leaf node";
-      mmTip.innerHTML=`<span style="color:${col};font-weight:700">${d.data.name.replace(/\n/g," ")}</span><div style="font-size:9px;color:#4a5568;margin-top:3px;">${depLabel} · ${kids}</div>`;
-      mmTip.style.display="block";
-      mmTip.style.left=(e.clientX+14)+"px";
-      mmTip.style.top=(e.clientY-10)+"px";
+    const DEPTH_LABELS2 = ["Root", "Branch", "L2", "L3", "L4", "L5"];
+    function mmShowTip(e, d) {
+      const col = mmColor(d);
+      const label = DEPTH_LABELS2[d.depth] || `L${d.depth}`;
+      const kinfo = d.children ? `${d.children.length} expanded`
+                  : d._children ? `${d._children.length} collapsed`
+                  : "leaf";
+      mmTip.innerHTML = `<span style="color:${col};font-weight:700">${d.data.name.replace(/\n/g," ")}</span>`
+                      + `<div style="font-size:9px;color:#4a5568;margin-top:3px;">${label} · ${kinfo}</div>`;
+      mmTip.style.display = "block";
+      mmTip.style.left = (e.clientX + 14) + "px";
+      mmTip.style.top  = (e.clientY - 10) + "px";
     }
-    function mmHideTip(){ mmTip.style.display="none"; }
+    function mmHideTip() { mmTip.style.display = "none"; }
 
-    // ── pulse animation ────────────────────────────────────────────────────
+    // ── Pulse animation ──────────────────────────────────────────────────
     const mmStyle = document.createElement("style");
-    mmStyle.textContent=`@keyframes mm-pulse{0%{r:18;opacity:0.5}100%{r:34;opacity:0}} .mm-pulse{animation:mm-pulse 2s ease-out infinite;}`;
+    mmStyle.textContent = `
+      @keyframes mm-pulse { 0%{r:18;opacity:0.5} 100%{r:32;opacity:0} }
+      .mm-pulse { animation: mm-pulse 2s ease-out infinite; }
+    `;
     document.head.appendChild(mmStyle);
 
-    // ── initial render ─────────────────────────────────────────────────────
+    // ── Initial render ───────────────────────────────────────────────────
     mmUpdate(mmRoot);
-    mmSvg.call(mmZoom.transform, d3.zoomIdentity.scale(0.9));
+    // Start slightly zoomed out so all 5 branches are visible
+    mmSvg.call(mmZoom.transform, d3.zoomIdentity.scale(0.52));
     </script>
 </body>
 </html>
