@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation | UNHINGED THINKERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .evaluation-container { display: flex; flex-direction: column; gap: 4rem; padding-bottom: 8rem; }
+        
+        /* Matrix Section */
+        .matrix-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matrix-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: 
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 10% 10%; /* 10x10 grid */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+
+        /* Centered Axes */
+        .matrix-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 0; bottom: 0;
+            width: 2px; background: rgba(255,255,255,0.3);
+            z-index: 2;
+        }
+        .matrix-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 2px; background: rgba(255,255,255,0.3);
+            z-index: 2;
+        }
+
+        .quadrant {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 1rem;
+            font-family: var(--font-heading);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            opacity: 0.3;
+        }
+
+        .quadrant.quick-wins { background: rgba(0, 255, 136, 0.05); color: #00ff88; }
+        .quadrant.major-projects { background: rgba(255, 107, 0, 0.05); color: #ff6b00; align-items: flex-start; justify-content: flex-end; }
+        .quadrant.fill-ins { background: rgba(0, 149, 255, 0.05); color: #0095ff; align-items: flex-end; justify-content: flex-start; }
+        .quadrant.low-priority { background: rgba(255, 0, 60, 0.05); color: #ff003c; align-items: flex-end; justify-content: flex-end; }
+
+        /* Point Styling */
+        .point {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Mono', monospace;
+            font-weight: 900;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            border: 2px solid white;
+            transform: translate(-50%, 50%); /* Center on coordinate */
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        .point:hover {
+            transform: translate(-50%, 50%) scale(1.3);
+            z-index: 100;
+            filter: brightness(1.2);
+        }
+
+        /* Detail Modal */
+        #idea-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 400px;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--accent-primary);
+            padding: 2.5rem;
+            border-radius: 30px;
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        #idea-modal.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 999;
+            display: none;
+        }
+        .modal-overlay.active { display: block; }
+        .close-modal {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: none; border: none; color: white;
+            cursor: pointer; font-size: 1.5rem;
+        }
+
+        /* Idea List */
+        .top-30-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 4rem; }
+        .idea-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 1.2rem;
+            font-size: 1rem; /* Increased from 0.8rem */
+            cursor: pointer;
+            line-height: 1.4;
+        }
+        .idea-card:hover { border-color: rgba(255,255,255,0.2); }
+
+        @media (max-width: 1000px) { .top-30-list { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 600px) { .top-30-list { grid-template-columns: 1fr; } }
+
+        /* Axis Labels */
+        .axis-label {
+            position: absolute;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            z-index: 100;
+        }
+        .y-axis-label {
+            left: -50px;
+            top: 50%;
+            transform: rotate(-90deg) translateX(-50%);
+            transform-origin: center;
+            white-space: nowrap;
+        }
+        .x-axis-label {
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="main-nav">
+            <div class="logo">UNHINGED THINKERS</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="discovery.html">Discovery</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="user.html">User Understanding</a></li>
+                <li><a href="problem.html">Problem Framing</a></li>
+                <li><a href="ideation.html">Ideation</a></li>
+                <li><a href="evaluation.html" class="active">Evaluation</a></li>
+                <li><a href="solution.html">Solution</a></li>
+                <li><a href="reflection.html">Reflection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container evaluation-container">
+        <section class="section-header">
+            <span class="eyebrow">Phase 08</span>
+            <h1 class="gradient-text">Prioritization Matrix</h1>
+            <p>We've mapped our top 30 solutions onto a <strong>Value vs. Effort Matrix</strong> to determine where to focus our energy.</p>
+        </section>
+
+        <section class="matrix-explanation" style="margin-bottom: 2rem; max-width: 800px; line-height: 1.8; opacity: 0.9;">
+            <h3 style="color: var(--accent-secondary); margin-bottom: 1rem;">How to read this graph:</h3>
+            <p>This graph uses a 10x10 number plane to evaluate ideas. The <strong>X-axis (Horizontal)</strong> represents the <strong>Effort</strong> required to build the solution (1 = Easy, 10 = Complex). The <strong>Y-axis (Vertical)</strong> represents the <strong>Value</strong> or impact of the solution (1 = Low, 10 = High Impact).</p>
+            <ul style="list-style: none; padding: 0; margin-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
+                <li>🟢 <strong>Quick Wins:</strong> High Impact, Low Effort (Build these first!)</li>
+                <li>🟠 <strong>Major Projects:</strong> High Impact, High Effort (Strategic long-term goals)</li>
+                <li>🔵 <strong>Fill-ins:</strong> Low Impact, Low Effort (Do if there's spare time)</li>
+                <li>🔴 <strong>Low Priority:</strong> Low Impact, High Effort (Avoid these)</li>
+            </ul>
+        </section>
+
+        <section class="matrix-section">
+            <div class="matrix-wrapper" id="matrix">
+                <div class="quadrant quick-wins">Quick Wins</div>
+                <div class="quadrant major-projects">Major Projects</div>
+                <div class="quadrant fill-ins">Fill-ins</div>
+                <div class="quadrant low-priority">Low Priority</div>
+                
+                <div class="axis-label y-axis-label">VALUE (Impact) &rarr;</div>
+                <div class="axis-label x-axis-label">EFFORT (Complexity) &rarr;</div>
+            </div>
+        </section>
+
+        <section>
+            <div class="top-30-list" id="idea-list"></div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="overlay"></div>
+    <div id="idea-modal">
+        <button class="close-modal" id="close">&times;</button>
+        <div id="modal-content"></div>
+    </div>
+
+    <footer><div class="container"><p>&copy; 2026 UNHINGED THINKERS</p></div></footer>
+
+    <script>
+        const top30 = [
+            // Quick Wins (Value 6-10, Effort 1-5) - #00ff88
+            { id: 1, title: "AI Confidence Meter", value: 9, effort: 2, quadrant: "quick-wins", desc: "Real-time uncertainty visualization for AI answers." },
+            { id: 2, title: "Why This Could Be Wrong", value: 8.5, effort: 3, quadrant: "quick-wins", desc: "A button that forces AI to self-critique its own answer." },
+            { id: 3, title: "Hallucination Risk Meter", value: 8, effort: 4, quadrant: "quick-wins", desc: "Statistical risk indicator for factual claims." },
+            { id: 4, title: "Devil's Advocate Mode", value: 8.2, effort: 4.5, quadrant: "quick-wins", desc: "Systematic counter-arguments for every AI output." },
+            { id: 5, title: "Bias Score Extension", value: 7.5, effort: 2.8, quadrant: "quick-wins", desc: "Browser plugin labeling bias in search results." },
+            { id: 19, title: "Verify First Mode", value: 7.8, effort: 2.5, quadrant: "quick-wins", desc: "Operating system level verification requirement." },
+            { id: 26, title: "Verify Before Share", value: 9.2, effort: 3.5, quadrant: "quick-wins", desc: "Social media plugin blocking unverified AI posts." },
+
+            // Major Projects (Value 6-10, Effort 6-10) - #ff6b00
+            { id: 6, title: "VR Perspective Experience", value: 9, effort: 9, quadrant: "major-projects", desc: "Immersive VR showing consequences of blind trust." },
+            { id: 7, title: "Opposite News Feed", value: 8.5, effort: 8.2, quadrant: "major-projects", desc: "A social feed that only shows contradicting viewpoints." },
+            { id: 9, title: "Think Before Reveal", value: 8.5, effort: 6.5, quadrant: "major-projects", desc: "Homework app locking answers until student predicts first." },
+            { id: 10, title: "Reverse Google", value: 8.2, effort: 8.8, quadrant: "major-projects", desc: "Search engine that asks questions before giving results." },
+            { id: 12, title: "Source-First AI", value: 9, effort: 6.2, quadrant: "major-projects", desc: "AI that refuses to talk without 3 verified sources." },
+            { id: 17, title: "Socratic AI Tutor", value: 9.5, effort: 8.5, quadrant: "major-projects", desc: "AI that never gives answers, only leading questions." },
+            { id: 23, title: "AI Overreliance Audit", value: 8.8, effort: 7.8, quadrant: "major-projects", desc: "Corporate-level risk assessment for AI usage." },
+            { id: 25, title: "Misinformation Escape Room", value: 8, effort: 9.5, quadrant: "major-projects", desc: "Physical attraction for high-stakes logic training." },
+            { id: 27, title: "AI Literacy Course", value: 8.5, effort: 8.5, quadrant: "major-projects", desc: "Nationwide curriculum for schools on AI errors." },
+            { id: 29, title: "Digital Detox Cafes", value: 7, effort: 9, quadrant: "major-projects", desc: "Physical spaces with zero AI for deep work." },
+
+            // Fill-ins (Value 1-5, Effort 1-5) - #0095ff
+            { id: 11, title: "AI Patience Mode", value: 4.5, effort: 2.2, quadrant: "fill-ins", desc: "Intentionally slow AI that rewards reflection." },
+            { id: 13, title: "Mistake Museum", value: 5.2, effort: 4, quadrant: "fill-ins", desc: "Archive of historical AI errors for public education." },
+            { id: 14, title: "Truth Challenge Game", value: 4.8, effort: 4.8, quadrant: "fill-ins", desc: "Gamified fact-checking competitions for students." },
+            { id: 16, title: "Cognitive Gym App", value: 4, effort: 3.2, quadrant: "fill-ins", desc: "Daily mental workouts to break habit loops." },
+            { id: 21, title: "Ask Another AI Plugin", value: 3.5, effort: 2.8, quadrant: "fill-ins", desc: "One-click comparison across multiple LLM models." },
+            { id: 22, title: "Bias Reflection Journal", value: 2.5, effort: 2, quadrant: "fill-ins", desc: "Daily diary for noting biased AI interactions." },
+
+            // Low Priority (Value 1-5, Effort 6-10) - #ff003c
+            { id: 24, title: "Smartwatch Vibration", value: 3.5, effort: 6.8, quadrant: "low-priority", desc: "Vibrations when passive agreement is detected." },
+            { id: 28, title: "Human Judgment Score", value: 4, effort: 7.5, quadrant: "low-priority", desc: "Analytics showing when users overruled the AI." },
+            { id: 30, title: "AI Tax System", value: 2, effort: 8.5, quadrant: "low-priority", desc: "Digital points system where AI help costs currency." },
+            
+            // Mixing some more to fill gaps
+            { id: 15, title: "AI Thought Partner", value: 6.5, effort: 7.5, quadrant: "major-projects", desc: "High-level companion focused on reasoning logic." },
+            { id: 18, title: "Trust-Score Dashboard", value: 6.8, effort: 4.5, quadrant: "quick-wins", desc: "Personal analytics for AI dependency levels." },
+            { id: 20, title: "AI Response Audit Trail", value: 6.2, effort: 6.2, quadrant: "major-projects", desc: "Visual map of how an AI formed its final answer." },
+            { id: 8, title: "Perspective Roulette", value: 6.5, effort: 3.2, quadrant: "quick-wins", desc: "App switching between cultural/political viewpoints." }
+        ];
+
+        const colors = {
+            "quick-wins": "#00ff88",
+            "major-projects": "#ff6b00",
+            "fill-ins": "#0095ff",
+            "low-priority": "#ff003c"
+        };
+
+        const matrix = document.getElementById('matrix');
+        const ideaList = document.getElementById('idea-list');
+        const modal = document.getElementById('idea-modal');
+        const overlay = document.getElementById('overlay');
+        const modalContent = document.getElementById('modal-content');
+
+        function openModal(idea) {
+            modalContent.innerHTML = `
+                <span class="eyebrow" style="color: ${colors[idea.quadrant]}">#${idea.id} | ${idea.quadrant.replace('-', ' ')}</span>
+                <h2 style="margin: 1rem 0; font-family: var(--font-heading);">${idea.title}</h2>
+                <p style="opacity: 0.8; line-height: 1.6; margin-bottom: 2rem;">${idea.desc}</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 15px;">
+                        <span style="font-size: 0.6rem; opacity: 0.5; display: block; margin-bottom: 0.3rem;">VALUE SCORE</span>
+                        <span style="font-family: 'DM Mono'; font-size: 1.5rem; font-weight: 800; color: ${colors[idea.quadrant]}">${idea.value}/10</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 15px;">
+                        <span style="font-size: 0.6rem; opacity: 0.5; display: block; margin-bottom: 0.3rem;">EFFORT SCORE</span>
+                        <span style="font-family: 'DM Mono'; font-size: 1.5rem; font-weight: 800; color: white">${idea.effort}/10</span>
+                    </div>
+                </div>
+            `;
+            modal.style.borderColor = colors[idea.quadrant];
+            modal.classList.add('active');
+            overlay.classList.add('active');
+        }
+
+        function showTooltip(ev, idea) {
+            const tip = document.getElementById('whys-tip'); // Reusing the tip from user page logic if style.css allows
+            tip.style.display = 'block';
+            tip.style.backgroundColor = 'rgba(0,0,0,0.9)';
+            tip.style.border = `1px solid ${colors[idea.quadrant]}`;
+            tip.style.padding = '1rem';
+            tip.style.borderRadius = '12px';
+            tip.style.width = '200px';
+            tip.innerHTML = `
+                <strong style="color:${colors[idea.quadrant]}">#${idea.id} ${idea.title}</strong>
+                <p style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.8;">${idea.desc}</p>
+                <div style="margin-top: 0.5rem; font-family: 'DM Mono'; font-size: 0.7rem;">V: ${idea.value} | E: ${idea.effort}</div>
+            `;
+            tip.style.left = (ev.clientX + 15) + "px";
+            tip.style.top = (ev.clientY - 10) + "px";
+        }
+
+        function hideTooltip() {
+            document.getElementById('whys-tip').style.display = 'none';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        document.getElementById('close').onclick = closeModal;
+        overlay.onclick = closeModal;
+
+        top30.forEach(idea => {
+            // Create Point
+            const point = document.createElement('div');
+            point.className = 'point';
+            point.style.backgroundColor = colors[idea.quadrant];
+            // X axis is Effort (1-10) -> (effort/10 * 100)%
+            // Y axis is Value (1-10) -> (value/10 * 100)% from bottom
+            point.style.left = `${(idea.effort / 10) * 100}%`;
+            point.style.bottom = `${(idea.value / 10) * 100}%`;
+            point.innerText = idea.id;
+            point.onclick = () => openModal(idea);
+            point.onmouseover = (ev) => showTooltip(ev, idea);
+            point.onmousemove = (ev) => showTooltip(ev, idea);
+            point.onmouseout = hideTooltip;
+            matrix.appendChild(point);
+
+            // Create Card
+            const card = document.createElement('div');
+            card.className = 'idea-card';
+            card.innerHTML = `<strong>${idea.id}. ${idea.title}</strong>`;
+            card.onclick = () => openModal(idea);
+            card.onmouseover = (ev) => showTooltip(ev, idea);
+            card.onmousemove = (ev) => showTooltip(ev, idea);
+            card.onmouseout = hideTooltip;
+            ideaList.appendChild(card);
+        });
+    </script>
+    <div id="whys-tip" style="display: none; position: fixed; pointer-events: none; z-index: 10000; backdrop-filter: blur(10px);"></div>
+</body>
+</html>

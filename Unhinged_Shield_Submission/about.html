@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | UNHINGED THINKERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .team-section {
+            margin-top: 4rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .member-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-secondary);
+            background: rgba(0, 212, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .member-pic {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            border: 4px solid var(--accent-primary);
+            margin-bottom: 1rem;
+            background: rgba(255,255,255,0.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transition: var(--transition);
+        }
+
+        .member-card:hover .member-pic {
+            transform: scale(1.05);
+            border-color: var(--accent-secondary);
+        }
+
+        .member-name {
+            font-family: var(--font-heading);
+            font-size: 1.35rem; /* Increased */
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .member-roll {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem; /* Increased from 0.85rem */
+            color: var(--accent-secondary);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .about-text p {
+            font-size: 1.2rem; /* Increased from 1.1rem */
+            opacity: 0.9; /* Increased */
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 968px) {
+            .about-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="main-nav">
+            <div class="logo">UNHINGED THINKERS</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+                <li><a href="discovery.html">Discovery</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="user.html">User Understanding</a></li>
+                <li><a href="problem.html">Problem Framing</a></li>
+                <li><a href="ideation.html">Ideation</a></li>
+                <li><a href="evaluation.html">Evaluation</a></li>
+                <li><a href="solution.html">Solution</a></li>
+                <li><a href="reflection.html">Reflection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section id="about-intro">
+            <div class="section-header">
+                <span class="eyebrow">The Team</span>
+                <h1 class="gradient-text">About UNHINGED THINKERS</h1>
+            </div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>We are a group of passionate individuals dedicated to exploring the intersection of technology and human ethics. In a world increasingly driven by automated decision-making, our project focuses on preserving digital integrity and critical thinking.</p>
+                    <p>Our team name, UNHINGED THINKERS, reflects our commitment to stepping outside conventional boundaries and questioning the status quo of AI dependency.</p>
+                </div>
+                <div class="discovery-card">
+                    <h3>Our Mission</h3>
+                    <p>To analyze the psychological impact of AI over-reliance and propose ethical frameworks that empower users to maintain their cognitive independence.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <div class="section-header">
+                <h2>Our Members</h2>
+                <p>The brilliant minds behind this project.</p>
+            </div>
+            <div class="team-grid">
+                <div class="member-card">
+                    <img src="profile%20pics/dhatri2.png" alt="Dhatri Manohar" class="member-pic">
+                    <span class="member-name">Dhatri Manohar</span>
+                    <span class="member-roll">SE24UCSE206</span>
+                </div>
+                <div class="member-card">
+                    <img src="profile%20pics/sahana.jpeg" alt="Sahana Goud" class="member-pic">
+                    <span class="member-name">Sahana Goud</span>
+                    <span class="member-roll">SE24UMCS080</span>
+                </div>
+                <div class="member-card">
+                    <img src="profile%20pics/sathvik.png" alt="Sai Sathvik P" class="member-pic">
+                    <span class="member-name">Sai Sathvik P</span>
+                    <span class="member-roll">SE24UMCS004</span>
+                </div>
+                <div class="member-card">
+                    <img src="profile%20pics/balu.png" alt="T. Durga Prasad" class="member-pic">
+                    <span class="member-name">T. Durga Prasad</span>
+                    <span class="member-roll">SE24UCSE066</span>
+                </div>
+                <div class="member-card">
+                    <img src="profile%20pics/vishnu.jpeg" alt="K Vishnu Vardhan Rao" class="member-pic">
+                    <span class="member-name">K Vishnu Vardhan Rao</span>
+                    <span class="member-roll">SE24UMCS040</span>
+                </div>
+                <div class="member-card">
+                    <img src="profile%20pics/aishwarya.jpeg" alt="S Aishwarya" class="member-pic">
+                    <span class="member-name">S Aishwarya</span>
+                    <span class="member-roll">SE24UMCS065</span>
+                </div>
+                <div class="member-card">
+                    <img src="profile%20pics/koushik.jpeg" alt="M. Koushik Reddy" class="member-pic">
+                    <span class="member-name">M. Koushik Reddy</span>
+                    <span class="member-roll">SE24UCSE087</span>
+                </div>
+                <div class="member-card">
+                    <img src="profile%20pics/vidip2.jpeg" alt="Vidip Reddy K" class="member-pic">
+                    <span class="member-name">Vidip Reddy K</span>
+                    <span class="member-roll">SE24UMCS081</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 UNHINGED THINKERS - AI Ethics Project</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

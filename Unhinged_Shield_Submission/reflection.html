@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflection | UNHINGED THINKERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .reflection-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 10rem;
+        }
+
+        .reflection-block {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 24px;
+            margin-bottom: 2.5rem;
+        }
+
+        .reflection-block h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            color: var(--accent-secondary);
+        }
+
+        .reflection-block p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .points-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .point-item {
+            background: rgba(255,255,255,0.03);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        .point-item h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .points-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="main-nav">
+            <div class="logo">UNHINGED THINKERS</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="discovery.html">Discovery</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="user.html">User Understanding</a></li>
+                <li><a href="problem.html">Problem Framing</a></li>
+                <li><a href="ideation.html">Ideation</a></li>
+                <li><a href="evaluation.html">Evaluation</a></li>
+                <li><a href="solution.html">Solution</a></li>
+                <li><a href="reflection.html" class="active">Reflection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container reflection-container">
+        <section class="section-header">
+            <span class="eyebrow">Phase 10</span>
+            <h1 class="gradient-text">Reflection</h1>
+            <p>A summary of our design thinking process and the key takeaways from the Unhinged Thinkers project.</p>
+        </section>
+
+        <div class="reflection-block">
+            <h2>Project Summary</h2>
+            <p>Our project focused on the growing issue of <strong>Blind AI Trust</strong>. We started by exploring why people accept AI answers without question and used research tools like the 5-Whys to find the root causes. We discovered that a combination of mental laziness and a desire for instant answers was creating a safety risk for users.</p>
+            <p>To solve this, we developed the <strong>Unhinged Shield</strong> prototype—a browser extension that helps users double-check facts and protects their private data from being leaked to AI models.</p>
+        </div>
+
+        <div class="reflection-block">
+            <h2>Useful Takeaways</h2>
+            <div class="points-list">
+                <div class="point-item">
+                    <h3>User Awareness</h3>
+                    <p>We realized that many users are completely unaware of AI hallucinations and data privacy risks.</p>
+                </div>
+                <div class="point-item">
+                    <h3>Safety by Design</h3>
+                    <p>Safety tools should be built into the workflow, like our "Stop-and-Confirm" privacy guard.</p>
+                </div>
+                <div class="point-item">
+                    <h3>Critical Thinking</h3>
+                    <p>The goal of our solution is to encourage users to pause and think rather than just copy-pasting.</p>
+                </div>
+                <div class="point-item">
+                    <h3>Collaborative Work</h3>
+                    <p>Working as a team helped us explore hundreds of ideas and select the most feasible solution.</p>
+                </div>
+            </div>
+        </div>
+
+        <section style="text-align: center; margin: 8rem 0;">
+            <h1 style="font-size: 8rem; font-weight: 900; margin: 0; line-height: 1;" class="gradient-text">THANK YOU</h1>
+            <p style="font-size: 1.5rem; opacity: 0.6; margin-top: 1.5rem; font-family: var(--font-heading);">FOR YOUR TIME & ATTENTION</p>
+        </section>
+
+        <section style="text-align: center; margin-top: 5rem; opacity: 0.4; font-size: 0.8rem; font-family: 'DM Mono', monospace;">
+            <p>PROJECT COMPLETE | UNHINGED THINKERS v1.0</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 UNHINGED THINKERS</p>
+        </div>
+    </footer>
+</body>
+</html>

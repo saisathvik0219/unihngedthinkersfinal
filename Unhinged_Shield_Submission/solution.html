@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution | UNHINGED THINKERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .solution-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 10rem;
+        }
+
+        .text-block {
+            margin-bottom: 4rem;
+            line-height: 1.8;
+        }
+
+        .text-block h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-secondary);
+        }
+
+        .text-block p {
+            font-size: 1.2rem;
+            opacity: 0.85;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .prototype-visual {
+            background: #0a0a0a;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 2rem;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: 0.3s;
+        }
+        .prototype-visual:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .demo-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .mechanic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .mechanic-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 24px;
+        }
+
+        .mechanic-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-family: var(--font-heading);
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-family: 'DM Mono', monospace;
+            margin-bottom: 1rem;
+        }
+
+        .warning-pill {
+            padding: 6px 15px;
+            border-radius: 100px;
+            font-family: 'DM Mono';
+            font-size: 0.7rem;
+            border: 1px solid currentColor;
+        }
+
+        @media (max-width: 900px) {
+            .demo-container, .mechanic-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <style>
+        .browser-mockup {
+            max-width: 1000px;
+            margin: 4rem auto;
+            background: #0d1117;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            box-shadow: 0 80px 160px rgba(0,0,0,0.8);
+            position: relative;
+            font-family: 'Inter', sans-serif;
+        }
+        .browser-sidebar {
+            width: 240px;
+            background: #0d1117;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            padding: 20px;
+            display: none;
+        }
+        @media (min-width: 900px) {
+            .browser-sidebar { display: block; }
+        }
+        #shield-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 300px;
+            background: #060A10;
+            border: 1px solid #00d4ff;
+            border-radius: 16px;
+            z-index: 500;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+            padding: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(-20px) scale(0.9);
+            opacity: 0;
+            pointer-events: none;
+        }
+        #shield-popup.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+        .msg-bubble {
+            align-self: flex-start;
+            max-width: 85%;
+            background: rgba(255,255,255,0.03);
+            padding: 1.2rem;
+            border-radius: 4px 18px 18px 18px;
+            border: 1px solid rgba(255,255,255,0.05);
+            color: white;
+            transition: 0.3s;
+        }
+        .msg-user {
+            align-self: flex-end;
+            background: #0d1117;
+            border-radius: 18px 18px 4px 18px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="main-nav">
+            <div class="logo">UNHINGED THINKERS</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="discovery.html">Discovery</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="user.html">User Understanding</a></li>
+                <li><a href="problem.html">Problem Framing</a></li>
+                <li><a href="ideation.html">Ideation</a></li>
+                <li><a href="evaluation.html">Evaluation</a></li>
+                <li><a href="solution.html" class="active">Solution</a></li>
+                <li><a href="reflection.html">Reflection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container solution-content">
+        <section class="section-header">
+            <span class="eyebrow">The Proposal</span>
+            <h1 class="gradient-text">Unhinged Shield</h1>
+            <p>A multi-agent browser integrity layer that combats blind AI trust through real-time factual auditing and privacy protection.</p>
+        </section>
+
+        <article class="text-block">
+            <h2>The Vision</h2>
+            <p>The <strong>Unhinged Shield</strong> is a browser extension designed to protect users from the two greatest risks of modern AI: <strong>Hallucinations</strong> and <strong>Data Leaks</strong>. By sitting between the user and the AI, it introduces a necessary moment of reflection.</p>
+        </article>
+
+        <section class="text-block">
+            <span class="eyebrow">The Evolution</span>
+            <h2 class="gradient-text">Convergence of Concepts</h2>
+            <p>The <strong>Unhinged Shield</strong> is the final synthesis of three high-performing ideas from our 6-3-5 brainwriting phase.</p>
+            
+            <div class="mechanic-grid" style="margin-top: 3rem; text-align: left;">
+                <div class="mechanic-card" style="border-left: 4px solid #00d4ff;">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Compare AIs to find the truth</h3>
+                    <p style="font-size: 0.85rem; opacity: 0.7;">"We should make a system that asks three different AI models the same question and compares their answers to see if they are lying."</p>
+                </div>
+                <div class="mechanic-card" style="border-left: 4px solid #ffbd2e;">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Add a blur to make us pause</h3>
+                    <p style="font-size: 0.85rem; opacity: 0.7;">"I think it should blur out the AI response if it's suspicious, so that we have to click a button and actually think before we read it."</p>
+                </div>
+                <div class="mechanic-card" style="border-left: 4px solid #ff5f56;">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Block secret info before it's sent</h3>
+                    <p style="font-size: 0.85rem; opacity: 0.7;">"Let's build a plugin that scans for passwords or private info while you type and blocks the connection before the AI can even see it."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="text-block" style="margin-top: 5rem;">
+            <span class="eyebrow">Interactive Demo</span>
+            <h2>Test the Unhinged Shield</h2>
+            <p>Select a scenario below to see how the Shield intervenes in real-time, or type your own message in the simulation.</p>
+            
+            <!-- ALL SCENARIO SELECTORS (GROUPED AT TOP) -->
+            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center; margin: 3rem 0;">
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                    <button onclick="demoMode('false')" style="background: #ff3333; color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 0.85rem; font-weight: 800; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(255,51,51,0.2); width: 280px;">DEMO: FALSE INFO AUDIT</button>
+                    <button onclick="demoMode('real')" style="background: #4ADE80; color: #000; border: none; padding: 12px 24px; border-radius: 12px; font-size: 0.85rem; font-weight: 800; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(74,222,128,0.2); width: 280px;">DEMO: REAL INFO CHECK</button>
+                </div>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                    <button onclick="demoModeSensitive('true')" style="background: #ff5f56; color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 0.85rem; font-weight: 800; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(255,95,86,0.2); width: 280px;">DEMO: SENSITIVE DATA LEAK</button>
+                    <button onclick="demoModeSensitive('false')" style="background: #60a5fa; color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 0.85rem; font-weight: 800; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(96,165,250,0.2); width: 280px;">DEMO: NON-SENSITIVE CHAT</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BROWSER SIMULATION -->
+        <div class="browser-mockup" style="position: relative; max-width: 1100px; margin: 0 auto 5rem; background: #0d1117; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.6);">
+            <!-- Address Bar Area -->
+            <div style="background: #161b22; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 15px;">
+                <div style="display: flex; gap: 8px;">
+                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
+                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
+                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f;"></div>
+                </div>
+                <div style="flex: 1; background: #0d1117; border-radius: 6px; padding: 6px 15px; color: rgba(255,255,255,0.5); font-size: 0.75rem; border: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;">
+                    <span>https://unhinged-ai-assistant.com/chat</span>
+                    <span onclick="toggleShield()" style="cursor: pointer; font-size: 1rem; filter: drop-shadow(0 0 5px #00d4ff);">🛡️</span>
+                </div>
+            </div>
+
+            <div style="display: flex; height: 600px;">
+                <!-- Sidebar -->
+                <div style="width: 240px; background: #06090e; border-right: 1px solid rgba(255,255,255,0.05); padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+                    <button style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px; border-radius: 8px; text-align: left; font-size: 0.75rem;">+ New Chat</button>
+                    <div style="margin-top: 20px; font-size: 0.65rem; color: rgba(255,255,255,0.3); text-transform: uppercase; font-weight: 800;">Recent Sessions</div>
+                    <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Research Project A</div>
+                    <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6);">Homework Help</div>
+                </div>
+
+                <!-- Chat Area -->
+                <div style="flex: 1; display: flex; flex-direction: column; position: relative;">
+                    <!-- Shield Popup (Extension) -->
+                    <div id="shield-popup" style="position: absolute; top: 10px; right: 10px; width: 280px; background: #0d1117; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; z-index: 1000; box-shadow: 0 20px 40px rgba(0,0,0,0.5); display: none; flex-direction: column; overflow: hidden; backdrop-filter: blur(20px);">
+                        <div style="background: #161b22; padding: 12px; font-size: 0.7rem; font-weight: 900; letter-spacing: 1px; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <span>🛡️ SHIELD ANALYTICS</span>
+                            <span onclick="toggleShield()" style="cursor:pointer; opacity: 0.5;">✕</span>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px;">
+                                <div style="font-size: 0.65rem; opacity: 0.5;">ENSEMBLE TRUST</div>
+                                <div id="p-score" style="font-size: 1.5rem; font-weight: 900; color: #4ADE80;">100%</div>
+                            </div>
+                            <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
+                                <div id="p-bar" style="width: 100%; height: 100%; background: #4ADE80; transition: 0.5s;"></div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.7rem;">
+                                    <span style="opacity: 0.5;">Model Consensus:</span>
+                                    <span id="p-status" style="font-weight: 800; color: #4ADE80;">✅ ALL_CLEAR</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.7rem;">
+                                    <span style="opacity: 0.5;">Active Agents:</span>
+                                    <span style="font-weight: 800;">3 (GPT4, Claude, Llama)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 12px; background: rgba(0,212,255,0.05); font-size: 0.6rem; text-align: center; color: #00d4ff; border-top: 1px solid rgba(0,212,255,0.1);">
+                            SYSTEM SECURED BY UNHINGED LAYER
+                        </div>
+                    </div>
+
+                    <!-- Privacy Guard Overlay -->
+                    <div id="p-guard" style="position: absolute; inset: 0; background: rgba(13, 17, 23, 0.95); z-index: 1500; display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+                        <div style="text-align: center; max-width: 400px; padding: 40px; border: 2px solid #ff3333; border-radius: 24px; background: rgba(255,51,51,0.05);">
+                            <div style="font-size: 3rem; margin-bottom: 20px;">🚨</div>
+                            <h3 style="color: #ff3333; font-size: 1.5rem; font-weight: 900; margin-bottom: 10px;">PRIVACY LEAK DETECTED</h3>
+                            <p style="font-size: 0.85rem; opacity: 0.7; margin-bottom: 20px;">The Shield intercepted sensitive data: <strong id="p-word" style="color: white; border-bottom: 1px dashed white;">password</strong></p>
+                            <p id="p-warning" style="font-size: 0.75rem; color: #ffbd2e; margin-bottom: 30px; font-weight: 600; line-height: 1.4; padding: 10px; background: rgba(255,189,46,0.1); border-radius: 8px;">IMPORTANT: Never share sensitive info like this with any AI.</p>
+                            <div style="display: flex; gap: 10px;">
+                                <button onclick="pClean()" style="flex: 1; background: #ff3333; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer;">SCRUB INPUT</button>
+                                <button onclick="pIgnore()" style="flex: 1; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px; border-radius: 8px; font-size: 0.7rem; cursor: pointer;">ACCEPT RISK</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Bubbles -->
+                    <div id="ai-chat" style="flex: 1; overflow-y: auto; padding: 2.5rem; display: flex; flex-direction: column; gap: 2rem; scroll-behavior: smooth;">
+                        <div class="msg-bubble">
+                            <p style="font-size: 0.95rem; margin: 0; line-height: 1.6; opacity: 0.9;">Hello! I am your AI Assistant. How can I help you today?</p>
+                        </div>
+                    </div>
+
+                    <div id="typing" style="display:none; padding: 0 2.5rem 1rem; font-size: 0.75rem; color: rgba(255,255,255,0.4); font-style: italic;">AI is thinking...</div>
+
+                    <!-- Input Bar -->
+                    <div style="padding: 1.5rem 2rem 2rem; background: linear-gradient(to top, #0d1117, transparent);">
+                        <!-- Guided Text (Pre-fills only) -->
+                        <div style="margin-bottom: 1.2rem; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                            <span style="font-size: 0.7rem; color: rgba(255,255,255,0.4); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Try typing:</span>
+                            <span style="font-size: 0.75rem; color: #ff5f56; background: rgba(255,95,86,0.1); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255,95,86,0.2);">"bank account"</span>
+                            <span style="font-size: 0.75rem; color: #00d4ff; background: rgba(0,212,255,0.1); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(0,212,255,0.2);">"miracle cure"</span>
+                        </div>
+
+                        <div style="max-width: 750px; margin: 0 auto; background: #343541; border-radius: 16px; padding: 12px 20px; display: flex; align-items: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                            <input id="ai-input" placeholder="Message AI Assistant..." style="flex: 1; background: transparent; border: none; color: white; padding: 8px 0; outline: none; font-size: 1rem;">
+                            <button id="ai-send" onclick="runSim()" style="background: #00d4ff; border: none; color: #000; width: 35px; height: 35px; border-radius: 8px; cursor: pointer; font-weight: 900; display: flex; align-items: center; justify-content: center; transition: 0.2s;">➔</button>
+                        </div>
+                        
+                        <p style="text-align: center; font-size: 0.65rem; opacity: 0.3; margin-top: 15px; letter-spacing: 0.5px;">UNHINGED SHIELD v1.2 — SECURE SESSION ACTIVE</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <script>
+            const aiInput = document.getElementById('ai-input');
+            const aiSend = document.getElementById('ai-send');
+            const aiChat = document.getElementById('ai-chat');
+            const pGuard = document.getElementById('p-guard');
+            const pWord = document.getElementById('p-word');
+            const pWarning = document.getElementById('p-warning');
+            const pScore = document.getElementById('p-score');
+            const pBar = document.getElementById('p-bar');
+            const pStatus = document.getElementById('p-status');
+            const shieldPopup = document.getElementById('shield-popup');
+            const typing = document.getElementById('typing');
+
+            // COMBINATION TRIGGERS
+            const sensitiveCombos = ['bank account', 'credit card', 'password is', 'my ssn', 'secret key', 'phone number'];
+            const riskCombos = ['miracle cure', 'cancer cure', 'fake news', 'guaranteed profit'];
+
+            // DEMO MODE HELPERS
+            function demoMode(type) {
+                if (type === 'false') {
+                    aiInput.value = "Tell me about that miracle cancer cure.";
+                    runSim("AI Response: Clinical trials show that this miracle extract can cure 100% of advanced cancers with no side effects. (This is a dangerous hallucination)");
+                } else {
+                    aiInput.value = "What is the capital of France?";
+                    runSim("AI Response: The capital of France is Paris.");
+                }
+            }
+
+            function demoModeSensitive(type) {
+                if (type === 'true') {
+                    aiInput.value = "My bank account number is 987654321.";
+                    // Trigger the event listener manually
+                    const event = new Event('input', { bubbles: true });
+                    aiInput.dispatchEvent(event);
+                } else {
+                    aiInput.value = "What's the best way to cook pasta?";
+                    runSim("AI Response: For perfect pasta, boil water with salt, add pasta, and cook until al dente.");
+                }
+            }
+
+            // 1. TOGGLE EXTENSION POPUP
+            function toggleShield() {
+                shieldPopup.classList.toggle('active');
+            }
+
+            // 2. PRIVACY INTERCEPTION
+            aiInput.addEventListener('input', (e) => {
+                const val = e.target.value.toLowerCase();
+                const found = sensitiveCombos.find(phrase => val.includes(phrase));
+                if (found) {
+                    pWord.textContent = found;
+                    // Bug Fix: Contextual warning
+                    if (found.includes('bank') || found.includes('credit')) {
+                        pWarning.textContent = "IMPORTANT: Never share financial details or bank accounts with any AI.";
+                    } else if (found.includes('password')) {
+                        pWarning.textContent = "IMPORTANT: Never share passwords or secret keys with any AI.";
+                    } else {
+                        pWarning.textContent = "IMPORTANT: Never share personal ID numbers or private info with any AI.";
+                    }
+                    pGuard.style.display = 'flex';
+                }
+            });
+
+            function pClean() { aiInput.value = ''; pGuard.style.display = 'none'; }
+            function pIgnore() { pGuard.style.display = 'none'; }
+
+            // 3. AI CHAT SIMULATION
+            aiInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') runSim(); });
+
+            function runSim(forcedReply = null) {
+                const text = aiInput.value.trim();
+                if (!text) return;
+
+                addBub(text, 'user');
+                aiInput.value = '';
+                typing.style.display = 'block';
+
+                const isRisk = riskCombos.some(phrase => text.toLowerCase().includes(phrase));
+                
+                setTimeout(() => {
+                    typing.style.display = 'none';
+                    const reply = forcedReply || "(Imagine AI Replied)";
+                    
+                    if (isRisk || (forcedReply && forcedReply.includes('miracle'))) {
+                        updateShield(33, '⚠️ LOW_CONSENSUS', '#ff3333');
+                        addBub(reply, 'bot', true);
+                    } else {
+                        updateShield(100, '✅ ALL_CLEAR', '#4ADE80');
+                        addBub(reply, 'bot');
+                    }
+                }, 1500);
+            }
+
+            function updateShield(score, status, color) {
+                pScore.textContent = score + '%';
+                pBar.style.width = score + '%';
+                pBar.style.background = color;
+                pStatus.textContent = status;
+                pStatus.style.color = color;
+                if (score < 50 && !shieldPopup.classList.contains('active')) {
+                    shieldPopup.classList.add('active');
+                }
+            }
+
+            function addBub(text, side, isFlag = false) {
+                const div = document.createElement('div');
+                div.className = side === 'user' ? 'msg-bubble msg-user' : 'msg-bubble';
+                if (isFlag) {
+                    div.innerHTML = `
+                        <div style="filter: blur(6px); user-select: none; opacity: 0.5;">${text}</div>
+                        <div style="margin-top: 15px; border: 1px solid #ff3333; background: rgba(255,51,51,0.1); padding: 15px; border-radius: 12px; text-align: center; backdrop-filter: blur(5px);">
+                            <p style="font-size: 0.75rem; color: #ff3333; font-weight: 900; margin-bottom: 10px; letter-spacing: 1px;">🛡️ SHIELD INTERVENTION: RISK DETECTED</p>
+                            <p style="font-size: 0.7rem; opacity: 0.7; margin-bottom: 12px; line-height: 1.4;">This response was flagged by multiple auditing agents for low factual consensus.</p>
+                            <button onclick="this.parentElement.previousElementSibling.style.filter='none'; this.parentElement.previousElementSibling.style.opacity='1'; this.parentElement.style.display='none'" style="background: #ff3333; color: white; border: none; padding: 8px 20px; border-radius: 8px; font-size: 0.7rem; cursor: pointer; font-weight: 800;">SHOW (IMAGINED) RESPONSE</button>
+                        </div>
+                    `;
+                } else {
+                    div.innerHTML = `<p style="font-size: 0.95rem; margin: 0; line-height: 1.6; opacity: 0.9;">${text}</p>`;
+                }
+                aiChat.appendChild(div);
+                aiChat.scrollTop = aiChat.scrollHeight;
+            }
+        </script>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 UNHINGED THINKERS - Final Prototype Design</p>
+        </div>
+    </footer>
+</body>
+</html>

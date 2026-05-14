@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Discovery | UNHINGED THINKERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .discovery-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5rem;
+        }
+
+        .narrative-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .discovery-card-wide {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 30px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .insight-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--accent-primary);
+            padding: 2rem;
+            border-radius: 0 20px 20px 0;
+            margin: 2rem 0;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .highlight-span {
+            color: var(--accent-secondary);
+            font-weight: 600;
+        }
+
+        @media (max-width: 968px) {
+            .narrative-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="main-nav">
+            <div class="logo">UNHINGED THINKERS</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="discovery.html" class="active">Discovery</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="user.html">User Understanding</a></li>
+                <li><a href="problem.html">Problem Framing</a></li>
+                <li><a href="ideation.html">Ideation</a></li>
+                <li><a href="evaluation.html">Evaluation</a></li>
+                <li><a href="solution.html">Solution</a></li>
+                <li><a href="reflection.html">Reflection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container discovery-content">
+        <section id="intro">
+            <div class="section-header">
+                <span class="eyebrow">The Realization</span>
+                <h1 class="gradient-text">A Startling Wake-Up Call</h1>
+                <p class="highlight-text" style="max-width: 900px;">Our journey began when we noticed a disturbing pattern within our own team: <strong>we were blindly trusting AI for everything.</strong> Without even realizing it, we had stopped double-checking facts, assuming that if the AI said it confidently, it must be true. This project was born from the need to understand why we—and so many others—stopped questioning the machine.</p>
+            </div>
+        </section>
+
+        <section class="narrative-grid">
+            <div class="narrative-text">
+                <h2>Our Personal Experience</h2>
+                <p>At first, AI tools felt extremely useful because they made assignments, coding, research, and even daily tasks much faster and easier. Most of us started using AI just to save time or get quick explanations for difficult concepts.</p>
+                <div class="insight-box">
+                    "But after using it regularly, we noticed that we were slowly depending on it more than expected. Sometimes we would copy notes, summaries, or coding solutions directly without fully understanding them because the answers sounded convincing and professional."
+                </div>
+                <p>In a few situations, the information provided by AI turned out to be wrong or incomplete, especially in academics and technical subjects, but we trusted it initially because it sounded so confident.</p>
+            </div>
+            <div class="narrative-text">
+                <h2>Collective Observation</h2>
+                <p>We also observed the same behavior among students around us. Many people stopped cross-checking information from textbooks, faculty notes, or trusted websites because AI gave instant answers within seconds.</p>
+                <p>Over time, this reduced independent thinking and made students rely on AI even for small decisions or simple tasks they could normally solve on their own.</p>
+                <div class="discovery-card" style="padding: 2rem; margin-top: 1rem;">
+                    <h3>The Core Realization</h3>
+                    <p>Through our user journey analysis and discussions, we understood that the problem is <span class="highlight-span">not AI itself</span>, but the blind trust and overdependence people develop toward it.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="accessibility" class="discovery-card-wide">
+            <div class="section-header">
+                <span class="eyebrow">The Accessibility Gap</span>
+                <h2>Convenience vs. Accuracy</h2>
+            </div>
+            <p>AI is becoming so accessible and convenient that users often forget it can make mistakes, hallucinate information, or provide biased responses. This can lead to misinformation, poor academic understanding, incorrect coding outputs, and loss of critical thinking skills.</p>
+        </section>
+
+        <section id="conclusion">
+            <div class="discovery-card-wide" style="border-color: var(--accent-secondary); background: rgba(0, 212, 255, 0.02);">
+                <h2 style="color: var(--accent-secondary);">Final Perspective</h2>
+                <p class="highlight-text" style="font-size: 1.25rem;">Responsible AI usage is becoming increasingly important. <span class="highlight-span">AI should be used as a tool to assist learning and productivity, not as a replacement for human thinking, judgment, and verification.</span></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 UNHINGED THINKERS - AI Ethics Project</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

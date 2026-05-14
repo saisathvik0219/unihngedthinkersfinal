@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ideation | UNHINGED THINKERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ideation-container { display: flex; flex-direction: column; gap: 2rem; padding-bottom: 8rem; }
+        .hmw-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .hmw-dropdown { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; transition: var(--transition); }
+        .hmw-trigger { width: 100%; padding: 1.5rem 2rem; text-align: left; background: none; border: none; color: var(--text-color); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; }
+        .hmw-trigger:hover { background: rgba(255,255,255,0.02); }
+        .hmw-trigger::after { content: '+'; font-size: 1.5rem; color: var(--accent-secondary); transition: transform 0.3s ease; }
+        .hmw-dropdown.active .hmw-trigger::after { transform: rotate(45deg); }
+        .hmw-content { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(0,0,0,0.2); }
+        .hmw-dropdown.active .hmw-content { max-height: 4000px; padding-bottom: 2rem; }
+        .solutions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; padding: 2rem; }
+        .solution-batch { display: flex; flex-direction: column; gap: 1rem; }
+        .batch-title { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; }
+        .solution-item { font-size: 1rem; line-height: 1.5; opacity: 0.9; display: flex; gap: 0.8rem; }
+        .solution-num { color: var(--accent-secondary); font-weight: 800; font-family: 'DM Mono', monospace; min-width: 22px; font-size: 0.9rem; }
+        .section-header p { font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+        .footer-note { text-align: center; padding: 4rem; background: rgba(255, 255, 255, 0.02); border-radius: 30px; border: 1px dashed var(--border-color); margin-top: 5rem; }
+        @media (max-width: 1200px) { .solutions-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .solutions-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="main-nav">
+            <div class="logo">UNHINGED THINKERS</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="discovery.html">Discovery</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="user.html">User Understanding</a></li>
+                <li><a href="problem.html">Problem Framing</a></li>
+                <li><a href="ideation.html" class="active">Ideation</a></li>
+                <li><a href="evaluation.html">Evaluation</a></li>
+                <li><a href="solution.html">Solution</a></li>
+                <li><a href="reflection.html">Reflection</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container ideation-container">
+        <section class="section-header">
+            <span class="eyebrow">Phase 07</span>
+            <h1 class="gradient-text">Ideation & Solutions</h1>
+            <p>A massive database of 960 interventions that <strong>the team wrote them</strong> using the <strong>6-3-5 Ideation Process</strong> (conducted by 2 teams of 4). These cover all 20 challenge areas for Riya, Arjun, and Rahul.</p>
+        </section>
+        <div class="hmw-list">
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Confirmation Bias”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>Opposite News Feed</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>Debate AI Assistant</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>Bias Score Browser Extension</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>Perspective Roulette App</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>Echo Chamber Heatmap</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>Multi-News Comparison Tool</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>AI Fact Conflict Detector</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>“Convince Me Wrong” Platform</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Belief Timeline Tracker</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>Historical Prediction Simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>Red Team AI Mode</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Bias Reflection Journal</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>Corporate Groupthink Auditor</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>Political Neutral Search Engine</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>Contradiction Detection AI</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>AI Counterargument Generator</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>“What Would Opponents Say?” Button</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>VR Perspective Experience</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>Debate Club Social Network</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>Classroom Bias Analyzer</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>Fake Certainty Detector</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Evidence Strength Meter</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>Opinion Diversity Podcast App</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Smart Reading Recommendation Engine</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>“Both Sides” YouTube Plugin</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>Rationality Training Game</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>Blind Opinion Voting Platform</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Community Fact-Checking Network</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI Skeptic Coach</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Cross-Cultural Storytelling App</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>“Switch Positions” Debate Game</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>Emotional Manipulation Detector</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>News Source Political Labeling Tool</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>Academic Research Simplifier</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>Balanced Reddit Feed Extension</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>Deep Question Generator</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>High-Friction Warning Banners</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>Anti-Propaganda Learning Platform</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>AI Belief Audit Dashboard</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>Decision Reflection Diary</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>Crowd Wisdom Aggregator</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>Argument Weakness Identifier</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Logical Fallacy Detector</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>Ethical Perspective Simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>Public Opinion Evolution Tracker</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>AI Neutral Moderator</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>“Challenge Your Assumption” Widget</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>Human Library Experience Platform</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “AI Reinforces Beliefs”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>Multi-Agent Consensus Auditing Middleware</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>AI Devil’s Advocate Button</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>AI Confidence Meter</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>“Why This Could Be Wrong” Feature</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>AI Bias Nutrition Label</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>Source Transparency Layer</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>Expert Disagreement Feed</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>Contradiction Finder</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>AI Skepticism Tutor</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>Hallucination Insurance API</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>Slow Answer Mode</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>AI Transparency Score</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>Classroom Counterpoint Generator</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>Family Discussion AI Mediator</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>Truth Challenge Game</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>“AI Made Me Think This” Tracker</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Balanced Recommendation Engine</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>Evidence-Based Response Mode</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>AI Explanation Comparator</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>AI Neutrality Rating Agency</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>Open Source Verification Platform</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Research Citation Requirement Tool</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI Debate Arena</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Multiple Perspective Chatbot</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>Human Expert Verification Marketplace</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>AI Response Audit Trail</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>“Ask Another AI” Plugin</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Trust Calibration Dashboard</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI Bias Heatmap</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Logic-Based Response Ranking</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>“Disagree With Me” Mode</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>Independent Thinking Reminder App</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI Accountability Logbook</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>Academic Peer Review AI</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>Counterfactual Thinking Assistant</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>Opposing Scholar Recommendation Tool</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>AI Political Leaning Detector</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>Cognitive Diversity Feed</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>“Check Alternative Theories” Button</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>Rational Decision Assistant</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>Human-in-the-Loop AI Platform</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI Influence Awareness Report</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Argument Source Visualizer</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>Bias-Aware Enterprise AI</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>Debate-Oriented Search Engine</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>AI Uncertainty Visualizer</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>Transparent Reasoning AI</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>Consensus vs Minority Opinion Tool</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Avoid Deep Thinking”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>Socratic AI Tutor</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>Deep Thinking Timer</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>“Explain Your Reasoning” Requirement</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>Reflection-Based Search Engine</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>AI Homework Resistance Mode</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>Cognitive Gym App</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>Longform Conversation Platform</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>“One More Why” Tool</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Focused Reading Mode</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>Delayed Gratification Search</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>AI Thought Partner</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Critical Thinking RPG Game</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>Mental Calories Tracker</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>Offline Reflection Companion</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>Deep Work Social Network</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>AI Curiosity Engine</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Puzzle-Based Learning App</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>Brainstorming Challenge Platform</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>Analytical Writing Assistant</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>Reflection Journaling AI</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>Long-Answer Reward System</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Critical Reading Trainer</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>“Pause Before Answer” Feature</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Slow Media Platform</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>Research Habit Builder</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>Question-First Search Engine</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>Guided Thought Mapping Tool</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>AI-Assisted Mind Mapping</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>Intellectual Discussion Rooms</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>“Think Before Scroll” Extension</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>Distraction Blocking Thinking App</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>Logic Puzzle Subscription Service</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>Deep Learning Community Forum</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>AI Philosophy Companion</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>Critical Thinking Certification Platform</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>Curiosity-Based Education App</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Reflective Decision-Making Coach</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>Debate Preparation Assistant</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Structured Problem-Solving Tool</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>“What Evidence Supports This?” Prompt</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>AI-Assisted Book Discussion Club</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>Idea Incubator Workspace</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Concept Connection Generator</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>Thinking Streak Tracker</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>Slow Learning University Platform</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>Thought Experiment Generator</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>Inquiry-Based Education System</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>Personal Reasoning Improvement Dashboard</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Reduced self-thinking”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>Local Privacy-Guard Input Sanitizer Extension</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>“Think before reveal” homework app</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>Browser extension that hides AI answers for 2 minutes</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>Debate-with-AI platform where users defend their opinion first</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>Reverse Google — users predict answer before search results appear</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>AI tutor that gives hints only, never full solutions</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>“Build your reasoning streak” gamified app</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>Voice assistant that asks “why do you think that?” every time</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Classroom tool tracking critical-thinking growth</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>AI that intentionally gives multiple perspectives instead of one answer</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>“Mistake museum” app where users learn from failed logic</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Social platform rewarding original thoughts over reposts</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>AI-powered Socratic questioning chatbot</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>“Offline thinking mode” that locks answers until notes are written</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>Journaling app that analyzes independent thinking patterns</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>Career interview simulator requiring spontaneous answers</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Family dinner card game focused on reasoning challenges</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>AI reading app asking prediction questions mid-reading</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>Startup incubator for “human-first intelligence” products</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>Productivity app that blocks copy-paste from AI tools</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>“Solve without internet” monthly challenge platform</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Digital detox camps for students</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI that grades quality of reasoning instead of correctness</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Brain gym cafés with logic games and puzzles</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>“Explain like you discovered it” learning platform</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>AI assistant with “low assistance mode”</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>App that rewards handwritten brainstorming</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Collaborative whiteboard for idea-generation without AI</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>University exams using real-world reasoning instead of memorization</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Smartwatch reminders saying “pause and think yourself”</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>“Critical thinking Olympics” competition platform</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>AI that intentionally leaves gaps for users to complete</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>Escape rooms focused on analytical problem-solving</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>VR scenarios forcing decision-making under uncertainty</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>“No answer day” in schools where teachers only ask questions</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>AI transparency tool showing how answers were formed</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>App comparing human answers vs AI answers to boost confidence</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>Startup helping parents teach children reasoning habits</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Community clubs for brainstorming social problems</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>“Argument analyzer” app detecting weak logic in discussions</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>AI-powered philosophy mentor for teens</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>Puzzle subscription boxes for adults addicted to passive scrolling</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Browser plugin measuring dependency on AI tools</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>“Independent creator challenge” for artists/writers without AI</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>AI co-pilot that slowly reduces help over time</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>Daily “question of the day” app encouraging reflection</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>Smart notebooks that guide structured thinking</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>Extreme idea: AI tax where overusing AI costs digital points</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Habit loop formed”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>App that detects doomscrolling patterns and interrupts them</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>Wearable band vibrating when repetitive app usage starts</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>AI therapist chatbot for breaking addictive loops</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>Gamified “break the streak” platform for bad habits</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>Social media app with forced cooldown periods</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>Reward system for staying offline</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>Smart mirror showing screen-time impact visually</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>“Replace the habit” recommendation engine</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>AI identifying emotional triggers behind habits</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>Digital accountability partner marketplace</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>Group challenges for reducing addictive behaviors</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Browser extension that slowly turns grayscale after long use</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>Habit loop visualizer using charts and emotional tracking</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>VR simulation showing long-term impact of habits</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>Smart alarms interrupting repetitive behavior cycles</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>AI coach that predicts relapse moments</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Productivity cafés where phones are locked away</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>Reverse rewards app — lose points for unhealthy loops</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>Subscription box replacing digital habits with physical hobbies</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>“Tiny habit replacement” micro-learning app</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>AI-generated personalized routines for healthier behavior</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Smart home lights changing during unhealthy late-night habits</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>Habit-breaking bootcamps for students/professionals</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>“Trigger blocker” app that removes tempting content</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>Emotion-tracking journal connected to habit analytics</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>Public commitment platform with friend monitoring</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>AI that creates friction before opening addictive apps</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>“One-click escape” button redirecting users to productive actions</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>Offline adventure clubs for teens addicted to screens</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Schools teaching habit psychology from childhood</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>Community-based challenge app with local meetups</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>Phone cases designed to reduce usage physically</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI detecting boredom-driven behavior loops</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>Dopamine management workshops</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>“Slow media” platform designed to reduce addiction</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>Focus music app adapting to distraction patterns</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>AI pet that gets healthier when users avoid bad habits</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>Corporate wellness dashboards tracking digital habits</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Screen-time insurance discounts for healthy usage</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>Habit loop documentary/game hybrid experience</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>“Mindful unlock” phone requiring breathing or reflection</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI-generated alternative activities during craving moments</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Gamified real-world quests replacing digital addictions</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>Smart desks that lock distractions during work hours</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>AI companion that celebrates consistency, not perfection</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>“Weekend unplug” tourism experiences</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>Neurofeedback headbands for awareness of compulsive behavior</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>Extreme idea: phones with limited dopamine-design interfaces only</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Thinks AI knows everything”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI that shows a “confidence level” before every answer</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>App that forces AI to say “I might be wrong” for uncertain topics</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>Browser extension that highlights unsupported AI claims</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>“Source-first AI” that refuses factual answers without references</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>AI answer checker that compares responses with trusted websites</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>Quiz app where users identify wrong AI answers</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>AI tutor that explains its limitations before solving</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>“Trust meter” that shows how reliable an AI answer is</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Classroom game where students challenge AI answers</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>AI that separates facts, opinions, and assumptions</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>Pop-up reminder saying “AI predicts, it does not know everything”</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Website showing famous examples of AI mistakes</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>AI assistant that asks users to verify important answers</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>“Human expert needed” alert for medical, legal, or finance topics</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>App that teaches AI limitations through short daily lessons</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>Chrome extension that delays AI answers until user thinks first</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>AI that gives multiple possible answers instead of one final answer</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>“Don’t blindly trust AI” awareness campaign for students</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>AI response grading tool for accuracy and source quality</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>AI chatbot that explains when it is guessing</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>School workshop where students test AI with tricky questions</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>“AI myth-buster” mobile app</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>Tool that marks AI answers as verified or unverified</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>AI assistant that shows what it does not know clearly</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>Extension that warns users when AI sounds overconfident</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>AI safety badge for verified responses</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>App that teaches users how AI generates answers</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>“Ask AI, then check” learning platform</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI answer comparison tool using multiple AI models</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Digital poster campaign inside computer labs</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>AI that gives a disclaimer before high-risk answers</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>Game where users earn points for catching AI errors</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>Student guide app for responsible AI use</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>AI chatbot that says “check this before using” for factual claims</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>Tool that teaches difference between search engine and AI chatbot</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>AI that asks “Do you want sources?” before answering</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Fact-check button built into AI chat apps</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI literacy course for colleges</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>AI that gives confidence score for each sentence</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>“AI is not always right” social media reel series</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>App that compares AI answer with textbook content</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI tutor that gives hints instead of final answers</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Community platform where users post AI mistakes</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>AI that labels answers as certain, uncertain, or opinion-based</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>Browser plug-in that blocks AI answers without citations</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>AI training simulation for employees</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>App that teaches users when not to use AI</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>“Reality check” chatbot that reviews AI-generated content</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Unaware of hallucinations”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>Hallucination detector that flags suspicious AI claims</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>AI citation checker that verifies if sources are real</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>Browser extension that marks fake or unsupported facts</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>App where users paste AI answers for fact-checking</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>“Fake fact” game where users spot hallucinations</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>AI that highlights claims needing verification</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>Tool that checks whether AI links actually support the answer</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>AI answer scanner for students before submitting assignments</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Hallucination risk meter for different topics</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>Chatbot that explains what hallucinations are with examples</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>AI that refuses to invent sources or statistics</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Website collecting real examples of AI hallucinations</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>Classroom activity where students compare AI answers with textbooks</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>AI tool that labels every claim as verified or unverified</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>“Red flag phrase” detector for words like “studies show”</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>AI that asks users to upload sources before answering</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Extension that adds a “verify this claim” button</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>AI that gives source links beside each factual statement</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>App that alerts users when AI gives too-specific unsupported details</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>Hallucination awareness quiz for beginners</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>AI that says “I don’t know” instead of guessing</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Tool that compares AI answer with government or official websites</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI writing assistant that checks for fake references</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Student plagiarism and hallucination checker combined</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>AI-powered research assistant that only uses uploaded documents</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>App that teaches users how to cross-check AI answers</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>Hallucination report button inside AI platforms</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Public database of common AI hallucinations</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI browser tool that color-codes reliable and doubtful claims</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>“Before you trust it” checklist app</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>AI that warns users when answer is based on weak information</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>Fact-checking chatbot for AI-generated content</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI that gives uncertainty notes after every paragraph</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>App that detects fake names, fake books, and fake cases</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>Tool that checks if AI-generated citations exist online</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>AI classroom workshop on hallucination examples</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Chrome extension that blocks unsupported AI-generated statistics</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI assistant that asks “Do you want me to verify this?”</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>AI answer comparison tool across multiple trusted sources</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>Mobile app that teaches hallucination through daily examples</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>“Hallucination museum” website showing funny but dangerous AI errors</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI that gives a warning before answering niche or rare topics</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Tool that detects made-up legal cases or medical claims</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>AI that separates confirmed facts from possible guesses</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>Gamified fact-checking app for students</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>AI search assistant that only answers from real web pages</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>Browser plugin that checks AI answers against Wikipedia/textbooks</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>AI safety training module for workplaces</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Unaware of AI bias”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>Bias detector that highlights biased AI language</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>AI that gives answers from multiple cultural perspectives</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>App that teaches AI bias using simple examples</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>Gender bias checker for AI-generated text</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>Hiring bias detector for resumes and job descriptions</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>AI that warns when an answer may be one-sided</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>Tool that checks if AI assumes one country or culture as default</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>Bias awareness quiz for students</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>AI that shows “who might be left out” in an answer</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>Inclusive prompt generator that reduces biased responses</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>AI that compares answers for different genders or regions</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Website showing biased AI outputs and corrected versions</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>AI fairness score for generated content</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>Browser extension that flags stereotypes in AI answers</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>AI that asks users to consider another viewpoint</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>Classroom debate activity on AI bias</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>AI that gives minority or underrepresented perspectives</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>Tool that detects cultural assumptions in AI writing</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>App that explains how biased data creates biased AI</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>AI that labels answers as neutral, biased, or incomplete</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>Bias report button inside AI platforms</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Public map of common AI bias examples</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI that checks whether examples are diverse and inclusive</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Social media campaign explaining AI bias in simple language</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>AI ethics mini-course for schools and colleges</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>News bias analyzer for AI-generated summaries</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>AI tool that rewrites biased text more neutrally</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>App that detects age, gender, or race stereotypes in content</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI that shows different viewpoints before giving a final answer</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Bias simulation game where users see unfair AI decisions</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>AI assistant for teachers to create inclusive lesson content</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>HR tool that checks interview questions for bias</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI that explains possible bias in its own answer</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>Dataset bias visualizer for students</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>AI that asks “Is this fair to all groups?” before final output</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>Tool that compares AI responses across different languages</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Bias checker for advertisements and marketing content</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI that avoids defaulting to Western examples only</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>App that teaches users to ask inclusive prompts</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI chatbot that gives “bias risk level” for each response</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>Community platform where users upload biased AI outputs</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI that identifies missing perspectives in an answer</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Inclusive writing assistant for companies</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>AI that gives balanced pros and cons instead of one-sided claims</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>Bias detection plugin for school assignments</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>AI ethics board game for classroom learning</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>App that helps creators check if content is stereotypical</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>-</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “No critical thinking skills”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI answer checker app that asks users “Why do you think this is correct?”</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>Browser extension that highlights doubtful AI statements.</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>Quiz platform where users detect fake AI answers.</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>Debate app where AI argues both sides of a topic.</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>“Think Before Accept” popup system.</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>AI tutor that never gives direct answers first.</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>Gamified fact-checking leaderboard.</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>Chrome extension showing confidence scores.</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Student app rewarding independent explanations.</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>AI that intentionally inserts one small mistake for users to catch.</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>Group discussion platform around AI responses.</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Daily critical-thinking challenge app.</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>AI-generated news comparison tool.</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>App teaching logical fallacies interactively.</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>“Source or Fake?” mini-game.</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>AI homework helper that grades reasoning, not answers.</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Smart notebook prompting reflective questions.</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>AI interview simulator for thinking practice.</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>Voice assistant that asks follow-up reasoning questions.</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>Social media plugin warning against misinformation.</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>Critical-thinking bootcamp subscription.</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>AI literacy certification course.</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>Community platform for crowdsourced verification.</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>School dashboard tracking reasoning improvement.</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>“Explain in your own words” education plugin.</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>AI-generated puzzle-solving app.</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>AI that refuses lazy prompts without context.</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Fact-check chatbot integrated into WhatsApp.</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>Browser tool comparing AI outputs from multiple models.</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>AI detective game solving misinformation mysteries.</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>Visual reasoning maps for AI answers.</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>Platform teaching evidence-based decision-making.</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI response rating app by trustworthiness.</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>Critical-thinking podcast + companion app.</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>AI bias awareness workshops.</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>VR simulations requiring reasoning under pressure.</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Family-friendly “spot the manipulation” game.</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI-assisted reading comprehension trainer.</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Interactive “build your argument” tool.</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI-generated case study learning platform.</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>Public score system for reliable AI answers.</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI assistant for journalists and researchers.</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Smart classrooms with reasoning analytics.</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>Browser extension showing missing evidence.</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>AI-powered Socratic questioning engine.</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>Fake-news survival training game.</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>Reverse-search tool for AI-generated claims.</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>AI mentor that tracks and improves thinking habits.</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Blind dependence”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI usage time limiter app.</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>“Try Yourself First” productivity platform.</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>AI cooldown timer before giving answers.</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>Reward system for solving problems manually.</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>Study app locking AI help until attempt submitted.</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>AI-free challenge mode for students.</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>Browser extension tracking AI dependency levels.</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>Personal dashboard showing reliance statistics.</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>AI assistant that gradually reduces help over time.</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>Self-reliance coaching platform.</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>Workplace productivity tracker balancing human/AI work.</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>AI independence score system.</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>“No AI Sundays” community challenge app.</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>Educational app teaching manual problem-solving.</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>AI use warning labels like screen-time alerts.</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>App that suggests books instead of AI answers.</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Brain-training subscription service.</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>Human mentor marketplace alternative to AI.</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>Offline thinking journal app.</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>AI dependency recovery workshops.</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>App that hides instant answers temporarily.</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Delayed-response AI encouraging patience.</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>School platform limiting AI-generated assignments.</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>AI-free exam preparation platform.</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>“Build before AI” coding environment.</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>Habit tracker for independent work.</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>AI assistant that gives hints only.</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Daily self-thinking streak app.</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>Family parental controls for AI overuse.</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Corporate AI balance policies dashboard.</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>Productivity app promoting deep work sessions.</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>Reflection prompts after every AI response.</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI tutor requiring reasoning checkpoints.</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>Peer collaboration platform replacing solo AI use.</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>AI-free creativity competitions.</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>Manual research training toolkit.</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Community challenge: 24 hours without AI.</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI-use analytics for schools/universities.</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Mental fitness subscription app.</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI dependency awareness campaign startup.</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>“Did AI do this?” plagiarism-style checker.</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>DIY learning platform without instant answers.</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Slow-learning educational platform.</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>AI assistant that recommends real experts.</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>Critical productivity coaching app.</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>Brain exercise gamification platform.</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>Self-learning roadmap generator.</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>AI-human balance consultancy business.</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Mental Laziness”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI that gives hints instead of full answers first</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>“Brain Gym” app with daily thinking challenges</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>Browser extension blocking instant copy-paste from AI</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>Productivity app rewarding deep thinking streaks</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>AI tutor forcing users to attempt before revealing solutions</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>Gamified “Solve It Yourself” learning platform</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>Smart notebook that unlocks answers only after rough work</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>Reverse Google search engine that asks questions back</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>“No Shortcut Mode” for students during study hours</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>AI-powered puzzle subscription boxes</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>Social platform rewarding originality over reposts</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Debate simulator where users defend opinions logically</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>VR escape room based entirely on reasoning skills</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>AI writing assistant that removes lazy filler words</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>“Mental Endurance Tracker” app</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>Study app locking answers behind mini quizzes</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>AI coach measuring independent problem-solving growth</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>Browser extension replacing summaries with thought prompts</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>AI-generated mystery stories requiring deduction</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>“Critical Thinking Leaderboards” for schools</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>AI that intentionally pauses before answering to encourage thinking</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Smartwatch reminders asking random logic questions</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI-powered habit tracker for intellectual effort</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Deep-thinking coworking cafés with challenge systems</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>“Focus Arena” competitive concentration game</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>AI assistant that gives incomplete code intentionally</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>Puzzle-based social media replacing doomscrolling</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>“Mental XP” reward system for solving difficult tasks</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI tutor detecting dependency patterns in students</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Interactive documentaries requiring decisions to continue</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>AI-generated fake arguments for logical analysis practice</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>Smart desk lighting that changes with focus levels</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>“Lazy Thinking Detector” app analyzing user habits</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>AI-powered reading clubs focused on discussion</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>Learning platform banning one-click answers</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>“Brain Stamina” wearable tracker concept</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>AI-generated detective cases solved collaboratively</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>Voice assistant that responds with clues instead of direct answers</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Smart mirror asking thought-provoking questions daily</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI-generated survival simulations requiring strategic planning</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>App turning learning into RPG-style quests</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI-assisted journaling that challenges shallow thinking</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>“Intellectual Fitness” subscription service</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>AI-generated moral dilemmas for reasoning practice</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>Deep-work cafés where phones auto-lock</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>Multiplayer logic battle platform</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>AI-powered classroom engagement analyzer</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>Brain-training arcade centers with real-world rewards</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Desire for Instant Answers”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI that gradually reveals answers step-by-step</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>“Patience Mode” search engine delaying full responses slightly</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>Gamified waiting app rewarding delayed gratification</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>Browser extension adding reflection time before AI outputs</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>Smartwatch app training patience through micro-challenges</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>AI tutor rewarding process over speed</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>“Slow Learning” subscription platform</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>App that unlocks answers only after brainstorming attempts</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Social media platform prioritizing thoughtful discussions</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>AI mentor teaching long-term problem solving</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>“Think Timer” productivity tool</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Browser plugin requiring source reading before summaries</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>AI-powered mindfulness and thinking trainer</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>Interactive lessons where shortcuts reduce rewards</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>VR world where rushing creates negative outcomes</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>Classroom challenge system rewarding effort over quickness</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>AI chatbot that asks users to predict answers first</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>App tracking impulsive information consumption habits</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>“Delayed Knowledge” learning game</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>AI assistant giving clues over time instead of immediately</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>Smart speaker encouraging exploration before answers</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Deep-thinking competitions for students</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI-generated scavenger hunts requiring research</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Browser extension locking “instant answer” websites temporarily</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>“Patience Points” redeemable reward system</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>AI-driven focus retreats and workshops</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>Platform rewarding detailed explanations instead of short replies</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Slow-news app reducing rapid content overload</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI-powered long-form learning assistant</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>“Process Over Outcome” classroom toolkit</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>AI-generated treasure hunt learning experiences</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>App visualizing how rushed decisions fail over time</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI-assisted journaling focused on reflection</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>Interactive podcasts pausing for user predictions</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>AI-powered learning streak system tied to consistency</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>“Slow Search” engine emphasizing exploration</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>AI-generated mystery puzzles requiring days to solve</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>Digital detox cafés with intellectual activities</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Browser extension tracking impatience patterns</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI assistant that rewards curiosity depth</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>Gamified delayed gratification social network</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI-powered deep reading companion</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>“Reflection Before Response” workplace software</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>AI-generated collaborative research challenges</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>Smart classroom tables detecting passive learning</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>AI-driven focus music adapting to attention span</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>“Answer Unlock” educational vending machine concept</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>AI-powered delayed reward productivity planner</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Automatic Trust Develops”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI assistant randomly showing past mistakes it made</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>Browser extension displaying AI reliability history</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>“Trust Calibration” training app</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>AI that explains uncertainty visually</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>Smart glasses overlaying credibility warnings</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>AI-generated fake answers mixed into training exercises</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>“Healthy Skepticism” certification courses</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>AI tutor requiring independent verification</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Trust-score dashboard for AI tools</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>App comparing human expert answers vs AI answers</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>AI chatbot that openly argues against itself</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>“Blind Trust Detector” browser plugin</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>Corporate workshops on AI overreliance</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>AI-generated misinformation simulations</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>Browser mode highlighting unsupported claims</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>Social media campaign exposing AI hallucinations</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>AI-generated fake legal/medical advice awareness platform</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>“Trust Reflex Tracker” wearable concept</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>AI assistant asking “Why do you believe this?”</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>Gamified skepticism competitions</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>Interactive website showing how easily humans trust authority</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>AI-generated fake celebrity endorsements training users</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>VR simulation where overtrust causes virtual failures</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>“Verify First” search engine mode</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>AI-powered trust analytics for schools/workplaces</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>Classroom exercises where AI intentionally misleads students</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>AI-generated scam simulations</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Smart home assistant verbally warning about uncertainty</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI literacy camps for teenagers</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>“Trust Audit” service for businesses using AI</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>AI-generated fake scientific discoveries challenge site</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>Browser extension forcing source comparison</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI-powered misinformation risk meter</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>Interactive AI courtroom debates</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>AI-generated fake product reviews for training</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>Social platform rewarding corrections over popularity</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>AI transparency labels like food nutrition labels</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>“Skeptic Mode” operating system feature</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>AI-generated alternate perspectives tool</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>Smart notebooks marking unverified information automatically</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>AI-powered teacher dashboards tracking overdependence</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>“Trust Recovery” workshops after misinformation exposure</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>AI-generated deepfake training simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>Smart ring vibrating during suspicious claims</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>AI-generated fake job scams awareness app</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>Public leaderboard ranking AI trustworthiness</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>AI-powered logic coach for daily reasoning practice</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>Browser assistant showing confidence drops in real time</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “People Blindly Trusting AI”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI chatbot that displays a live “hallucination probability” meter</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>Browser extension that compares AI answers against expert databases</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>“Trust but Verify” learning platform for students</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>AI assistant that intentionally challenges its own responses</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>Gamified app rewarding users for catching AI mistakes</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>Smart glasses showing credibility overlays while browsing</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>AI-generated fake news simulator for awareness training</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>Classroom toolkit teaching AI skepticism through experiments</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Browser mode hiding AI answers until users attempt first</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>Corporate AI overreliance audit software</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>Social media campaign exposing famous AI failures</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>AI tutor forcing source verification before answer reveal</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>“Blind Trust Score” tracker analyzing user behavior</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>AI-powered misinformation escape room</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>App comparing multiple AI models side-by-side</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>“Challenge the AI” debate competitions in schools</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>VR simulation where trusting AI incorrectly causes disasters</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>AI-generated scam-call training system</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>AI assistant that visually highlights uncertainty in responses</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>Smartwatch reminders asking users to verify critical information</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>AI-generated fake expert profiles to train skepticism</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Search engine ranking answers by evidence quality</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI-powered teacher dashboard detecting dependency patterns</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Browser extension labeling unsupported AI claims</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>AI literacy camps for teenagers and professionals</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>AI-generated fake legal/medical advice training platform</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>“Trust Meter” social media plugin</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>AI response transparency labels like nutrition labels</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI-powered logic and reasoning coach</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Interactive museum of AI failures</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>Browser plugin replacing confident wording with cautious wording</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>AI-generated fake research paper detection challenge</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>“Skeptic Coins” reward system for verified corrections</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>AI chatbot that asks users to defend their assumptions</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>Interactive website visualizing AI hallucinations in real time</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>AI-generated phishing and scam awareness platform</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Classroom exercises where AI intentionally misleads students</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI-powered browser assistant opening fact-check sources automatically</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Multiplayer “Spot the Hallucination” mobile game</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI-generated fake product reviews challenge app</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>Smart speaker interrupting with uncertainty warnings</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>Corporate workshops on responsible AI trust</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>AI-generated alternate viewpoints tool</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>“Verify Before Share” social media integration</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>AI trustworthiness leaderboard maintained by communities</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>Smart notebooks automatically marking unverified information</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>AI-generated fake history simulator for education</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>AI-powered trust analytics platform for organizations</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Uncritical Acceptance”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI assistant refusing to answer without showing evidence</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>Browser extension forcing users to open at least one source</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>“Think First” study app delaying direct answers</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>AI-generated contradiction checker</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>Debate-style chatbot presenting opposing viewpoints</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>“Catch the AI Lie” daily mobile challenge</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>Smart notebooks rewarding independent reasoning</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>AI-powered critical-thinking coaching app</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Browser plugin highlighting unsupported statements in red</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>Classroom roleplay where students challenge AI authority</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>AI-generated fake facts game</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>“Skeptic Mode” for search engines</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>AI transparency dashboard showing confidence scores</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>Social media plugin warning against blind reposting</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>AI-powered misinformation scavenger hunts</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>VR experience simulating consequences of blind trust</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>AI-generated fake celebrity quotes training users</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>“Reason Before Reveal” educational platform</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>Browser extension that asks “Why do you think this is true?”</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>AI-generated fake textbook challenge site</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>Smartwatch app tracking passive agreement habits</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>AI-generated logical fallacy training exercises</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>“Trust Calibration” courses for workplaces</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>AI assistant showing multiple interpretations instead of one answer</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>AI-generated fake coding answers debugging platform</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>Interactive AI courtroom simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>AI-powered reflection journaling app</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Browser mode blurring answers until users predict first</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI-generated alternate perspectives tool</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>“Mental Effort Tracker” productivity app</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>AI-powered school competitions on skepticism</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>AI-generated fake academic references detector</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>“Question Everything” social platform</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>AI assistant that occasionally asks users to fact-check it</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>Interactive museum exhibits on human overtrust</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>AI-generated fake scientific discoveries challenge app</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Classroom AI audit projects</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI-generated conspiracy simulation game</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Browser extension tracking overdependence on AI</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>Smart speaker occasionally asking follow-up reasoning questions</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>AI-generated fake weather reports for awareness training</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>“Skeptic Fitness” intellectual challenge app</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>AI-powered research assistant teaching verification habits</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>AI-generated fake maps challenge platform</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>AI-powered workplace trust monitoring software</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>Social media badges for verified information sharers</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>AI-generated misinformation Olympics competitions</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>AI-generated fake biographies detective game</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Don’t Know AI Errors”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI hallucination encyclopedia website</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>Browser extension detecting possible hallucinations</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>Daily AI mistake notification app</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>“Hallucination Heatmap” for AI tools</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>AI-generated fake news training platform</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>AI transparency plugin showing uncertainty visually</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>“Spot the Error” classroom competitions</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>AI-generated fake Wikipedia challenge</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>AI assistant openly admitting uncertainty levels</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>VR AI disaster simulation experience</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>AI-generated fake research papers for training</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Interactive AI failure timeline website</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>“AI Mythbusters” social media series</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>AI-generated fake coding answer debugger game</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>Browser extension comparing answers with trusted databases</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>AI-generated fake legal advice awareness tool</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Classroom projects testing AI reliability</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>AI-generated fake maps and geography trainer</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>“Guess the Hallucination” mobile app</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>AI-generated fake recipes challenge site</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>Smart assistant warning when answers lack sources</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>AI-generated fake product reviews simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI-generated fake customer support scam trainer</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Corporate AI reliability workshops</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>AI-generated fake biographies challenge platform</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>AI-generated fake advertisements teaching manipulation tactics</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>“Hallucination Escape Room” educational attraction</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>AI-generated fake investment advice awareness simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI-generated fake weather alerts challenge app</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Browser plugin marking unsupported claims instantly</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>AI-generated fake political speeches training users</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>AI-generated scam-call simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI-generated fake online stores awareness platform</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>“AI Failure Museum” interactive business concept</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>AI-generated fake travel guides challenge game</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>AI-generated fake charity campaigns awareness app</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>AI-generated fake academic references detector</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI-generated misinformation Olympics competition</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Smart TVs showing credibility indicators beside AI summaries</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI-generated fake influencer campaigns training users</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>AI-generated fake historical documents simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI-generated fake health advice awareness tool</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Interactive “Hallucination Tracker” dashboard</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>AI-generated fake interview answers debugging app</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>AI-generated fake social media trends simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>AI-generated fake sports statistics challenge site</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>AI-generated fake science experiments awareness platform</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>AI-generated fake emergency alerts simulation tool</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Ignore Fact Checking”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>Browser extension blocking reposts without source checks</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>AI-powered instant fact-check scanner</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>“Truth Streak” reward app for daily verification habits</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>Smart glasses displaying credibility ratings on articles</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>AI chatbot refusing uncited answers</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>Fact-checking battle royale mobile game</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>Social media plugin warning before sharing misinformation</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>“Verify Before Share” school campaign</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>AI-powered deepfake detection tool</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>Browser mode that highlights weak evidence in yellow</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>AI-generated fake news scavenger hunt</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Interactive misinformation museum</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>“Pause Before Posting” keyboard app</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>AI-powered QR scanner verifying posters and ads instantly</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>Smartwatch vibrating during suspicious claims</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>Fact-check leaderboard competitions for schools</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Browser extension forcing users to read sources first</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>AI-powered misinformation firewall for companies</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>“Truth Coins” reward economy for verified posts</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>AI-generated fake advertisements awareness simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>Smart TVs showing live credibility indicators during news</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Social platform replacing likes with verification scores</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI-powered citation generator integrated into browsers</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>VR misinformation survival simulator</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>Fact-checking hackathons for students</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>AI-powered source reliability meter</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>“Verification Olympics” event platform</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>AI-generated fake influencer campaigns awareness trainer</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>Browser extension auto-opening supporting evidence</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>AI-generated fake online stores for scam awareness</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>Fact-check vending machine concept in schools/malls</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>“Suspicion Meter” browser plugin</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI-generated fake scientific discoveries challenge app</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>Smart speakers warning users about unverified claims</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>AI-powered fake image detector</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>AI-generated fake political speech awareness platform</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Social media badges for verified creators</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI-generated fake sports statistics challenge game</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Browser plugin comparing claims across multiple trusted sources</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI-generated fake travel guide simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>Interactive classrooms where students investigate misinformation</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI-generated fake health advice awareness tool</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>Public digital billboards displaying trending misinformation corrections</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>AI-powered school dashboards tracking verification habits</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>Fact-checking esports tournaments</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>AI-generated fake charity scam simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>“Trust but Verify” subscription learning platform</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>AI-powered misinformation trend tracker</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Copy-Pasting AI Output”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI assistant requiring users to paraphrase before copying</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>Browser extension detecting raw AI-generated text submissions</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>Smart editor highlighting unedited AI content</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>“Rewrite Before Submit” classroom software</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>AI-generated plagiarism awareness platform</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>Productivity app rewarding originality scores</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>AI tutor locking copy features until understanding checks are completed</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>“Human Touch Score” for essays and reports</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Browser plugin replacing copy button with “Understand First”</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>AI assistant that asks follow-up reasoning questions before export</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>Gamified paraphrasing competitions</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>AI-powered originality analyzer</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>Smart keyboard suggesting personalization edits</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>“Copy-Paste Dependency Tracker” app</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>AI-generated fake assignments teaching risks of blind copying</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>AI-assisted brainstorming tool that avoids full solutions</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Classroom dashboard tracking AI overdependence</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>Browser extension forcing annotation before copying text</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>AI-powered creative thinking coach</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>“Think Then Type” educational platform</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>AI-generated fake essays challenge game</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>Smart notebooks tracking independent contributions</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI-powered oral defense system for assignments</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>AI-generated code debugging practice platform</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>Browser mode limiting instant exports from AI chats</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>AI assistant converting outputs into outlines instead of full answers</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>“Originality XP” gamified learning system</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>AI-generated fake resumes awareness simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>Interactive workshops on responsible AI assistance</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Browser extension showing percentage of copied AI text</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>AI-powered interview tool testing genuine understanding</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>AI-generated fake project reports awareness challenge</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>Smart classroom software requiring reflection notes</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>“Creative Effort Meter” productivity app</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>AI-powered collaborative brainstorming spaces</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>AI-generated fake coding portfolios awareness platform</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Browser plugin encouraging multiple drafts before export</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI tutor that intentionally leaves gaps for users to fill</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>“Independent Thinking Challenges” subscription platform</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI-generated fake business plans awareness simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>AI-powered teacher assistant detecting passive usage patterns</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>Smart desks measuring engagement during writing</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>AI-generated fake research summaries awareness challenge</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>Classroom competitions rewarding originality over speed</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>AI-powered citation and contribution tracker</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>AI-generated fake scholarship essays awareness game</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>Browser extension asking users to explain pasted content</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>“Build Your Own Answer” educational AI platform</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “Outsourcing Decisions”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI assistant that asks users to rank their own priorities first</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>“Decision Gym” app for practicing independent choices</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>Smart journals guiding users through reasoning processes</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>AI coach teaching structured decision-making frameworks</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>Browser extension warning when users rely too heavily on AI advice</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>“Choose Yourself First” productivity platform</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>AI assistant presenting multiple options instead of one recommendation</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>Gamified life-simulation decision app</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>AI-powered decision confidence tracker</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>VR scenarios where users experience consequences of poor delegation</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>AI assistant that asks “What would YOU choose?” first</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>Smartwatch app measuring impulsive decision habits</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>“Human Judgment Score” analytics platform</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>AI-powered ethical dilemma simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>Decision-making workshops for students and professionals</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>AI-generated fake financial advice awareness trainer</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Browser plugin blocking one-click AI recommendations</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>AI mentor teaching critical tradeoff analysis</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>“Decision XP” roleplaying platform</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>Interactive career-choice simulation game</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>AI-powered reflection diary for major decisions</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>“Think Twice” app for purchases and life choices</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI assistant refusing to decide on high-stakes matters directly</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Smart mirrors asking reflective questions before decisions</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>AI-generated fake startup advice challenge platform</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>“Independent Choice Challenges” subscription app</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>AI-powered classroom exercises on reasoning</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Browser mode delaying recommendation reveals</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI-generated fake investment guru simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>Smart speakers encouraging user input before advice</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>AI-generated relationship advice awareness platform</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>“Decision Leaderboards” for schools and companies</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>AI-powered emotional bias detector during decisions</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>Interactive documentaries requiring meaningful user choices</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>AI-generated fake productivity hacks awareness trainer</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>AI-powered life-planning assistant focused on reflection</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>AI-generated fake legal advice decision simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>Browser extension analyzing dependency on recommendation systems</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>“Your Choice Matters” social campaign</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI-generated fake medical recommendation awareness trainer</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>AI-powered long-term consequence visualizer</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>Classroom roleplay where students defend decisions logically</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>AI-generated fake leadership advice awareness challenge</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>Smart rings vibrating during impulsive decisions</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>AI-powered workplace decision coaching software</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>“Decision Resilience” mental training program</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>AI-generated fake travel recommendation simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>AI assistant forcing users to justify final decisions before accepting suggestions</p></div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="hmw-dropdown">
+                <button class="hmw-trigger" onclick="this.parentElement.classList.toggle('active')">How might we help Riya / Arjun / Rahul overcome “AI Misinformation Awareness”?</button>
+                <div class="hmw-content"><div class="solutions-grid">
+                    <div class="solution-batch"><div class="batch-title">Batch 01</div>
+                        <div class="solution-item"><span class="solution-num">01</span><p>AI-generated fake news simulator for schools</p></div>
+                        <div class="solution-item"><span class="solution-num">02</span><p>Browser extension detecting AI-generated misinformation</p></div>
+                        <div class="solution-item"><span class="solution-num">03</span><p>“Hallucination Heatmap” tracking trending false AI claims</p></div>
+                        <div class="solution-item"><span class="solution-num">04</span><p>VR misinformation disaster experience</p></div>
+                        <div class="solution-item"><span class="solution-num">05</span><p>AI-generated deepfake challenge competitions</p></div>
+                        <div class="solution-item"><span class="solution-num">06</span><p>Smart glasses highlighting manipulated content</p></div>
+                        <div class="solution-item"><span class="solution-num">07</span><p>“Spot the Hallucination” multiplayer game</p></div>
+                        <div class="solution-item"><span class="solution-num">08</span><p>AI-powered fake image detector</p></div>
+                        <div class="solution-item"><span class="solution-num">09</span><p>Interactive museum of AI misinformation history</p></div>
+                        <div class="solution-item"><span class="solution-num">10</span><p>AI-generated fake political campaign awareness platform</p></div>
+                        <div class="solution-item"><span class="solution-num">11</span><p>Browser plugin labeling unsupported AI claims</p></div>
+                        <div class="solution-item"><span class="solution-num">12</span><p>AI-generated fake medical advice awareness app</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 02</div>
+                        <div class="solution-item"><span class="solution-num">13</span><p>Smart speaker warning about suspicious information</p></div>
+                        <div class="solution-item"><span class="solution-num">14</span><p>AI-generated fake celebrity interview challenge</p></div>
+                        <div class="solution-item"><span class="solution-num">15</span><p>“AI Mythbusters” educational social media series</p></div>
+                        <div class="solution-item"><span class="solution-num">16</span><p>AI-powered misinformation analytics dashboard</p></div>
+                        <div class="solution-item"><span class="solution-num">17</span><p>Classroom misinformation investigation projects</p></div>
+                        <div class="solution-item"><span class="solution-num">18</span><p>AI-generated fake online stores awareness simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">19</span><p>Browser extension comparing AI claims with trusted sources</p></div>
+                        <div class="solution-item"><span class="solution-num">20</span><p>AI-generated fake scientific paper challenge site</p></div>
+                        <div class="solution-item"><span class="solution-num">21</span><p>“Truth Radar” app for detecting misinformation patterns</p></div>
+                        <div class="solution-item"><span class="solution-num">22</span><p>AI-powered school dashboards tracking misinformation exposure</p></div>
+                        <div class="solution-item"><span class="solution-num">23</span><p>AI-generated fake charity campaign awareness trainer</p></div>
+                        <div class="solution-item"><span class="solution-num">24</span><p>Social media plugin warning about viral misinformation</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 03</div>
+                        <div class="solution-item"><span class="solution-num">25</span><p>AI-generated fake investment predictions challenge platform</p></div>
+                        <div class="solution-item"><span class="solution-num">26</span><p>“Deepfake Escape Room” attraction concept</p></div>
+                        <div class="solution-item"><span class="solution-num">27</span><p>AI-generated fake travel guides awareness game</p></div>
+                        <div class="solution-item"><span class="solution-num">28</span><p>Browser mode showing confidence intervals beside AI outputs</p></div>
+                        <div class="solution-item"><span class="solution-num">29</span><p>AI-powered misinformation firewall for organizations</p></div>
+                        <div class="solution-item"><span class="solution-num">30</span><p>AI-generated fake history documentary simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">31</span><p>“Trust Calibration” educational workshops</p></div>
+                        <div class="solution-item"><span class="solution-num">32</span><p>AI-generated fake customer reviews challenge app</p></div>
+                        <div class="solution-item"><span class="solution-num">33</span><p>Interactive misinformation Olympics competitions</p></div>
+                        <div class="solution-item"><span class="solution-num">34</span><p>AI-generated fake emergency alert simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">35</span><p>AI-powered logic training assistant</p></div>
+                        <div class="solution-item"><span class="solution-num">36</span><p>AI-generated fake sports statistics awareness platform</p></div>
+                    </div>
+                    <div class="solution-batch"><div class="batch-title">Batch 04</div>
+                        <div class="solution-item"><span class="solution-num">37</span><p>Smart notebooks automatically flagging unsupported information</p></div>
+                        <div class="solution-item"><span class="solution-num">38</span><p>AI-generated fake weather reports challenge site</p></div>
+                        <div class="solution-item"><span class="solution-num">39</span><p>Browser extension showing AI reliability history</p></div>
+                        <div class="solution-item"><span class="solution-num">40</span><p>AI-generated fake coding tutorials awareness game</p></div>
+                        <div class="solution-item"><span class="solution-num">41</span><p>“Digital Skepticism” certification programs</p></div>
+                        <div class="solution-item"><span class="solution-num">42</span><p>AI-powered credibility scoring engine</p></div>
+                        <div class="solution-item"><span class="solution-num">43</span><p>AI-generated fake influencer sponsorship awareness simulator</p></div>
+                        <div class="solution-item"><span class="solution-num">44</span><p>Public misinformation dashboards for communities</p></div>
+                        <div class="solution-item"><span class="solution-num">45</span><p>AI-generated fake biographies detective game</p></div>
+                        <div class="solution-item"><span class="solution-num">46</span><p>AI-powered workplace misinformation training</p></div>
+                        <div class="solution-item"><span class="solution-num">47</span><p>AI-generated fake scholarship scams awareness platform</p></div>
+                        <div class="solution-item"><span class="solution-num">48</span><p>“Verify Everything” AI literacy movement</p></div>
+                    </div>
+                </div></div>
+            </div>
+        </div>
+        <section id="completion-message" class="footer-note" style="display: none; border-color: var(--accent-secondary); background: rgba(0, 255, 136, 0.05);">
+            <h3 class="gradient-text">Absolute Madman Alert! 🚨</h3>
+            <p style="margin-top: 1.5rem; line-height: 1.8; opacity: 0.9; font-weight: 600;">
+                Whoa... you actually expanded all 20 sections and looked at all 960 ideas? 
+                Your brain must be as unhinged as ours now. Go grab a coffee or take a nap, 
+                you've officially reached the end of the internet! ☕🤯
+            </p>
+        </section>
+
+    </main>
+    <footer><div class="container"><p>&copy; 2026 UNHINGED THINKERS</p></div></footer>
+
+    <script>
+        function checkCompletion() {
+            const allDropdowns = document.querySelectorAll('.hmw-dropdown');
+            const activeDropdowns = document.querySelectorAll('.hmw-dropdown.active');
+            const completionMsg = document.getElementById('completion-message');
+            
+            if (activeDropdowns.length === allDropdowns.length && allDropdowns.length > 0) {
+                completionMsg.style.display = 'block';
+                completionMsg.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                completionMsg.style.display = 'none';
+            }
+        }
+
+        // Add event listeners to all triggers
+        document.querySelectorAll('.hmw-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                // Use setTimeout to ensure the class toggle has happened
+                setTimeout(checkCompletion, 100);
+            });
+        });
+    </script>
+</body>
+</html>

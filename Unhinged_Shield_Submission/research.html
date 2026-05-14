@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research & Analysis | UNHINGED THINKERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .research-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+            padding-bottom: 8rem;
+        }
+
+        .section-intro {
+            max-width: 800px;
+        }
+
+        /* Stats & Data Visualization */
+        .stats-section {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .viz-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .viz-card:hover {
+            border-color: var(--accent-primary);
+        }
+
+        .viz-header { margin-bottom: 2rem; }
+        .viz-header h3 { font-size: 1.5rem; font-family: var(--font-heading); }
+
+        /* Animated Progress Bars */
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .progress-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem; /* Increased from 0.85rem */
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .progress-bg {
+            background: rgba(255,255,255,0.05);
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            width: 0;
+            border-radius: 10px;
+            transition: width 1.5s cubic-bezier(0.1, 0, 0.2, 1);
+        }
+
+        /* Usage Bar Chart */
+        .usage-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .bar-row {
+            display: grid;
+            grid-template-columns: 140px 1fr 40px;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .bar-name { font-size: 0.85rem; font-family: 'DM Mono', monospace; opacity: 0.8; text-transform: uppercase; }
+        .bar-line { height: 12px; background: var(--accent-primary); border-radius: 6px; width: 0; transition: width 1.2s ease-out; opacity: 0.6; }
+        .bar-val { font-size: 1rem; font-weight: 700; color: var(--accent-secondary); text-align: right; }
+
+        /* Big Numbers */
+        .big-number-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .big-num-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+        }
+
+        .big-num {
+            font-size: 3rem;
+            font-weight: 900;
+            font-family: var(--font-heading);
+            color: var(--accent-secondary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Pie Chart Simulation */
+        .pie-viz {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .pie-svg {
+            width: 180px;
+            height: 180px;
+            transform: rotate(-90deg);
+        }
+
+        .pie-segment {
+            fill: none;
+            stroke-width: 12;
+            stroke-dasharray: 0 100;
+            transition: stroke-dasharray 1.5s ease;
+        }
+
+        .pie-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem; /* Increased */
+        }
+
+        .color-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+        /* Interviews Vault */
+        .interviews-vault {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        #interviews-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .interview-entry {
+            padding: 1.2rem 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            height: 65px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .interview-entry:hover {
+            height: auto;
+            min-height: 200px;
+            border-color: var(--accent-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            gap: 1.2rem;
+        }
+
+        .entry-top { display: flex; justify-content: space-between; align-items: center; min-height: 35px; }
+        .audio-player { width: 100%; height: 35px; filter: invert(1) hue-rotate(180deg); }
+        .mini-btn { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); color: var(--text-color); padding: 0.6rem; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: var(--transition); }
+        .content-panel { display: none; background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 12px; font-size: 1.05rem; line-height: 1.7; border: 1px solid rgba(255,255,255,0.05); }
+        .content-panel.active { display: block; }
+
+        @media (max-width: 968px) {
+            #interviews-list, .stats-grid, .big-number-grid { grid-template-columns: 1fr; }
+            .pie-viz { flex-direction: column; }
+        }
+    </style>
+</head>
+<body onload="animateData()">
+    <header>
+        <nav id="main-nav">
+            <div class="logo">UNHINGED THINKERS</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="discovery.html">Discovery</a></li>
+                <li><a href="research.html" class="active">Research</a></li>
+                <li><a href="user.html">User Understanding</a></li>
+                <li><a href="problem.html">Problem Framing</a></li>
+                <li><a href="ideation.html">Ideation</a></li>
+                <li><a href="evaluation.html">Evaluation</a></li>
+                <li><a href="solution.html">Solution</a></li>
+                <li><a href="reflection.html">Reflection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container research-container">
+        <section class="section-header">
+            <div class="section-intro">
+                <span class="eyebrow">Phase 04</span>
+                <h1 class="gradient-text">Research & Analysis</h1>
+                <p>We analyzed **all 11 in-depth audio interviews** and combined them with a quantitative survey of **73 participants** to map the landscape of AI dependency.</p>
+            </div>
+        </section>
+
+        <!-- 1. Audio Interview Insights -->
+        <section class="stats-section">
+            <div class="section-header">
+                <span class="eyebrow">Qualitative Summary</span>
+                <h2>11 Personal Interviews</h2>
+                <p>Direct qualitative insights derived from our in-depth recorded sessions.</p>
+            </div>
+            
+            <div class="big-number-grid">
+                <div class="big-num-card"><span class="big-num">11</span><p class="subtitle">In-Person Interviews</p></div>
+                <div class="big-num-card"><span class="big-num">73</span><p class="subtitle">Survey Responses</p></div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <span class="eyebrow">Behavioral Patterns</span>
+                        <h3>Usage & Sentiment</h3>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-item">
+                            <div class="progress-label"><span>AI unacceptable for blind copying</span><span class="val">100%</span></div>
+                            <div class="progress-bg"><div class="progress-fill" data-width="100%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label"><span>Experienced Hallucinations</span><span class="val">100%</span></div>
+                            <div class="progress-bg"><div class="progress-fill" data-width="100%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label"><span>AI tones cause self-doubt</span><span class="val">80%</span></div>
+                            <div class="progress-bg"><div class="progress-fill" data-width="80%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label"><span>Tasks feel harder without AI</span><span class="val">70%</span></div>
+                            <div class="progress-bg"><div class="progress-fill" data-width="70%"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <span class="eyebrow">Usage Focus</span>
+                        <h3>Primary Objectives</h3>
+                    </div>
+                    <div class="usage-chart">
+                        <div class="bar-row"><span class="bar-name">Studies / Learning</span><div class="bar-line" data-width="90%"></div><span class="bar-val">90%</span></div>
+                        <div class="bar-row"><span class="bar-name">Assignments</span><div class="bar-line" data-width="50%"></div><span class="bar-val">50%</span></div>
+                        <div class="bar-row"><span class="bar-name">Work Tasks</span><div class="bar-line" data-width="30%"></div><span class="bar-val">30%</span></div>
+                        <div class="bar-row"><span class="bar-name">Daily Productivity</span><div class="bar-line" data-width="40%"></div><span class="bar-val">40%</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Survey Statistical Output -->
+        <section class="stats-section">
+            <div class="section-header">
+                <span class="eyebrow">Quantitative Analysis</span>
+                <h2>73 Survey Responses</h2>
+                <p>Data-driven breakdown from the comprehensive user response dataset.</p>
+            </div>
+
+            <div class="stats-grid">
+                <!-- Platform Dominance -->
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <span class="eyebrow">Ecosystem</span>
+                        <h3>Platform Dominance</h3>
+                    </div>
+                    <div class="pie-viz">
+                        <svg class="pie-svg" viewBox="0 0 42 42">
+                            <circle class="pie-segment" cx="21" cy="21" r="15.915" stroke="#00d4ff" data-dash="65 35"></circle>
+                            <circle class="pie-segment" cx="21" cy="21" r="15.915" stroke="#8a2be2" data-dash="25 75" style="stroke-dashoffset: -65"></circle>
+                            <circle class="pie-segment" cx="21" cy="21" r="15.915" stroke="#ff0080" data-dash="10 90" style="stroke-dashoffset: -90"></circle>
+                        </svg>
+                        <div class="pie-legend">
+                            <div class="legend-item"><div class="color-dot" style="background:#00d4ff"></div><span>ChatGPT - 65%</span></div>
+                            <div class="legend-item"><div class="color-dot" style="background:#8a2be2"></div><span>Gemini - 25%</span></div>
+                            <div class="legend-item"><div class="color-dot" style="background:#ff0080"></div><span>Claude/Other - 10%</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Usage Frequency -->
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <span class="eyebrow">Habits</span>
+                        <h3>Usage Frequency</h3>
+                    </div>
+                    <div class="usage-chart">
+                        <div class="bar-row"><span class="bar-name">Almost Everyday</span><div class="bar-line" data-width="75%" style="background:var(--accent-secondary)"></div><span class="bar-val">75%</span></div>
+                        <div class="bar-row"><span class="bar-name">Multiple Daily</span><div class="bar-line" data-width="15%" style="background:var(--accent-secondary)"></div><span class="bar-val">15%</span></div>
+                        <div class="bar-row"><span class="bar-name">Once in a while</span><div class="bar-line" data-width="10%" style="background:var(--accent-secondary)"></div><span class="bar-val">10%</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="viz-card" style="width:100%">
+                <div class="viz-header">
+                    <span class="eyebrow">Common Requests</span>
+                    <h3>Desired AI Improvements</h3>
+                </div>
+                <div class="usage-chart" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+                    <div>
+                        <div class="bar-row"><span class="bar-name">Higher Accuracy</span><div class="bar-line" data-width="85%"></div><span class="bar-val">85%</span></div>
+                        <div class="bar-row"><span class="bar-name">Transparency</span><div class="bar-line" data-width="60%"></div><span class="bar-val">60%</span></div>
+                    </div>
+                    <div>
+                        <div class="bar-row"><span class="bar-name">Humanized Tone</span><div class="bar-line" data-width="55%"></div><span class="bar-val">55%</span></div>
+                        <div class="bar-row"><span class="bar-name">Better Privacy</span><div class="bar-line" data-width="40%"></div><span class="bar-val">40%</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interview Vault -->
+        <section class="interviews-vault">
+            <div class="viz-header">
+                <span class="eyebrow">Qualitative Data</span>
+                <h2>The Interview Vault</h2>
+
+            </div>
+            <div id="interviews-list">
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-01</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/audio1.mp4" type="audio/mp4"></audio></div>
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-02</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/audio2.mp4" type="audio/mp4"></audio></div>
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-03</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/3.mpeg" type="audio/mpeg"></audio></div>
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-04</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/4.mpeg" type="audio/mpeg"></audio></div>
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-05</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/5.mp4" type="audio/mp4"></audio></div>
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-06</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/6.mp4" type="audio/mp4"></audio></div>
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-07</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/7.mp4" type="audio/mp4"></audio></div>
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-08</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/8.mp4" type="audio/mp4"></audio></div>
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-09</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/9.mp4" type="audio/mp4"></audio></div>
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-10</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/10.mp4" type="audio/mp4"></audio></div>
+                <div class="interview-entry"><div class="entry-top"><span class="interview-id">INT-11</span></div><audio class="audio-player" controls><source src="DTL_AUDIOS/11.mp4" type="audio/mp4"></audio></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggle(id) { document.getElementById(id).classList.toggle('active'); }
+
+        function animateData() {
+            const fills = document.querySelectorAll('.progress-fill');
+            fills.forEach(f => { f.style.width = f.getAttribute('data-width'); });
+            const bars = document.querySelectorAll('.bar-line');
+            bars.forEach(b => { b.style.width = b.getAttribute('data-width'); });
+            const segments = document.querySelectorAll('.pie-segment');
+            segments.forEach(s => { s.style.strokeDasharray = s.getAttribute('data-dash'); });
+        }
+
+        window.addEventListener('scroll', () => {
+            const viz = document.querySelector('.viz-card');
+            if(viz && viz.getBoundingClientRect().top < window.innerHeight) { animateData(); }
+        });
+    </script>
+</body>
+</html>

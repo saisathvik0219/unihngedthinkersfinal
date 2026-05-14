@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Framing | UNHINGED THINKERS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .problem-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            padding-bottom: 8rem;
+        }
+
+        .hmw-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .hmw-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .hmw-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+        }
+
+        .hmw-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.9rem; /* Increased from 0.75rem */
+            color: var(--accent-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hmw-question {
+            font-family: var(--font-heading);
+            font-size: 1.4rem; /* Increased from 1.2rem */
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            .hmw-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="main-nav">
+            <div class="logo">UNHINGED THINKERS</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="discovery.html">Discovery</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="user.html">User Understanding</a></li>
+                <li><a href="problem.html" class="active">Problem Framing</a></li>
+                <li><a href="ideation.html">Ideation</a></li>
+                <li><a href="evaluation.html">Evaluation</a></li>
+                <li><a href="solution.html">Solution</a></li>
+                <li><a href="reflection.html">Reflection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container problem-container">
+        <section class="section-header">
+            <span class="eyebrow">Phase 06</span>
+            <h1 class="gradient-text">Problem Framing</h1>
+            <p>We've identified 20 critical 'How Might We' questions targeting the deep-seated habits of Riya, Arjun, and Rahul.</p>
+        </section>
+
+        <section class="hmw-grid">
+            <div class="hmw-card"><span class="hmw-label">01</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “People blindly trusting AI”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">02</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Confirmation bias”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">03</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “AI reinforces beliefs”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">04</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Avoid deep thinking”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">05</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Mental laziness”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">06</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Desire for instant answers”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">07</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Automatic trust develops”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">08</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Uncritical acceptance”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">09</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Don’t know AI errors”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">10</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Ignore fact checking”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">11</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Thinks AI knows everything”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">12</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Unaware of hallucinations”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">13</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Unaware of AI bias”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">14</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “No critical thinking skills”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">15</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Blind dependence”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">16</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “No second opinion sought”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">17</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Outsource decisions to AI”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">18</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Reduced self-thinking”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">19</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Copy-paste AI output directly”?</h2></div>
+            <div class="hmw-card"><span class="hmw-label">20</span><h2 class="hmw-question">How might we help Riya, Arjun, and Rahul overcome “Habit loop formed”?</h2></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 UNHINGED THINKERS - AI Ethics Project</p>
+        </div>
+    </footer>
+</body>
+</html>
