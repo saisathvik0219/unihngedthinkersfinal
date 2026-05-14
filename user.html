@@ -323,7 +323,7 @@
             </div>
         </section>
 
-        <!-- 4. NEW: Root Cause Analysis Mindmap (D3 Integration) -->
+        <!-- 4. PREMIUM 5-WHYS ROOT CAUSE TREE (Custom Engine) -->
         <section class="stats-section">
             <div class="section-header">
                 <span class="eyebrow">Analysis</span>
@@ -331,21 +331,37 @@
                 <p>Interactive radial visualization of the systemic drivers behind AI trust issues. Explore the deep branches of human psychology and technical dependence.</p>
             </div>
 
-            <div id="mindmap-container" style="width: 100%; height: 800px; background: #05050a; position: relative; overflow: hidden; border-radius: 40px; border: 1px solid var(--border-color); margin-top: 2rem;">
-                <div style="position: absolute; top: 20px; left: 20px; z-index: 10; display: flex; gap: 10px;">
-                    <button class="mindmap-btn" onclick="expandAll()" style="background: var(--surface-color); border: 1px solid var(--border-color); color: white; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">Expand All</button>
-                    <button class="mindmap-btn" onclick="collapseToRoot()" style="background: var(--surface-color); border: 1px solid var(--border-color); color: white; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">Collapse All</button>
-                    <button class="mindmap-btn" onclick="resetView()" style="background: var(--surface-color); border: 1px solid var(--border-color); color: white; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8rem;">Reset View</button>
+            <div id="whys-section" style="height: 800px; position: relative; background: #060A10; border-radius: 40px; border: 1px solid var(--border-color); overflow: hidden; margin-top: 2rem; box-shadow: inset 0 0 50px rgba(0,0,0,0.5); font-family: system-ui, sans-serif;">
+                <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px); background-size: 44px 44px; pointer-events: none; z-index: 0;"></div>
+                
+                <div class="whys-header-internal" style="position: absolute; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 12px;">
+                    <div class="whys-header-dot" style="width: 10px; height: 10px; border-radius: 50%; background: #00d4ff; box-shadow: 0 0 12px #00d4ff;"></div>
+                    <h1 style="font-size: 13px; font-weight: 700; color: #E2E8F0; letter-spacing: .04em; text-transform: uppercase; margin: 0; font-family: 'DM Mono', monospace;">Blind Trust in AI</h1>
                 </div>
-                <div id="mindmap-legend" style="position: absolute; bottom: 20px; left: 20px; z-index: 10; display: flex; flex-direction: column; gap: 6px; background: rgba(0,0,0,0.6); padding: 15px; border-radius: 15px; backdrop-filter: blur(5px);">
-                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#8a2be2;"></div> Convenience</div>
-                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#00d4ff;"></div> Perceived Authority</div>
-                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#ff00c8;"></div> Fast Consumption</div>
-                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#60a5fa;"></div> Overconfidence</div>
-                    <div style="display:flex; align-items:center; gap:8px; font-size:0.7rem; color: #aaa;"><div style="width:8px; height:8px; border-radius:50%; background:#f87171;"></div> Lack of Awareness</div>
+
+                <div id="whys-legend" class="whys-legend" style="position: absolute; top: 80px; left: 24px; z-index: 50; display: flex; flex-direction: column; gap: 5px;"></div>
+                
+                <div id="svg-wrap" style="width: 100%; height: 100%; position: relative; z-index: 1; user-select: none;">
+                    <svg id="svg" style="display: block; width: 100%; height: 100%; cursor: grab;">
+                        <defs>
+                            <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="b"/>
+                                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
+                        </defs>
+                        <g id="gRoot"></g>
+                    </svg>
                 </div>
-                <svg id="mindmap-svg" style="width:100%; height:100%; cursor:grab;"></svg>
-                <div id="mindmap-tip" style="position:fixed; display:none; background:rgba(5,5,10,0.95); border:1px solid #00d4ff; padding:8px 12px; border-radius:6px; color:white; font-size:0.85rem; pointer-events:none; z-index:9999;"></div>
+
+                <div id="whys-tip" style="display: none; position: fixed; background: rgba(6,10,16,.96); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 5px 11px; font-size: 11px; font-family: 'DM Mono', monospace; color: #E2E8F0; pointer-events: none; z-index: 10000; box-shadow: 0 8px 24px rgba(0,0,0,.6);"></div>
+
+                <div class="whys-controls" style="position: absolute; bottom: 24px; right: 24px; display: flex; gap: 6px; z-index: 50;">
+                    <div class="ctrl-btn" id="bIn" style="width: 34px; height: 34px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #4A6580; font-size: 17px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; line-height: 1;">+</div>
+                    <div class="ctrl-btn" id="bOut" style="width: 34px; height: 34px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #4A6580; font-size: 17px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; line-height: 1;">−</div>
+                    <div class="ctrl-btn" id="bReset" style="width: 34px; height: 34px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #4A6580; font-size: 17px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; line-height: 1;">⌂</div>
+                </div>
+
+                <button id="expand-btn-internal" style="position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 10px; font-family: 'DM Mono', monospace; text-transform: uppercase; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: #4A6580; padding: 6px 18px; border-radius: 20px; cursor: pointer; z-index: 50; transition: 0.15s;">expand all</button>
             </div>
         </section>
     </main>
@@ -353,80 +369,109 @@
     <div id="lightbox" onclick="this.style.display='none'"><img id="lightbox-img" src="" alt="Full View"></div>
     <footer><div class="container"><p>&copy; 2026 UNHINGED THINKERS - AI Ethics Project</p></div></footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script>
-        const RAW_DATA = {
-            name: "People Blindly Trust AI & Misinformation",
-            children: [
-                { name: "Convenience", id: "conv", children: [
-                    { name: "Quick Answers Preferred", children: [
-                        { name: "Attention Span Reduction" }, { name: "Mobile-First Consumption" }, { name: "Copy-Paste Habit" }
-                    ]},
-                    { name: "AI Reduces Cognitive Load", children: [
-                        { name: "Outsourcing Thinking" }, { name: "No Need to Remember Facts" }, { name: "Decision Fatigue" }
-                    ]}
-                ]},
-                { name: "Perceived Authority", id: "auth", children: [
-                    { name: "Natural Language Mimics Expertise" }, { name: "Confident Phrasing Always Used" }, { name: "Big Tech Brand Association" }
-                ]},
-                { name: "Fast Consumption", id: "fast", children: [
-                    { name: "Speed Prioritized Over Accuracy" }, { name: "Algorithm Echo Chambers" }, { name: "Headline-Only Reading Habit" }
-                ]},
-                { name: "Overconfidence in Tech", id: "over", children: [
-                    { name: "Progress Narrative Dominates" }, { name: "Technical Jargon Intimidates" }, { name: "Past Automation Successes" }
-                ]},
-                { name: "Lack of Awareness", id: "aware", children: [
-                    { name: "Hallucinations Sound Plausible" }, { name: "Probability vs Fact Confusion" }, { name: "Education Gap in AI Literacy" }
-                ]}
-            ]
-        };
+        // ── DATA ────────────────────────────────────────────────────────────────────
+        const RAW = {n:"Blind Trust in AI",c:[
+          {n:"Mental Shortcuts",c:[
+            {n:"Authority Bias",c:[{n:"Smart-sounding tone"},{n:"Confident formatting"},{n:"Trust in Silicon logic"}]},
+            {n:"Cognitive Laziness",c:[{n:"Thinking is draining"},{n:"Desire for easy answers"},{n:"Avoidance of fact-checking"}]},
+            {n:"Information Overload",c:[{n:"Too many sources"},{n:"Decision fatigue"},{n:"Need for quick summaries"}]}
+          ]},
+          {n:"User Habits",c:[
+            {n:"Copy-Pasting",c:[{n:"Muscle memory speed"},{n:"Lack of review step"}]},
+            {n:"Peer Pressure",c:[{n:"Normalization of cheating"},{n:"Comparison of grades"}]},
+            {n:"Falling Behind",c:[{n:"AI users are faster"},{n:"Manual work feels slow"}]}
+          ]},
+          {n:"Tool Design",c:[
+            {n:"Frictionless UI",c:[{n:"Single-click copy"},{n:"No verification warnings"}]},
+            {n:"Opaque Algorithms",c:[{n:"Black-box processing"},{n:"No source citations"}]},
+            {n:"No Verification",c:[{n:"No built-in fact checker"},{n:"Missing privacy filters"}]}
+          ]}
+        ]};
 
-        const COLORS = { root: "#00d4ff", conv: "#8a2be2", auth: "#00d4ff", fast: "#ff00c8", over: "#60a5fa", aware: "#f87171" };
-        
-        const svg = d3.select("#mindmap-svg");
-        const g = svg.append("g");
-        const zoom = d3.zoom().scaleExtent([0.1, 5]).on("zoom", (e) => g.attr("transform", e.transform));
-        svg.call(zoom);
+        // ── COLORS ──────────────────────────────────────────────────────────────────
+        const COLORS = { "Mental Shortcuts": "#4ADE80", "User Habits": "#60A5FA", "Tool Design": "#FACC15", "_root": "#00d4ff" };
 
-        const tree = d3.tree().size([2 * Math.PI, 350]);
-        const root = d3.hierarchy(RAW_DATA);
-        
-        root.children.forEach(collapse);
-        function collapse(d) { if(d.children) { d._children = d.children; d.children = null; } }
+        // ── BUILD ────────────────────────────────────────────────────────────────────
+        let UID = 0;
+        function build(raw, depth, parent) {
+          const node = { id:UID++, name:raw.n, depth, parent, children:null, _children:null, angle:0, radius:0, x:0, y:0 };
+          if (raw.c && raw.c.length) {
+            const kids = raw.c.map(r => build(r, depth+1, node));
+            if (depth >= 1) node._children = kids; else node.children = kids;
+          }
+          return node;
+        }
+        const ROOT = build(RAW, 0, null);
+        const LR = 110;
 
-        function update() {
-            tree(root);
-            const nodes = root.descendants();
-            const links = root.links();
-
-            const link = g.selectAll(".link").data(links, d => d.target.data.name);
-            link.enter().append("path").attr("class", "link")
-                .merge(link).attr("fill", "none").attr("stroke", d => COLORS[d.target.data.id] || "#333")
-                .attr("stroke-opacity", 0.4).attr("d", d3.linkRadial().angle(d => d.x).radius(d => d.y));
-            link.exit().remove();
-
-            const node = g.selectAll(".node").data(nodes, d => d.data.name);
-            const nEnter = node.enter().append("g").attr("class", "node")
-                .on("click", (e, d) => { if(d.children) { d._children = d.children; d.children = null; } else { d.children = d._children; d._children = null; } update(); });
-
-            nEnter.append("circle").attr("r", 6).attr("fill", d => COLORS[d.data.id] || "#fff");
-            nEnter.append("text").attr("dy", "0.31em").attr("x", d => d.x < Math.PI ? 10 : -10)
-                .attr("text-anchor", d => d.x < Math.PI ? "start" : "end")
-                .attr("transform", d => `rotate(${(d.x * 180 / Math.PI - 90)}) rotate(${d.x >= Math.PI ? 180 : 0})`)
-                .text(d => d.data.name).style("fill", "#fff").style("font-size", "10px");
-
-            node.merge(nEnter).attr("transform", d => `rotate(${(d.x * 180 / Math.PI - 90)}) translate(${d.y},0)`);
-            node.exit().remove();
+        function leaves(n) { const ch = n.children || []; return ch.length ? ch.reduce((s,c) => s + leaves(c), 0) : 1; }
+        function doLayout(node, a0, a1) {
+          node.angle  = (a0 + a1) / 2; node.radius = node.depth * LR;
+          const rad   = node.angle - Math.PI / 2;
+          node.x = node.radius * Math.cos(rad); node.y = node.radius * Math.sin(rad);
+          const ch = node.children || []; if (!ch.length) return;
+          const total = ch.reduce((s,c) => s + leaves(c), 0);
+          let cur = a0; for (const c of ch) { const span = (leaves(c) / total) * (a1 - a0); doLayout(c, cur, cur + span); cur += span; }
         }
 
-        function expandAll() { root.descendants().forEach(d => { if(d._children) { d.children = d._children; d._children = null; } }); update(); }
-        function collapseToRoot() { root.children.forEach(d => { if(d.children) { d._children = d.children; d.children = null; } }); update(); }
-        function resetView() { svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity.translate(svg.node().clientWidth/2, svg.node().clientHeight/2).scale(0.8)); }
-        
-        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
+        const NS = "http://www.w3.org/2000/svg";
+        function svgEl(tag, attrs, parent) {
+          const e = document.createElementNS(NS, tag);
+          for (const [k,v] of Object.entries(attrs)) e.setAttribute(k, v);
+          if (parent) parent.appendChild(e); return e;
+        }
 
-        update();
-        resetView();
+        const svg = document.getElementById("svg"), gRoot = document.getElementById("gRoot"), tip = document.getElementById("whys-tip"), section = document.getElementById("whys-section");
+        let W = section.clientWidth, H = section.clientHeight, tx=W/2, ty=H/2, tk=1;
+        function applyTx() { gRoot.setAttribute("transform", `translate(${tx},${ty}) scale(${tk})`); }
+
+        function render() {
+          doLayout(ROOT, 0, 2*Math.PI); gRoot.innerHTML = "";
+          const allL = (n, acc=[]) => { (n.children||[]).forEach(c=>{acc.push([n,c]); allL(c,acc);}); return acc; };
+          const allN = (n, acc=[]) => { acc.push(n); (n.children||[]).forEach(c=>allN(c,acc)); return acc; };
+          const getCol = (n) => { if(n.depth===0) return COLORS._root; let a=n; while(a.depth>1) a=a.parent; return COLORS[a.name] || "#94A3B8"; };
+
+          allL(ROOT).forEach(([s,t]) => {
+            const mid = (s.radius + t.radius) / 2, sa = s.angle-Math.PI/2, ta = t.angle-Math.PI/2;
+            svgEl("path", { d: `M${s.x},${s.y} C${mid*Math.cos(sa)},${mid*Math.sin(sa)} ${mid*Math.cos(ta)},${mid*Math.sin(ta)} ${t.x},${t.y}`, fill:"none", stroke:getCol(t), "stroke-opacity":".28", "stroke-width":"1.5", "pointer-events":"none" }, gRoot);
+          });
+
+          allN(ROOT).forEach(node => {
+            const col = getCol(node), r0 = node.depth===0 ? 20 : node.depth===1 ? 9 : 5, collapsed = node._children && node._children.length && !node.children;
+            const g = svgEl("g", { transform: `translate(${node.x},${node.y})`, style:"cursor:pointer" }, gRoot);
+            svgEl("circle", { r: r0*2.2, fill: col, "fill-opacity": ".08" }, g);
+            if(collapsed) svgEl("circle", { r: r0+4, fill: "none", stroke: col, "stroke-opacity": ".4", "stroke-width": "1.5", "stroke-dasharray": "3,2" }, g);
+            const circ = svgEl("circle", { r: r0, fill: collapsed ? "#060A10" : col, stroke: col, "stroke-width": node.depth===0?"3":"2" }, g);
+            const label = node.name.length>27 ? node.name.slice(0,25)+"..." : node.name;
+            const isRight = node.depth===0 || node.angle < Math.PI, pad = node.depth===0 ? 0 : node.depth===1 ? 13 : 9;
+            svgEl("text", { x: node.depth===0?0:(isRight?pad:-pad), y: node.depth===0?5:0, "text-anchor": node.depth===0?"middle":(isRight?"start":"end"), "dominant-baseline": "central", fill: node.depth===0?"#fff":col, "fill-opacity": ".88", "font-size": node.depth===0?"13":node.depth===1?"10":"8.5", "font-weight": node.depth<=1?"700":"400", "pointer-events":"none" }, g).textContent = label;
+
+            g.addEventListener("mouseenter", () => { circ.setAttribute("filter","url(#glow)"); circ.setAttribute("stroke-width", node.depth===0?"4":"3"); });
+            g.addEventListener("mouseleave", () => { circ.removeAttribute("filter"); circ.setAttribute("stroke-width", node.depth===0?"3":"2"); tip.style.display="none"; });
+            g.addEventListener("mousemove", ev => { tip.style.display="block"; tip.style.color=col; tip.style.borderColor=col+"55"; tip.textContent=node.name; tip.style.left=(ev.clientX+14)+"px"; tip.style.top=(ev.clientY-10)+"px"; });
+            g.addEventListener("click", ev => { ev.stopPropagation(); if(node.depth===0){ const h=(n)=>n._children?true:(n.children||[]).some(h); if(h(node)){ (function e(n){if(n._children){n.children=n._children;n._children=null;}(n.children||[]).forEach(e);})(node); }else{ (function c(n){if(n.depth>=1&&n.children){n._children=n.children;n.children=null;}else(n.children||[]).forEach(c);})(node); } }else{ if(node.children){node._children=node.children;node.children=null;}else if(node._children){node.children=node._children;node._children=null;} } render(); });
+          });
+          applyTx();
+        }
+
+        svg.addEventListener("wheel", ev => { ev.preventDefault(); const r=svg.getBoundingClientRect(), mx=ev.clientX-r.left, my=ev.clientY-r.top, f=ev.deltaY<0?1.12:1/1.12, nk=Math.min(12,Math.max(0.06,tk*f)); tx=mx-(mx-tx)*(nk/tk); ty=my-(my-ty)*(nk/tk); tk=nk; applyTx(); }, {passive:false});
+        let panning=false, dsx=0, dsy=0, txs=0, tys=0;
+        svg.addEventListener("mousedown", ev => { panning=true; dsx=ev.clientX; dsy=ev.clientY; txs=tx; tys=ty; svg.style.cursor="grabbing"; });
+        window.addEventListener("mousemove", ev => { if(!panning) return; tx=txs+(ev.clientX-dsx); ty=tys+(ev.clientY-dsy); applyTx(); });
+        window.addEventListener("mouseup", () => { panning=false; svg.style.cursor="grab"; });
+        
+        document.getElementById("bIn").onclick=()=>{ tk=Math.min(12,tk*1.3); applyTx(); };
+        document.getElementById("bOut").onclick=()=>{ tk=Math.max(0.06,tk/1.3); applyTx(); };
+        document.getElementById("bReset").onclick=()=>{ tx=W/2; ty=H/2; tk=1; applyTx(); };
+        let allEx=false; document.getElementById("expand-btn-internal").onclick=function(){ if(!allEx){ (function e(n){if(n._children){n.children=n._children;n._children=null;}(n.children||[]).forEach(e);})(ROOT); this.textContent="collapse all"; }else{ (function c(n){if(n.depth>=2&&n.children){n._children=n.children;n.children=null;}(n.children||[]).forEach(c);})(ROOT); this.textContent="expand all"; } allEx=!allEx; render(); };
+        
+        const leg = document.getElementById("whys-legend");
+        Object.entries(COLORS).forEach(([n,c])=>{ if(n==="_root") return; const d=document.createElement("div"); d.style.cssText="display:flex;align-items:center;gap:7px;font-size:9.5px;color:#3A5268;font-family:monospace;"; d.innerHTML=`<div style="width:7px;height:7px;border-radius:50%;background:${c};box-shadow:0 0 5px ${c}88"></div>${n}`; leg.appendChild(d); });
+
+        window.addEventListener("resize",()=>{ W=section.clientWidth; H=section.clientHeight; render(); });
+        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
+        render();
     </script>
 </body>
 </html>
